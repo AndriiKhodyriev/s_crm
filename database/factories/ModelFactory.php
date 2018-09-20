@@ -42,3 +42,22 @@ $factory->define(App\Repair::class, function (Faker\Generator $faker) {
     ];
 });
 
+
+
+
+$factory->define(App\Join::class, function (Faker\Generator $faker) {
+    //static $password;
+
+    return [
+        
+        'street' => $faker->streetName,
+        'build' => $faker->buildingNumber,
+        'full_name' => $faker->name,
+        'phone_num' => $faker->phoneNumber,
+        'comment' => $faker->sentence,
+        'ticket_status_id' => rand(0,3),
+
+
+    ];
+});
+
