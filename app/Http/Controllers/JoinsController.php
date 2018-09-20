@@ -13,7 +13,7 @@ class JoinsController extends Controller
      */
     public function index()
     {
-        return "Hello Worrrrrldddd";
+        return view('joins.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class JoinsController extends Controller
      */
     public function create()
     {
-        //
+        return view('joins.create');
     }
 
     /**
