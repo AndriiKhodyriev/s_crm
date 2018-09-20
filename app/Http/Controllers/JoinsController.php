@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Join;
 
 class JoinsController extends Controller
 {
@@ -34,7 +35,24 @@ class JoinsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'street' => 'required',
+            'build' => 'required',
+            'full_name' => 'required',
+            'phone_num' => 'required',
+        ]);
+
+         //create post 
+         $joins                     = new Join;
+         $joins->street             = $request->input('street');
+         $joins->build              = $request->input('build');
+         $joins->full_name          = $request->input('full_name');
+         $joins->phone_num          = $request->input('phone_num');
+         $joins->comment            = $request->input('comment');
+         $joins->ticket_status_id   = 3;
+
+         $joins->save();
+         return redirect('/joins')->with('success', 'Заявка составлена');
     }
 
     /**

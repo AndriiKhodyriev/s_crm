@@ -22,7 +22,7 @@
          </div>
          <div class="form-group">
             {{Form::label('comment', 'Комментарий')}}
-            {{Form::text('comment','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Иванов Иван Иванович'])}}
+            {{Form::textarea('comment','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Тут можно указать любой комментарий по текущей заявке'])}}
          </div>
          
         {{Form::submit('Составить заявку!', ['class' => 'btn btn-primary'])}}
