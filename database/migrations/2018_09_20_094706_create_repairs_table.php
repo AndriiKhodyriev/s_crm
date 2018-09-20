@@ -25,8 +25,7 @@ class CreateRepairsTable extends Migration
             $table->text('cause');
             $table->text('comment')->nullable();
             //date 
-            $table->timestamp('date_open');
-            $table->timestamp('date_close')->nullable();
+            $table->timestamps();
             //keys 
             $table->integer('object_id')->nullable();
             $table->integer('ticket_status_id')->nullable();

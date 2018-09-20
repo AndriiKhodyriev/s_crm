@@ -23,8 +23,7 @@ class CreateJoinsTable extends Migration
             $table->text('join_area')->nullable();
             $table->text('cable_length')->nullable();
             //date 
-            $table->timestamp('date_open');
-            $table->timestamp('date_close')->nullable();
+            $table->timestamps();
             //keys 
             $table->integer('object_id')->nullable();
             $table->integer('ticket_status_id')->nullable();
