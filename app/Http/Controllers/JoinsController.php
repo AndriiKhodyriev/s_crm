@@ -23,13 +23,20 @@ class JoinsController extends Controller
     public function datablesAllJoins(){ 
         $joins = DB::table('joins')->select(['id', 'street', 'build',
                                              'full_name', 'phone_num', 
-                                             'created_at', 'ticket_status_id', 'comment']);
+                                             'created_at', 'ticket_status_id', 'comment'])
+                                    ->orderBy('id', 'desc');
 
         return Datatables::of($joins)
                             ->addColumn('action', function($join){
-                                return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update">Изменить</button>';
+                                return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
                             })
                             ->make(true);
+    }
+
+    public function datablesFindById(Request $request){ 
+        $id = $request->id;
+        $join = Join::find($id);
+        return response()->json($join);
     }
     /**
      * Show the form for creating a new resource.
