@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Join;
+use Datatables;
+use DB;
 
 class JoinsController extends Controller
 {
@@ -13,9 +16,16 @@ class JoinsController extends Controller
      */
     public function index()
     {
-        return view('joins.index');
+        
+         return view('joins.index');
+        
     }
-
+    public function getDt(){ 
+        $joins = DB::table('joins')->select(['id', 'street', 'build',
+                                             'full_name', 'phone_num', 
+                                             'created_at', 'ticket_status_id', 'comment']);
+        return Datatables::of($joins)->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +44,24 @@ class JoinsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'street' => 'required',
+            'build' => 'required',
+            'full_name' => 'required',
+            'phone_num' => 'required',
+        ]);
+
+         //create post 
+         $joins                     = new Join;
+         $joins->street             = $request->input('street');
+         $joins->build              = $request->input('build');
+         $joins->full_name          = $request->input('full_name');
+         $joins->phone_num          = $request->input('phone_num');
+         $joins->comment            = $request->input('comment');
+         $joins->ticket_status_id   = 3;
+
+         $joins->save();
+         return redirect('/joins')->with('success', 'Заявка составлена');
     }
 
     /**

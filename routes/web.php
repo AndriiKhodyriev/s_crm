@@ -14,4 +14,5 @@
 Route::get('/', 'IndexController@index');
 
 Route::resource('joins', 'JoinsController');
+Route::get('/dtJoinsBuild', 'JoinsController@getDt');
 Route::resource('repairs', 'RepairsController');
