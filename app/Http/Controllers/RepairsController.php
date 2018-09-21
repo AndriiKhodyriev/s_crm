@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repair;
+use Illuminate\Support\Facades\App;
 
 class RepairsController extends Controller
 {
@@ -15,7 +16,9 @@ class RepairsController extends Controller
     public function index()
     {
         $repairs = Repair::all();
+        //$locale = App::getLocale();
         return view('repairs.index')->with('repairs', $repairs);
+        //return view('repairs.index')->with('locale', $locale);
     }
 
     /**
@@ -25,7 +28,8 @@ class RepairsController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('repairs.create');
     }
 
     /**
@@ -36,7 +40,33 @@ class RepairsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'login' => 'required',
+            'object_id' => 'required',
+            'street' => 'required',
+            'build' => 'required',
+            'phone_num' => 'required',
+            'vlan_name' => 'required',
+            'cause' => 'required',
+            'comment' => 'nullable'
+
+        ]);
+        // create repair
+        $repair = new Repair;
+        $repair->login = $request->input('login');
+        $repair->object_id = $request->input('object_id');
+        $repair->street = $request->input('street');
+        $repair->build = $request->input('build');
+        $repair->phone_num = $request->input('phone_num');
+        $repair->vlan_name = $request->input('vlan_name');
+        $repair->cause = $request->input('cause');
+        $repair->comment = $request->input('comment');
+        
+        //$repair->user_id = auth()->user()->id;
+        $repair->save();
+
+        return redirect('/repairs')->with('success', 'Post Created');
+
     }
 
     /**

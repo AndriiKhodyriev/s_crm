@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        
         <H1>Новая заявка на подключение</H1>
         <a href="/joins/create" class="btn btn-primary">Составить заявку</a>
     </div>

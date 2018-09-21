@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-	<h1>Repairs<h1>
-	<br>
-	<!-- Button to Open the Modal -->
+	
+	
+   <!-- Button to Open the Modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
   Создать заявку на ремонт
 </button>
@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
             {{Form::label('object_id', 'Объект')}}
-            {{Form::text('object_id','',['class' => 'form-control', 'placeholder' => 'Объект'])}}
+            {{Form::text('object_id','',['class' => 'form-control', 'placeholder' => 'ЛОГИН'])}}
         </div>
         
         <div class="form-group">
@@ -71,15 +71,6 @@
 </div>
 
 
-	<div class="list-group">
-	@foreach($repairs as $repair)
-	
-	  <a href="#" class="list-group-item list-group-item-action">
-	    {{$repair}}
-	  </a>
-	  
-	@endforeach
-	</div>	
-
-
+   
+    
 @endsection
