@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Join;
+use Datatables;
+use DB;
 
 class JoinsController extends Controller
 {
@@ -14,9 +16,16 @@ class JoinsController extends Controller
      */
     public function index()
     {
-        return view('joins.index');
+        
+         return view('joins.index');
+        
     }
-
+    public function getDt(){ 
+        $joins = DB::table('joins')->select(['id', 'street', 'build',
+                                             'full_name', 'phone_num', 
+                                             'created_at', 'ticket_status_id', 'comment']);
+        return Datatables::of($joins)->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
