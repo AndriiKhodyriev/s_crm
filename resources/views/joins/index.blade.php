@@ -8,6 +8,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newJoinModal">
                 Составить заявку
         </button>
+
         <hr>
     </div>    
     <!-- The table frame for displaying all orders using data modules --> 
@@ -25,6 +26,7 @@
                         <th>action</th>
                     </tr>
             </table>
+            
     <!-- Modal window create new join -->
     <div class="modal fade" id="newJoinModal">
         <div class="modal-dialog">
@@ -78,11 +80,13 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
-                            {!! Form::open(['action' => 'JoinsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                        
+                            {!! Form::open(['action' => ['JoinsController@update', data.id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                             <div class="form-group">
                                 {{Form::label('street', 'Улица')}}
                                 {{Form::text('street','',['id'=> 'str', 'class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
                             </div>
+                       
                             <div class="form-group">
                                 {{Form::label('build', 'Дом')}}
                                 {{Form::text('build','',['id'=> 'build', 'class' => 'form-control', 'placeholder' => '23Д'])}}
@@ -109,11 +113,10 @@
                 </div>
             </div>
         </div>
- 
+        <!-- Update button -->
         <script>
             $(document).on('click', '.update', function(){
                 var id = $(this).attr("id");
-                
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -130,6 +133,7 @@
                             $('#full_name').val(data.full_name);
                             $('#phone_num').val(data.phone_num);
                             $('#comment').val(data.comment);
+                            $('#action').val(data.id);
                         }
                 })
             });
@@ -157,6 +161,6 @@
                     });
                 });
             </script>
-        <!-- Update button -->
+        
 @endsection
     

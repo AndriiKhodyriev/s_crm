@@ -107,7 +107,20 @@ class JoinsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'street' => 'required',
+            'build' => 'required',
+            'full_name' => 'required',
+            'phone_num' => 'required',
+        ]);
+        $join                     = Join::find($id);
+        $join->street             = $request->input('street');
+        $join->build              = $request->input('build');
+        $join->full_name          = $request->input('full_name');
+        $join->phone_num          = $request->input('phone_num');
+        $join->comment            = $request->input('comment');
+        $join->ticket_status_id   = 3;
+
     }
 
     /**
