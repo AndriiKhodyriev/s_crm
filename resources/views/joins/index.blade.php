@@ -16,7 +16,7 @@
                         <th>Дата составления заявки</th>
                         <th>Статус заявки</th>
                         <th>Комментарий</th>
-                        <th>ActivElement</th>
+                        <th>action</th>
                     </tr>
             </table>
 @endsection
@@ -26,7 +26,7 @@
                     $('#joins_table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ url('dtJoinsBuild') }}',
+                    ajax: '{{ url('datablesAllJoins') }}',
                     columns: [
                                 { data: 'id',               name: 'id' },
                                 { data: 'street',           name: 'street' },
