@@ -11,7 +11,7 @@ class JoinsController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -20,11 +20,16 @@ class JoinsController extends Controller
          return view('joins.index');
         
     }
-    public function getDt(){ 
+    public function datablesAllJoins(){ 
         $joins = DB::table('joins')->select(['id', 'street', 'build',
                                              'full_name', 'phone_num', 
                                              'created_at', 'ticket_status_id', 'comment']);
-        return Datatables::of($joins)->make(true);
+
+        return Datatables::of($joins)
+                            ->addColumn('action', function($join){
+                                return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update">Изменить</button>';
+                            })
+                            ->make(true);
     }
     /**
      * Show the form for creating a new resource.
@@ -66,7 +71,7 @@ class JoinsController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     * 
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -77,7 +82,7 @@ class JoinsController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * 
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -88,7 +93,7 @@ class JoinsController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response

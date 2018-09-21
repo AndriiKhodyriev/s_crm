@@ -4,7 +4,9 @@
     <div class="container">
         
         <H1>Новая заявка на подключение</H1>
-        <a href="/joins/create" class="btn btn-primary">Составить заявку</a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newJoinModal">
+                Составить заявку
+        </button>
     </div>
             <table id="joins_table" class="table table-bordered">
                 <thead>
@@ -17,9 +19,51 @@
                         <th>Дата составления заявки</th>
                         <th>Статус заявки</th>
                         <th>Комментарий</th>
-                        <th>ActivElement</th>
+                        <th>action</th>
                     </tr>
             </table>
+    <div class="modal fade" id="newJoinModal">
+        <div class="modal-dialog">
+            <div class="modal-content">      
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Новая заявка</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                        {!! Form::open(['action' => 'JoinsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                        <div class="form-group">
+                            {{Form::label('street', 'Улица')}}
+                            {{Form::text('street','',['class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
+                        </div>
+                        <div class="form-group">
+                                {{Form::label('build', 'Дом')}}
+                                {{Form::text('build','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => '23Д'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('full_name', 'ФИО')}}
+                            {{Form::text('full_name','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Иванов Иван Иванович'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('phone_num', 'Номер телефона')}}
+                            {{Form::text('phone_num','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => '+380501234567'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('comment', 'Комментарий')}}
+                            {{Form::textarea('comment','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Тут можно указать любой комментарий по текущей заявке'])}}
+                        </div>
+                </div>      
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                        {{Form::submit('Составить заявку!', ['class' => 'btn btn-primary'])}}
+                        {!! Form::close() !!}
+                </div>
+                    
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('dt_script')
             <script type="text/javascript">
@@ -27,7 +71,7 @@
                     $('#joins_table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ url('dtJoinsBuild') }}',
+                    ajax: '{{ url('datablesAllJoins') }}',
                     columns: [
                                 { data: 'id',               name: 'id' },
                                 { data: 'street',           name: 'street' },
