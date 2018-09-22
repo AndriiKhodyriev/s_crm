@@ -25,7 +25,7 @@
         
         <div class="form-group">
             {{Form::label('login', 'Логин')}}
-            {{Form::text('login','',['class' => 'form-control', 'placeholder' => 'ЛОГИН'])}}
+            {{Form::text('login','',['class' => 'form-control', 'placeholder' => 'Логин'])}}
         </div>
         <div class="form-group">
             {{Form::label('object_id', 'Объект')}}
@@ -58,7 +58,7 @@
          </div>
          
         {{Form::submit('Составить заявку на ремонт!', ['class' => 'btn btn-primary'])}}
-    {!! Form::close() !!}
+        {!! Form::close() !!}
       </div>
 
       <!-- Modal footer -->

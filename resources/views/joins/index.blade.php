@@ -1,21 +1,14 @@
 @extends('layouts.app')    
 
 @section('content')
-    <div class="container">
-<<<<<<< HEAD
+<body>
+     <div class="container">
         <H1>Заявки на подключение</H1>
     </div>
-    <div class="container">
-=======
-        
-        <H1>Новая заявка на подключение</H1>
->>>>>>> 5618259c8591e423c92cc86eb5292746bdda3880
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newJoinModal">
                 Составить заявку
         </button>
-
         <hr>
-    </div>    
     <!-- The table frame for displaying all orders using data modules --> 
             <table id="joins_table" class="table table-bordered">
                 <thead>
@@ -31,7 +24,6 @@
                         <th>action</th>
                     </tr>
             </table>
-            
     <!-- Modal window create new join -->
     <div class="modal fade" id="newJoinModal">
         <div class="modal-dialog">
@@ -86,7 +78,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         
-                            {!! Form::open(['action' => ['JoinsController@update', data.id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open(['method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                             <div class="form-group">
                                 {{Form::label('street', 'Улица')}}
                                 {{Form::text('street','',['id'=> 'str', 'class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
@@ -118,6 +110,7 @@
                 </div>
             </div>
         </div>
+    </body>
         <!-- Update button -->
         <script>
             $(document).on('click', '.update', function(){
