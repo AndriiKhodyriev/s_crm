@@ -77,7 +77,7 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">  
-                        {!! Form::open(['id' => 'test', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!} 
+                        {!! Form::open(['id' => 'action_module', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!} 
                             <div class="form-group">
                                 {{Form::label('street', 'Улица')}}
                                 {{Form::text('street','',['id'=> 'str', 'class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
@@ -132,7 +132,7 @@
                             $('#phone_num').val(data.phone_num);
                             $('#comment').val(data.comment);
                             $('#action').val(data.id);
-                            $('#test').attr('action','/joins/'+data.id);
+                            $('#action_module').attr('action','/joins/'+data.id);
                         }
                 })
             });
