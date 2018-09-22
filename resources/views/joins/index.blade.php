@@ -76,9 +76,8 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- Modal body -->
-                    <div class="modal-body">
-                        
-                            {!! Form::open(['method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    <div class="modal-body">  
+                        {!! Form::open(['id' => 'test', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!} 
                             <div class="form-group">
                                 {{Form::label('street', 'Улица')}}
                                 {{Form::text('street','',['id'=> 'str', 'class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
@@ -103,7 +102,8 @@
                     </div>      
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                            {{Form::submit('Составить заявку!', ['class' => 'btn btn-primary'])}}
+                            {{Form::hidden('_method', 'PUT')}}
+                            {{Form::submit('Редактировать заявку!', ['class' => 'btn btn-primary upd_btn_ajax' ])}}
                             {!! Form::close() !!}
                     </div>
                         
@@ -132,10 +132,12 @@
                             $('#phone_num').val(data.phone_num);
                             $('#comment').val(data.comment);
                             $('#action').val(data.id);
+                            $('#test').attr('action','/joins/'+data.id);
                         }
                 })
             });
         </script>
+   
 @endsection
 @section('dt_script')
         <!-- DataTables loader -->

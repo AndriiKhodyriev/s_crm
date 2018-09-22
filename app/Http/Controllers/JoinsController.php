@@ -120,6 +120,8 @@ class JoinsController extends Controller
         $join->phone_num          = $request->input('phone_num');
         $join->comment            = $request->input('comment');
         $join->ticket_status_id   = 3;
+        $join->save();
+        return redirect('/joins')->with('success', 'Измененно');
 
     }
 
