@@ -1,16 +1,72 @@
 @extends('layouts.app')    
 
 @section('content')
-<body>
-     <div class="container">
-        <H1>Заявки на подключение</H1>
-    </div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newJoinModal">
-                Составить заявку
-        </button>
+                    <div class="row">
+                        <div id="paper-top">
+                                    <div class="col-sm-3">
+                                        <h2 class="tittle-content-header">
+                                            <i class="icon-window"></i> 
+                                            <span>CRM</span>
+                                        </h2>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="devider-vertical visible-lg"></div>
+                                        <div class="tittle-middle-header">
+                                            <div class="alert">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                <span class="tittle-alert entypo-info-circled"> Для составления заявки нажмите на кнопку "Составить заявку"</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+            <!--/ TITLE -->
+            <!-- END OF BREADCRUMB -->
+            <div class="content-wrap">
+                <hr>
+            <div class="row">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newJoinModal">
+                            Составить заявку
+                    </button> | 
+                <div class="btn-group" position="rigth">
+                    <button class="btn btn-warning">Кнопка 1</button>
+                    <button class="btn btn-danger">Кнопка 2</button>
+                    <button class="btn btn-info">Кнопка 3</button>
+
+                </div>
+            </div>
         <hr>
     <!-- The table frame for displaying all orders using data modules --> 
-            <table id="joins_table" class="table table-bordered">
+    <style>
+         input[type="search"] { 
+            padding: 3px;
+            background: white;
+            color: black;
+            border: 1px solid #ccc;
+        }
+        input:hover[type="search"] { 
+            padding: 3px;
+            background: whitesmoke;
+            color: black;
+            border: 1px solid #ccc;
+        }
+        th {
+            color : black;
+        }
+        .odd {
+            background-color: LavenderBlush;
+        }
+        .odd:hover { 
+            background-color: Bisque;
+        }
+        .even:hover { 
+            background-color: Bisque;
+        }
+        td { 
+            color : DarkSlateGrey;
+        }
+    </style>
+            <table id="joins_table" class="table ">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -59,7 +115,7 @@
                 </div>      
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                        {{Form::submit('Составить заявку!', ['class' => 'btn btn-primary'])}}
+                        {{Form::submit('Составить заявку!', ['class' => 'btn btn-success'])}}
                         {!! Form::close() !!}
                 </div>
                     
@@ -77,7 +133,7 @@
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">  
-                        {!! Form::open(['id' => 'action_module', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!} 
+                        {!! Form::open(['id' => 'action_module', 'class' => 'form-horizontal', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!} 
                             <div class="form-group">
                                 {{Form::label('street', 'Улица')}}
                                 {{Form::text('street','',['id'=> 'str', 'class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
@@ -103,14 +159,13 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                             {{Form::hidden('_method', 'PUT')}}
-                            {{Form::submit('Редактировать заявку!', ['class' => 'btn btn-primary upd_btn_ajax' ])}}
+                            {{Form::submit('Редактировать заявку!', ['class' => 'btn btn-warning' ])}}
                             {!! Form::close() !!}
                     </div>
                         
                 </div>
             </div>
         </div>
-    </body>
         <!-- Update button -->
         <script>
             $(document).on('click', '.update', function(){
