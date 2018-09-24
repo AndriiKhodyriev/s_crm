@@ -23,7 +23,8 @@ class JoinsController extends Controller
     public function datablesAllJoins(){ 
         $joins = DB::table('joins')->select(['id', 'street', 'build',
                                              'full_name', 'phone_num', 
-                                             'created_at', 'ticket_status_id', 'comment'])
+                                             'created_at', 'ticket_status_id', 
+                                             'comment', 'updated_at'])
                                     ->orderBy('id', 'desc');
 
         return Datatables::of($joins)

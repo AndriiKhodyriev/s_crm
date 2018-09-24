@@ -50,6 +50,7 @@
             color: black;
             border: 1px solid #ccc;
         }
+
         th {
             color : black;
         }
@@ -65,6 +66,10 @@
         td { 
             color : DarkSlateGrey;
         }
+        label { 
+            color: black;
+        }
+        
     </style>
             <table id="joins_table" class="table ">
                 <thead>
@@ -89,6 +94,8 @@
                     <h4 class="modal-title">Новая заявка</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
+                <style>
+                </style>
                 <!-- Modal body -->
                 <div class="modal-body">
                         {!! Form::open(['action' => 'JoinsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
