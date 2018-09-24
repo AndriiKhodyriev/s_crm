@@ -25,7 +25,7 @@
 <div class="content-wrap">
 	
 	<!-- Button to Open the Modal -->
-<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#createRepair">
   Создать заявку на ремонт
 </button>
 <style>
@@ -66,80 +66,61 @@ color: black;
 			<tr>
 				<th>id</th>
 				<th>Логин</th>
+				<th>Объект</th>
 				<th>Улица</th>
 				<th>Дом</th>
+				<th>Vlan</th>
 				<th>Номер телефона</th>
 				<th>Причина обращения</th>
+				<th>Комментарий</th>
 				<th>Дата создания</th>
+				<th>Изменить</th>
 			</tr>
 			
 		</thead>
 </table>
 </div>
 
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+@include('inc.repairCreateForm')
+@include('inc.repairUpdateForm')
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Заявка на ремонт</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+<script type="text/javascript">
+	
+    $(document).on( "click", ".update",function() {
+			 //$('#updateRepair').modal('show');
+			 var id = $(this).attr("id");
+			 //alert(id);
 
-      <!-- Modal body -->
-      <div class="modal-body">
-        {!! Form::open(['action' => 'RepairsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-        
-        <div class="form-group">
-            {{Form::label('login', 'Логин')}}
-            {{Form::text('login','',['class' => 'form-control', 'placeholder' => 'Логин'])}}
-        </div>
-        <div class="form-group">
-            {{Form::label('object_id', 'Объект')}}
-            {{Form::text('object_id','',['class' => 'form-control', 'placeholder' => 'Объект'])}}
-        </div>
-        
-        <div class="form-group">
-            {{Form::label('street', 'Улица')}}
-            {{Form::text('street','',['class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
-        </div>
-        <div class="form-group">
-                {{Form::label('build', 'Дом')}}
-                {{Form::text('build','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => '23Д'])}}
-        </div>
-        <div class="form-group">
-            {{Form::label('vlan_name', 'VLAN')}}
-            {{Form::text('vlan_name','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => '12'])}}
-         </div>
-         <div class="form-group">
-            {{Form::label('phone_num', 'Номер телефона')}}
-            {{Form::text('phone_num','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => '+380501234567'])}}
-         </div>
-         <div class="form-group">
-            {{Form::label('cause', 'Причина составления заявки')}}
-            {{Form::textarea('cause','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Что болит, на что жалуется'])}}
-         </div>
-         <div class="form-group">
-            {{Form::label('comment', 'Комментарий')}}
-            {{Form::textarea('comment','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Тут можно указать любой комментарий по текущей заявке'])}}
-         </div>
-         
-        {{Form::submit('Составить заявку на ремонт!', ['class' => 'btn btn-warning'])}}
-        {!! Form::close() !!}
-      </div>
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url:"{{ url('datablesRepairFindById') }}",
+                        method:"POST",
+                        data: {id:id} ,
+                        dataType:"json",
+                        success:function(data)
+                        {
+                            $('#updateRepair').modal('show');
+                            //alert(data.toSource());
+                            $('#login').val(data.login);
+                            $('#object_id').val(data.object_id); 
+                            $('#str').val(data.street);
+                            $('#build').val(data.build);
+                            $('#vlan_name').val(data.vlan_name);
+                            $('#phone_num').val(data.phone_num);
+                            $('#cause').val(data.cause);
+                            $('#comment').val(data.cause);
+                            $('#action').val(data.id);
+                            $('#action_module').attr('action','/repairs/'+data.id);
+                        }
+                })
+		});
+	
 
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
-      </div>
+	
 
-    </div>
-  </div>
-</div>
-
-
+</script>
 
 	
 
@@ -155,18 +136,21 @@ color: black;
 	            processing: true,
 	            serverSide: true,
 	            ajax: '{{ url('datablesAllRepairs') }}',
+	            //'id','login', 'object','street', 'build','vlan_name','phone_num', 'cause', 'created_at'
 	            columns: [
 	                                { data: 'id',               name: 'id' },
 	                                { data: 'login',        name: 'login'},
+	                                { data: 'object_id',           name: 'object_id' },
 	                                { data: 'street',           name: 'street' },
 	                                { data: 'build',            name: 'build' },
-	                                
+	                                { data: 'vlan_name',            name: 'vlan_name' },
 	                                { data: 'phone_num',        name: 'phone_num'},
 	                                
 	                                //{ data: 'ticket_status_id', name: 'ticket_status_id'},
 	                                { data: 'cause',          name: 'cause'},
-	                                { data: 'created_at',       name: 'created_at'}
-	                                //{ data: 'action',           name: 'action', orderable: false, searchable: false}
+	                                { data: 'comment',          name: 'comment'},
+	                                { data: 'created_at',       name: 'created_at'},
+	                                { data: 'action',           name: 'action', orderable: false, searchable: false}
 	                            ]
 
 	        });

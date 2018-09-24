@@ -28,8 +28,21 @@ class RepairsController extends Controller
     public function datablesAllRepairs()
     {
         //$repairs = Repairs::select(['id','login', 'street', 'build','phone_num', 'created_at', 'cause']);
-        $repairs = DB::table('repairs')->select('id','login', 'street', 'build','phone_num', 'cause', 'created_at')->get();
-        return Datatables::of($repairs)->make(true);
+        $repairs = DB::table('repairs')->select('id','login', 'object_id','street', 'build','vlan_name','phone_num', 'cause', 'comment', 'created_at')->orderBy('id', 'desc');
+        //return Datatables::of($repairs)->make(true);
+        return Datatables::of($repairs)
+                            ->addColumn('action', function($repair){
+                                return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                            })
+                            ->make(true);
+
+    }
+
+    public function datablesRepairFindById(Request $request)
+    {
+       $id = $request->id;
+        $repair = Repair::find($id);
+        return response()->json($repair);
 
     }
 
@@ -125,7 +138,7 @@ class RepairsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
