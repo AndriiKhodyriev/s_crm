@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repair;
 use Illuminate\Support\Facades\App;
+use Datatables;
+use Illuminate\Support\Facades\DB;
 
 class RepairsController extends Controller
 {
@@ -15,12 +17,34 @@ class RepairsController extends Controller
      */
     public function index()
     {
-        $repairs = Repair::all();
+        
+        //$repairs = Repair::all();
         //$locale = App::getLocale();
-        //$repairs1 = json_decode($repairs, true);
-        return view('repairs.index')->with('repairs', $repairs);
+        //$repairs = json_decode($repairs, true);
+        return view('repairs.index');
         //return view('repairs.index')->with('locale', $locale);
     }
+
+    public function datablesAllRepairs()
+    {
+        //$repairs = Repairs::select(['id','login', 'street', 'build','phone_num', 'created_at', 'cause']);
+        $repairs = DB::table('repairs')->select('id','login', 'street', 'build','phone_num', 'created_at', 'cause')->get();
+        return Datatables::of($repairs)->make(true);
+
+    }
+
+    /*public function datablesAllRepairs(){ 
+    $joins = DB::table('repairs')->select(['id', 'street', 'build',
+    'phone_num', 
+    'created_at', 'comment'])
+    ->orderBy('id', 'desc');
+
+    return Datatables::of($joins)
+    ->addColumn('action', function($join){
+    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+    })
+    ->make(true);
+}*/
 
     /**
      * Show the form for creating a new resource.

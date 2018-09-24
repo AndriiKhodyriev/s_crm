@@ -1,13 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-	<h1>Repairs<h1>
+	<div class="row">
+                        <div id="paper-top">
+                                    <div class="col-sm-3">
+                                        <h2 class="tittle-content-header">
+                                            <i class="icon-window"></i> 
+                                            <span>CRM</span>
+                                        </h2>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="devider-vertical visible-lg"></div>
+                                        <div class="tittle-middle-header">
+                                            <div class="alert">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                <span class="tittle-alert entypo-info-circled"> Для составления заявки нажмите на кнопку "Составить заявку"</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+            <!--/ TITLE -->
+            <!-- END OF BREADCRUMB -->
+<div class="content-wrap">
+	<h1>Ремонты<h1>
 	<br>
 	<!-- Button to Open the Modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
   Создать заявку на ремонт
 </button>
-
+<table id="repairs-table" class="table">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>Логин</th>
+				<th>Объект</th>
+				<th>Улица</th>
+				<th>Дом</th>
+				<th>Причина обращения</th>
+				<th>Дата создания</th>
+			</tr>
+			
+		</thead>
+</table>
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog">
@@ -57,7 +92,7 @@
             {{Form::textarea('comment','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Тут можно указать любой комментарий по текущей заявке'])}}
          </div>
          
-        {{Form::submit('Составить заявку на ремонт!', ['class' => 'btn btn-primary'])}}
+        {{Form::submit('Составить заявку на ремонт!', ['class' => 'btn btn-warning'])}}
         {!! Form::close() !!}
       </div>
 
@@ -71,15 +106,35 @@
 </div>
 
 
-	<div class="list-group">
-	@foreach($repairs as $repair)
+
 	
-	  <a href="#" class="list-group-item list-group-item-action">
-	    {!! $repairs1 !!}
-	  </a>
-	  
-	@endforeach
-	</div>	
+
+	
 
 
+@endsection
+
+@section('dt_script')
+	<script type="text/javascript">
+		$(function() {
+	        $('#repairs-table').DataTable({
+	            processing: true,
+	            serverSide: true,
+	            ajax: '{{ url('datablesAllRepairs') }}',
+	            columns: [
+	                                { data: 'id',               name: 'id' },
+	                                { data: 'login',        name: 'login'},
+	                                { data: 'street',           name: 'street' },
+	                                { data: 'build',            name: 'build' },
+	                                
+	                                { data: 'phone_num',        name: 'phone_num'},
+	                                { data: 'created_at',       name: 'created_at'},
+	                                //{ data: 'ticket_status_id', name: 'ticket_status_id'},
+	                                { data: 'cause',          name: 'cause'}
+	                                //{ data: 'action',           name: 'action', orderable: false, searchable: false}
+	                            ]
+
+	        });
+    });
+	</script> 
 @endsection

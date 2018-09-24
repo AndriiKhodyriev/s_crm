@@ -17,3 +17,4 @@ Route::resource('joins', 'JoinsController');
     Route::get('/datablesAllJoins', 'JoinsController@datablesAllJoins');
     Route::post('/datablesFindById', 'JoinsController@datablesFindById');
 Route::resource('repairs', 'RepairsController');
+	Route::get('/datablesAllRepairs', 'RepairsController@datablesAllRepairs');
