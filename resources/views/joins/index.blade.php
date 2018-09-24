@@ -30,9 +30,10 @@
                             Составить заявку
                     </button> | 
                 <div class="btn-group" position="rigth">
-                    <button class="btn btn-warning">Кнопка 1</button>
-                    <button class="btn btn-danger">Кнопка 2</button>
-                    <button class="btn btn-info">Кнопка 3</button>
+                    <button class="btn btn-warning">В Работе</button>
+                    <button class="btn btn-danger">Закрытые</button>
+                    <button class="btn btn-info">Новые</button>
+                    
 
                 </div>
             </div>
@@ -42,6 +43,7 @@
 
         
     </style>
+        
             <table id="joins_table" class="table ">
                 <thead>
                     <tr>
@@ -56,6 +58,7 @@
                         <th>action</th>
                     </tr>
             </table>
+            {{-- INCLUDE modal windows --}}
    @include('joins._formNew')
    @include('joins._formEdit')
         <!-- Update button -->
