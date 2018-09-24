@@ -433,7 +433,7 @@ input:-webkit-autofill, textarea:-webkit-autofill {
     border: 1px solid !important;
     border-radius: 4px;
     box-shadow: none !important;
-    color: #C7D5E0 !important;
+    color: #000000 !important;
     font-size: 13px !important;
     height: 31px !important;
 }

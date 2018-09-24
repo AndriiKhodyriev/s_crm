@@ -37,8 +37,7 @@
                         {{Form::hidden('_method', 'PUT')}}
                         {{Form::submit('Редактировать заявку!', ['class' => 'btn btn-warning' ])}}
                         {!! Form::close() !!}
-                </div>
-                    
+                </div> 
             </div>
         </div>
     </div>
