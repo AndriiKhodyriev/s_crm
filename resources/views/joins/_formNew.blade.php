@@ -1,10 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newJoinModal">
-        Составить заявку
-    </button>
-    <div class="modal fade" id="newJoinModal">
+ <!-- Modal window create new join -->
+ <div class="modal fade" id="newJoinModal">
         <div class="modal-dialog">
             <div class="modal-content">      
                 <!-- Modal Header -->
@@ -38,16 +33,10 @@
                 </div>      
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                        {{Form::submit('Составить заявку!', ['class' => 'btn btn-primary'])}}
+                        {{Form::submit('Составить заявку!', ['class' => 'btn btn-success'])}}
                         {!! Form::close() !!}
                 </div>
                     
             </div>
         </div>
     </div>
-   
-@endsection
-
-
-
-
