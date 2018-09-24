@@ -15,11 +15,11 @@
         
         <div class="form-group">
             {{Form::label('login', 'Логин')}}
-            {{Form::text('login','',['class' => 'form-control', 'id' => 'login'])}}
+            {{Form::text('login','',['class' => 'form-control', 'id' => 'username'])}}
         </div>
         <div class="form-group">
             {{Form::label('object_id', 'Объект')}}
-            {{Form::text('object_id','',['class' => 'form-control', 'id' => 'object_id', 'placeholder' => 'Объект'])}}
+            {{Form::text('object_id','',['class' => 'form-control', 'id' => 'arrea_id', 'placeholder' => 'Объект'])}}
         </div>
         
         <div class="form-group">

@@ -103,8 +103,8 @@ color: black;
                         {
                             $('#updateRepair').modal('show');
                             //alert(data.toSource());
-                            $('#login').val(data.login);
-                            $('#object_id').val(data.object_id); 
+                            $('#username').val(data.login);
+                            $('#arrea_id').val(data.object_id); 
                             $('#str').val(data.street);
                             $('#build').val(data.build);
                             $('#vlan_name').val(data.vlan_name);
@@ -112,6 +112,7 @@ color: black;
                             $('#cause').val(data.cause);
                             $('#comment').val(data.cause);
                             $('#action').val(data.id);
+                            //$('#login').val(data.login);
                             $('#action_module').attr('action','/repairs/'+data.id);
                         }
                 })
