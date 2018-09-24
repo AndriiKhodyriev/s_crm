@@ -23,26 +23,60 @@
             <!--/ TITLE -->
             <!-- END OF BREADCRUMB -->
 <div class="content-wrap">
-	<h1>Ремонты<h1>
-	<br>
+	
 	<!-- Button to Open the Modal -->
 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
   Создать заявку на ремонт
 </button>
-<table id="repairs-table" class="table">
+<style>
+input[type="search"] { 
+padding: 3px;
+background: white;
+color: black;
+border: 1px solid #ccc;
+}
+input:hover[type="search"] { 
+padding: 3px;
+background: whitesmoke;
+color: black;
+border: 1px solid #ccc;
+}
+th {
+color : black;
+}
+.odd {
+background-color: LavenderBlush;
+}
+.odd:hover { 
+background-color: Bisque;
+}
+.even:hover { 
+background-color: Bisque;
+}
+td { 
+color : DarkSlateGrey;
+}
+label {
+color: black;
+}
+</style>
+<div class="container">
+	<table id="repairs_table" class="table">
 		<thead>
 			<tr>
 				<th>id</th>
 				<th>Логин</th>
-				<th>Объект</th>
 				<th>Улица</th>
 				<th>Дом</th>
+				<th>Номер телефона</th>
 				<th>Причина обращения</th>
 				<th>Дата создания</th>
 			</tr>
 			
 		</thead>
 </table>
+</div>
+
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
   <div class="modal-dialog">
@@ -117,7 +151,7 @@
 @section('dt_script')
 	<script type="text/javascript">
 		$(function() {
-	        $('#repairs-table').DataTable({
+	        $('#repairs_table').DataTable({
 	            processing: true,
 	            serverSide: true,
 	            ajax: '{{ url('datablesAllRepairs') }}',
@@ -128,9 +162,10 @@
 	                                { data: 'build',            name: 'build' },
 	                                
 	                                { data: 'phone_num',        name: 'phone_num'},
-	                                { data: 'created_at',       name: 'created_at'},
+	                                
 	                                //{ data: 'ticket_status_id', name: 'ticket_status_id'},
-	                                { data: 'cause',          name: 'cause'}
+	                                { data: 'cause',          name: 'cause'},
+	                                { data: 'created_at',       name: 'created_at'}
 	                                //{ data: 'action',           name: 'action', orderable: false, searchable: false}
 	                            ]
 

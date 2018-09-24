@@ -28,7 +28,7 @@ class RepairsController extends Controller
     public function datablesAllRepairs()
     {
         //$repairs = Repairs::select(['id','login', 'street', 'build','phone_num', 'created_at', 'cause']);
-        $repairs = DB::table('repairs')->select('id','login', 'street', 'build','phone_num', 'created_at', 'cause')->get();
+        $repairs = DB::table('repairs')->select('id','login', 'street', 'build','phone_num', 'cause', 'created_at')->get();
         return Datatables::of($repairs)->make(true);
 
     }
