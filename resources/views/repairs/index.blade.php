@@ -75,7 +75,7 @@
 	@foreach($repairs as $repair)
 	
 	  <a href="#" class="list-group-item list-group-item-action">
-	    {{$repair}}
+	    {!! $repairs1 !!}
 	  </a>
 	  
 	@endforeach

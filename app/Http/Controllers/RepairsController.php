@@ -17,6 +17,7 @@ class RepairsController extends Controller
     {
         $repairs = Repair::all();
         //$locale = App::getLocale();
+        //$repairs1 = json_decode($repairs, true);
         return view('repairs.index')->with('repairs', $repairs);
         //return view('repairs.index')->with('locale', $locale);
     }
