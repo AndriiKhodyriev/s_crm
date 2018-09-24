@@ -38,37 +38,7 @@
         <hr>
     <!-- The table frame for displaying all orders using data modules --> 
     <style>
-         input[type="search"] { 
-            padding: 3px;
-            background: white;
-            color: black;
-            border: 1px solid #ccc;
-        }
-        input:hover[type="search"] { 
-            padding: 3px;
-            background: whitesmoke;
-            color: black;
-            border: 1px solid #ccc;
-        }
 
-        th {
-            color : black;
-        }
-        .odd {
-            background-color: LavenderBlush;
-        }
-        .odd:hover { 
-            background-color: Bisque;
-        }
-        .even:hover { 
-            background-color: Bisque;
-        }
-        td { 
-            color : DarkSlateGrey;
-        }
-        label { 
-            color: black;
-        }
         
     </style>
             <table id="joins_table" class="table ">

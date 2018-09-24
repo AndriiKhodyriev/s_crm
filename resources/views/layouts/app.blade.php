@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/loader-style.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/manual.css')}}">
 
 </head>
 <body>
@@ -39,9 +40,8 @@
             <div class="container-fluid paper-wrap bevel tlbr">
                         <!-- CONTENT -->
                         <!--TITLE -->
-                
-                                        @include('inc.message')
-                                        @yield('content')
+                @include('inc.message')
+                @yield('content')
                             <!-- /END OF CONTENT -->
                             <!-- FOOTER -->
                             <!-- / END OF FOOTER -->
