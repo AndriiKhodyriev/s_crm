@@ -22,7 +22,6 @@
                     </div>
             <!--/ TITLE -->
             <!-- END OF BREADCRUMB -->
-
             <div class="content-wrap">
                 <hr>
             <div class="row">
@@ -30,19 +29,13 @@
                             Составить заявку
                     </button> | 
                 <div class="btn-group" position="rigth">
-                    <button class="btn btn-warning">Кнопка 1</button>
-                    <button class="btn btn-danger">Кнопка 2</button>
-                    <button class="btn btn-info">Кнопка 3</button>
-
+                    <button class="btn btn-warning btn-select-1">Кнопка 1</button>
+                    <button class="btn btn-danger btn-select-2">Кнопка 2</button>
+                    <button class="btn btn-info btn-select-3">Кнопка 3</button>
                 </div>
+                <button class="btn btn-warning testingtest">ТЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕСТ</button>
             </div>
         <hr>
-    <!-- The table frame for displaying all orders using data modules --> 
-    <style>
-
-        
-    </style>
-        
             <table id="joins_table" class="table ">
                 <thead>
                     <tr>
@@ -59,34 +52,7 @@
             </table>
             {{-- INCLUDE modal windows --}}
    @include('joins._formNew')
-   @include('joins._formEdit')
-        <!-- Update button -->
-        <script>
-            $(document).on('click', '.update', function(){
-                var id = $(this).attr("id");
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        url:"{{ url('datablesFindById') }}",
-                        method:"POST",
-                        data: {id:id} ,
-                        dataType:"json",
-                        success:function(data)
-                        {
-                            $('#updateJoin').modal('show');
-                            $('#str').val(data.street);
-                            $('#build').val(data.build);
-                            $('#full_name').val(data.full_name);
-                            $('#phone_num').val(data.phone_num);
-                            $('#comment').val(data.comment);
-                            $('#action').val(data.id);
-                            $('#action_module').attr('action','/joins/'+data.id);
-                        }
-                })
-            });
-        </script>
-   
+   @include('joins._formEdit')      
 @endsection
 @section('dt_script')
         <!-- DataTables loader -->
@@ -109,6 +75,31 @@
                             ]
                     });
                 });
+
+                // <!-- edit form button -->
+                $(document).on('click', '.update', function(){
+                var id = $(this).attr("id");
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url:"{{ url('datablesFindById') }}",
+                        method:"POST",
+                        data: {id:id} ,
+                        dataType:"json",
+                        success:function(data)
+                        {
+                            $('#updateJoin').modal('show');
+                            $('#str').val(data.street);
+                            $('#build').val(data.build);
+                            $('#full_name').val(data.full_name);
+                            $('#phone_num').val(data.phone_num);
+                            $('#comment').val(data.comment);
+                            $('#action').val(data.id);
+                            $('#action_module').attr('action','/joins/'+data.id);
+                        }
+                })
+            });
             </script>
         
 @endsection

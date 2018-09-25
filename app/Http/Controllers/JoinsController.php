@@ -39,6 +39,20 @@ class JoinsController extends Controller
         $join = Join::find($id);
         return response()->json($join);
     }
+    public function datablesFindByTicketStatusIdOne(){ 
+        $joins = DB::table('joins')->select(['id', 'street', 'build',
+                                             'full_name', 'phone_num', 
+                                             'created_at', 'ticket_status_id', 
+                                             'comment', 'updated_at'])
+                                    ->where('ticket_status_id', '=', 1)
+                                    ->orderBy('id', 'desc');
+
+        return Datatables::of($joins)
+                            ->addColumn('action', function($join){
+                                return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                            })
+                            ->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
