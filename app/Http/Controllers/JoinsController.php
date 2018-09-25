@@ -21,9 +21,7 @@ class JoinsController extends Controller
         
     }
     public function datablesAllJoins(){ 
-        $joins = Join::select('id', 'street', 'build',
-                                'full_name', 'phone_num', 
-                                'created_at','comment', 'updated_at');
+        $joins = Join::where('ticket_status_id', '!=', 3)->orderBy('id','DESC');
         // $joins = DB::table('joins')->select(['id', 'street', 'build',
         //                                      'full_name', 'phone_num', 
         //                                      'created_at', 'ticket_status_id', 
