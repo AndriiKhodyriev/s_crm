@@ -79,6 +79,7 @@
                 })
             });
         </script>
+        {{--  --}}
         <script type="text/javascript">
                 $(document).on('click', '.btn-select', function(){  
                     var id = $(this).attr("id");
