@@ -30,10 +30,9 @@
                             Составить заявку
                     </button> | 
                 <div class="btn-group" position="rigth">
-                    <button class="btn btn-warning">В Работе</button>
-                    <button class="btn btn-danger">Закрытые</button>
-                    <button class="btn btn-info">Новые</button>
-                    
+                    <button class="btn btn-warning">Кнопка 1</button>
+                    <button class="btn btn-danger">Кнопка 2</button>
+                    <button class="btn btn-info">Кнопка 3</button>
 
                 </div>
             </div>
