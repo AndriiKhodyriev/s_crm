@@ -39,13 +39,13 @@ class JoinsController extends Controller
         $join = Join::find($id);
         return response()->json($join);
     }
-    public function datablesFindByTicketStatusIdOne(){ 
-        $joins = DB::table('joins')->select(['id', 'street', 'build',
+
+    public function reload_test(Request $request){ 
+        //$id = $request->id;
+         $joins = DB::table('joins')->select(['id', 'street', 'build',
                                              'full_name', 'phone_num', 
                                              'created_at', 'ticket_status_id', 
-                                             'comment', 'updated_at'])
-                                    ->where('ticket_status_id', '=', 1)
-                                    ->orderBy('id', 'desc');
+                                             'comment', 'updated_at'])->where('id','=',13);
 
         return Datatables::of($joins)
                             ->addColumn('action', function($join){
