@@ -21,13 +21,19 @@ class JoinsController extends Controller
         
     }
     public function datablesAllJoins(){ 
-        $joins = DB::table('joins')->select(['id', 'street', 'build',
-                                             'full_name', 'phone_num', 
-                                             'created_at', 'ticket_status_id', 
-                                             'comment', 'updated_at'])
-                                    ->orderBy('id', 'desc');
+        $joins = Join::select('id', 'street', 'build',
+                                'full_name', 'phone_num', 
+                                'created_at','comment', 'updated_at');
+        // $joins = DB::table('joins')->select(['id', 'street', 'build',
+        //                                      'full_name', 'phone_num', 
+        //                                      'created_at', 'ticket_status_id', 
+        //                                      'comment', 'updated_at'])
+        //                             ->orderBy('id', 'desc');
 
         return Datatables::of($joins)
+                            ->addColumn('status_name', function($join){
+                                return $join->ticketstatus->name;
+                            })
                             ->addColumn('action', function($join){
                                 return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
                             })

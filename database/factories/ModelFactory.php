@@ -36,7 +36,7 @@ $factory->define(App\Repair::class, function (Faker\Generator $faker) {
         'phone_num' => $faker->phoneNumber,
         'vlan_name' => $faker->randomNumber,
         'cause' => $faker->sentence,
-        'ticket_status_id' => rand(0,3),
+        'ticket_status_id' => rand(1,3),
 
 
     ];
@@ -55,7 +55,7 @@ $factory->define(App\Join::class, function (Faker\Generator $faker) {
         'full_name' => $faker->name,
         'phone_num' => $faker->phoneNumber,
         'comment' => $faker->sentence,
-        'ticket_status_id' => rand(0,3),
+        'ticket_status_id' => rand(1,3),
 
 
     ];

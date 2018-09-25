@@ -122,8 +122,8 @@
                                 { data: 'full_name',        name: 'full_name'},
                                 { data: 'phone_num',        name: 'phone_num'},
                                 { data: 'created_at',       name: 'created_at'},
-                                { data: 'ticket_status_id', name: 'ticket_status_id'},
-                                { data: 'comment',          name: 'comment'},
+                                { data: 'status_name',      name: 'status_name'},
+                                { data: 'comment',          name: 'comment'},                               
                                 { data: 'action',           name: 'action', orderable: false, searchable: false}
                             ]
                     });
