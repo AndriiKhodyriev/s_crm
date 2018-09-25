@@ -22,44 +22,21 @@
                     </div>
             <!--/ TITLE -->
             <!-- END OF BREADCRUMB -->
-<div class="content-wrap">
-	
+        <div class="content-wrap">
+            <hr>
+        <div class="row">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createRepair">
+                        Составить заявку
+                </button> | 
+            <div class="btn-group" position="rigth">
+
+                <button class="btn btn-warning btn-select" id="1">Новые заявки</button>
+                <button class="btn btn-danger btn-select" id="2">В работе</button>
+                <button class="btn btn-info btn-select" id="3">Закрытые</button>
+            </div>
+        </div>
+        <hr>
 	<!-- Button to Open the Modal -->
-<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#createRepair">
-  Создать заявку на ремонт
-</button>
-<style>
-input[type="search"] { 
-padding: 3px;
-background: white;
-color: black;
-border: 1px solid #ccc;
-}
-input:hover[type="search"] { 
-padding: 3px;
-background: whitesmoke;
-color: black;
-border: 1px solid #ccc;
-}
-th {
-color : black;
-}
-.odd {
-background-color: LavenderBlush;
-}
-.odd:hover { 
-background-color: Bisque;
-}
-.even:hover { 
-background-color: Bisque;
-}
-td { 
-color : DarkSlateGrey;
-}
-label {
-color: black;
-}
-</style>
 <div class="container">
 	<table id="repairs_table" class="table">
 		<thead>
@@ -117,7 +94,35 @@ color: black;
                         }
                 })
 		});
-	
+</script>
+        <script type="text/javascript">
+                $(document).on('click', '.btn-select', function(){  
+                    var id = $(this).attr("id");
+                    var url ='/datatablesRepairsFindByTicId/'+id;
+                    var table = $('#repairs_table').DataTable();
+                    table.destroy();
+                     $(function() {
+                    $('#repairs_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: url,
+                    columns: [
+                                    { data: 'id',               name: 'id' },
+	                                { data: 'login',            name: 'login'},
+	                                { data: 'object_id',        name: 'object_id' },
+	                                { data: 'street',           name: 'street' },
+	                                { data: 'build',            name: 'build' },
+	                                { data: 'vlan_name',        name: 'vlan_name' },
+	                                { data: 'phone_num',        name: 'phone_num'},
+	                                { data: 'cause',            name: 'cause'},
+	                                { data: 'comment',          name: 'comment'},
+	                                { data: 'created_at',       name: 'created_at'},
+	                                { data: 'action',           name: 'action', orderable: false, searchable: false}
+                            ]
+                    });
+                });
+            });
+            </script>
 
 	
 

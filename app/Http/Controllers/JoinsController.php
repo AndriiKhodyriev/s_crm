@@ -40,12 +40,12 @@ class JoinsController extends Controller
         return response()->json($join);
     }
 
-    public function reload_test(Request $request){ 
-        //$id = $request->id;
+    public function datatablesFindByTicketStatusId($id){ 
+        //  $id = $request->d.id;
          $joins = DB::table('joins')->select(['id', 'street', 'build',
                                              'full_name', 'phone_num', 
                                              'created_at', 'ticket_status_id', 
-                                             'comment', 'updated_at'])->where('id','=',13);
+                                             'comment', 'updated_at'])->where('ticket_status_id','=',$id);
 
         return Datatables::of($joins)
                             ->addColumn('action', function($join){

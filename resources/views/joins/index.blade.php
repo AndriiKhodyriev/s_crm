@@ -29,18 +29,11 @@
                             Составить заявку
                     </button> | 
                 <div class="btn-group" position="rigth">
-<<<<<<< HEAD
-                    <button class="btn btn-warning" id="test">Test</button>
-                    <button class="btn btn-danger">Кнопка 2</button>
-                    <button class="btn btn-info">Кнопка 3</button>
 
-=======
-                    <button class="btn btn-warning btn-select-1">Кнопка 1</button>
-                    <button class="btn btn-danger btn-select-2">Кнопка 2</button>
-                    <button class="btn btn-info btn-select-3">Кнопка 3</button>
->>>>>>> d3e9aea499a8434b5f023a9d9bb467967da5c033
+                    <button class="btn btn-warning btn-select" id="1">Новые заявки</button>
+                    <button class="btn btn-danger btn-select" id="2">В работе</button>
+                    <button class="btn btn-info btn-select" id="3">Закрытые</button>
                 </div>
-                <button class="btn btn-warning testingtest">ТЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕСТ</button>
             </div>
         <hr>
             <table id="joins_table" class="table ">
@@ -59,7 +52,6 @@
             </table>
             {{-- INCLUDE modal windows --}}
    @include('joins._formNew')
-<<<<<<< HEAD
    @include('joins._formEdit')
         <!-- Update button -->
         <script>
@@ -87,21 +79,17 @@
                 })
             });
         </script>
-
-        {{-- test reload tables --}}
-        
-
-
-          <script type="text/javascript">
-                $(document).on('click', '#test', function(){  
-                    //alert("xuy");
-                   var table = $('#joins_table').DataTable();
+        <script type="text/javascript">
+                $(document).on('click', '.btn-select', function(){  
+                    var id = $(this).attr("id");
+                    var url ='/datatablesFindByTicketStatusId/'+id;
+                    var table = $('#joins_table').DataTable();
                     table.destroy();
                      $(function() {
                     $('#joins_table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ url('reload_test') }}',
+                    ajax: url,
                     columns: [
                                 { data: 'id',               name: 'id' },
                                 { data: 'street',           name: 'street' },
@@ -117,14 +105,6 @@
                 });
             });
             </script>
-
-
-
-        {{-- END test reload tables --}}
-   
-=======
-   @include('joins._formEdit')      
->>>>>>> d3e9aea499a8434b5f023a9d9bb467967da5c033
 @endsection
 @section('dt_script')
         <!-- DataTables loader -->

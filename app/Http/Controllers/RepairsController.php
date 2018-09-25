@@ -46,6 +46,17 @@ class RepairsController extends Controller
 
     }
 
+    public function datatablesRepairsFindByTicId($id){
+        $repairs = DB::table('repairs')
+                    ->select('id','login', 'object_id','street', 'build','vlan_name','phone_num', 'cause', 'comment', 'created_at')
+                    ->where('ticket_status_id', '=', $id)
+                    ->orderBy('id', 'desc');
+        return Datatables::of($repairs)
+                            ->addColumn('action', function($repair){
+                                return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                            })
+                            ->make(true);
+    }
     /*public function datablesAllRepairs(){ 
     $joins = DB::table('repairs')->select(['id', 'street', 'build',
     'phone_num', 
