@@ -17,7 +17,7 @@ class JoinsController extends Controller
     public function index()
     {
         
-         return view('joins.index');
+        return view('joins.index');
         
     }
     public function datablesAllJoins(){ 
@@ -43,6 +43,9 @@ class JoinsController extends Controller
     public function datatablesFindByTicketStatusId($id){ 
         $joins = Join::where('ticket_status_id', '=', $id)->orderBy('id','DESC');
         return Datatables::of($joins)
+                            ->addColumn('object_name', function($join){
+                                    return $join->object->name;
+                            })
                             ->addColumn('status_name', function($join){
                                 return $join->ticketstatus->name;
                             })
@@ -83,7 +86,7 @@ class JoinsController extends Controller
          $joins->full_name          = $request->input('full_name');
          $joins->phone_num          = $request->input('phone_num');
          $joins->comment            = $request->input('comment');
-         $joins->ticket_status_id   = 3;
+         $joins->ticket_status_id   = 1;
 
          $joins->save();
          return redirect('/joins')->with('success', 'Заявка составлена');
