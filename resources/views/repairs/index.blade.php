@@ -26,7 +26,8 @@
             <hr>
         <div class="row">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createRepair">
-                        Составить заявку
+                    <span class="entypo-plus-squared">   
+                            Составить заявку
                 </button> | 
             <div class="btn-group" position="rigth">
 

@@ -73,8 +73,8 @@ class JoinsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'street' => 'required',
-            'build' => 'required',
+            'street'    => 'required',
+            'build'     => 'required',
             'full_name' => 'required',
             'phone_num' => 'required',
         ]);
@@ -124,8 +124,8 @@ class JoinsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'street' => 'required',
-            'build' => 'required',
+            'street'    => 'required',
+            'build'     => 'required',
             'full_name' => 'required',
             'phone_num' => 'required',
         ]);
