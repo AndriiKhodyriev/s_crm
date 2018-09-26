@@ -81,7 +81,7 @@
                             $('#updateRepair').modal('show');
                             //alert(data.toSource());
                             $('#username').val(data.login);
-                            $('#arrea_id').val(data.object_id); 
+                            $('#arrea_id').val(data.city_id); 
                             $('#str').val(data.street);
                             $('#build').val(data.build);
                             $('#vlan_name').val(data.vlan_name);
@@ -109,7 +109,7 @@
                     columns: [
                                     { data: 'id',               name: 'id' },
 	                                { data: 'login',            name: 'login'},
-	                                { data: 'object_id',        name: 'object_id' },
+	                                { data: 'city_id',        name: 'city_id' },
 	                                { data: 'street',           name: 'street' },
 	                                { data: 'build',            name: 'build' },
 	                                { data: 'vlan_name',        name: 'vlan_name' },
@@ -142,11 +142,11 @@
 	            processing: true,
 	            serverSide: true,
 	            ajax: '{{ url('datablesAllRepairs') }}',
-	            //'id','login', 'object','street', 'build','vlan_name','phone_num', 'cause', 'created_at'
+	            //'id','login', 'city','street', 'build','vlan_name','phone_num', 'cause', 'created_at'
 	            columns: [
 	                                { data: 'id',               name: 'id' },
 	                                { data: 'login',        name: 'login'},
-	                                { data: 'object_id',           name: 'object_id' },
+	                                { data: 'city_id',           name: 'city_id' },
 	                                { data: 'street',           name: 'street' },
 	                                { data: 'build',            name: 'build' },
 	                                { data: 'vlan_name',            name: 'vlan_name' },

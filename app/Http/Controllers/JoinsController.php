@@ -23,8 +23,8 @@ class JoinsController extends Controller
     public function datablesAllJoins(){ 
         $joins = Join::where('ticket_status_id', '!=', 3)->orderBy('id','DESC');
         return Datatables::of($joins)
-                            ->addColumn('object_name', function($join){
-                                 return $join->object->name;
+                            ->addColumn('city_name', function($join){
+                                 return $join->city->name;
                             })
                             ->addColumn('status_name', function($join){
                                 return $join->ticketstatus->name;
@@ -43,8 +43,8 @@ class JoinsController extends Controller
     public function datatablesFindByTicketStatusId($id){ 
         $joins = Join::where('ticket_status_id', '=', $id)->orderBy('id','DESC');
         return Datatables::of($joins)
-                            ->addColumn('object_name', function($join){
-                                    return $join->object->name;
+                            ->addColumn('city_name', function($join){
+                                    return $join->city->name;
                             })
                             ->addColumn('status_name', function($join){
                                 return $join->ticketstatus->name;

@@ -27,7 +27,7 @@ class CreateRepairsTable extends Migration
             //date 
             $table->timestamps();
             //keys 
-            $table->integer('object_id')->nullable();
+            $table->integer('city_id')->nullable();
             $table->integer('ticket_status_id')->nullable();
             $table->integer('create_user_id')->nullable();
             $table->integer('close_user_id')->nullable();

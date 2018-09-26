@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateObjectsTable extends Migration
+class RenameObjectModelToCity extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,8 @@ class CreateObjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('objects', function($table){
+        //Schema::dropIfExists('objects');
+        Schema::create('cities', function($table){
             $table->increments('id');
             $table->string('name');
         });
@@ -26,7 +27,6 @@ class CreateObjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('objects');
-        //
+        Schema::dropIfExists('cities');
     }
 }

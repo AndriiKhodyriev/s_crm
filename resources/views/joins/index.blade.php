@@ -94,7 +94,7 @@
                     ajax: url,
                     columns: [
                                 { data: 'id',               name: 'id' },
-                                { data: 'object_name',      name: 'object_name'},
+                                { data: 'city_name',      name: 'city_name'},
                                 { data: 'street',           name: 'street' },
                                 { data: 'build',            name: 'build' },
                                 { data: 'full_name',        name: 'full_name'},
@@ -119,7 +119,7 @@
                     ajax: '{{ url('datablesAllJoins') }}',
                     columns: [
                                 { data: 'id',               name: 'id' },
-                                { data: 'object_name',      name: 'object_name'},
+                                { data: 'city_name',      name: 'city_name'},
                                 { data: 'street',           name: 'street' },
                                 { data: 'build',            name: 'build' },
                                 { data: 'full_name',        name: 'full_name'},

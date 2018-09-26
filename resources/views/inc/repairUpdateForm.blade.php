@@ -18,8 +18,8 @@
             {{Form::text('login','',['class' => 'form-control', 'id' => 'username'])}}
         </div>
         <div class="form-group">
-            {{Form::label('object_id', 'Объект')}}
-            {{Form::text('object_id','',['class' => 'form-control', 'id' => 'arrea_id', 'placeholder' => 'Объект'])}}
+            {{Form::label('city_id', 'Объект')}}
+            {{Form::text('city_id','',['class' => 'form-control', 'id' => 'arrea_id', 'placeholder' => 'Объект'])}}
         </div>
         
         <div class="form-group">

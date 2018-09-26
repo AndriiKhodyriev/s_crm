@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Join extends Model
 {
-    public function object(){
-        return $this->belongsTo('App\Object');
+    public function city(){
+        return $this->belongsTo('App\City');
     }
 
     public function ticketStatus(){

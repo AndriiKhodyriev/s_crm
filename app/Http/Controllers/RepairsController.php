@@ -87,7 +87,7 @@ class RepairsController extends Controller
     {
         $this->validate($request, [
             'login' => 'required',
-            'object_id' => 'required',
+            'city_id' => 'required',
             'street' => 'required',
             'build' => 'required',
             'phone_num' => 'required',
@@ -99,7 +99,7 @@ class RepairsController extends Controller
         // create repair
         $repair = new Repair;
         $repair->login = $request->input('login');
-        $repair->object_id = $request->input('object_id');
+        $repair->city_id = $request->input('city_id');
         $repair->street = $request->input('street');
         $repair->build = $request->input('build');
         $repair->phone_num = $request->input('phone_num');
@@ -147,7 +147,7 @@ class RepairsController extends Controller
     {
         $this->validate($request, [
             'login' => 'required',
-            'object_id' => 'required',
+            'city_id' => 'required',
             'street' => 'required',
             'build' => 'required',
             'phone_num' => 'required',
@@ -159,7 +159,7 @@ class RepairsController extends Controller
         // create repair
         $repair = Repair::find($id);
         $repair->login = $request->input('login');
-        $repair->object_id = $request->input('object_id');
+        $repair->city_id = $request->input('city_id');
         $repair->street = $request->input('street');
         $repair->build = $request->input('build');
         $repair->phone_num = $request->input('phone_num');

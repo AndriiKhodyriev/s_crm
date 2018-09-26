@@ -28,8 +28,8 @@
             {{Form::text('login','',['class' => 'form-control', 'placeholder' => 'ЛОГИН'])}}
         </div>
         <div class="form-group">
-            {{Form::label('object_id', 'Объект')}}
-            {{Form::text('object_id','',['class' => 'form-control', 'placeholder' => 'ЛОГИН'])}}
+            {{Form::label('city_id', 'Объект')}}
+            {{Form::text('city_id','',['class' => 'form-control', 'placeholder' => 'ЛОГИН'])}}
         </div>
         
         <div class="form-group">
