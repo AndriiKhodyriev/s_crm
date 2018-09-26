@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Join extends Model
 {
-    public function objects(){
+    public function object(){
         return $this->belongsTo('App\Object');
     }
 
@@ -14,3 +14,4 @@ class Join extends Model
         return $this->belongsTo('App\TicketStatus');
     }
 }
+ 

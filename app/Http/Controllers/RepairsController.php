@@ -17,20 +17,16 @@ class RepairsController extends Controller
      */
     public function index()
     {
-        
-        //$repairs = Repair::all();
-        //$locale = App::getLocale();
-        //$repairs = json_decode($repairs, true);
         return view('repairs.index');
-        //return view('repairs.index')->with('locale', $locale);
     }
 
     public function datablesAllRepairs()
     {
-        //$repairs = Repairs::select(['id','login', 'street', 'build','phone_num', 'created_at', 'cause']);
-        $repairs = DB::table('repairs')->select('id','login', 'object_id','street', 'build','vlan_name','phone_num', 'cause', 'comment', 'created_at')->orderBy('id', 'desc');
-        //return Datatables::of($repairs)->make(true);
+        $repairs = Repair::where('ticket_status_id', '!=', 3)->orderBy('id','DESC');
         return Datatables::of($repairs)
+                            ->addColumn('status_name', function($repair){
+                                return $repair->ticketstatus->name;
+                            })
                             ->addColumn('action', function($repair){
                                 return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
                             })
@@ -40,18 +36,18 @@ class RepairsController extends Controller
 
     public function datablesRepairFindById(Request $request)
     {
-       $id = $request->id;
+        $id = $request->id;
         $repair = Repair::find($id);
         return response()->json($repair);
 
     }
 
     public function datatablesRepairsFindByTicId($id){
-        $repairs = DB::table('repairs')
-                    ->select('id','login', 'object_id','street', 'build','vlan_name','phone_num', 'cause', 'comment', 'created_at')
-                    ->where('ticket_status_id', '=', $id)
-                    ->orderBy('id', 'desc');
+        $repairs = Repair::where('ticket_status_id', '=', $id)->orderBy('id','DESC');
         return Datatables::of($repairs)
+                            ->addColumn('status_name', function($repair){
+                                return $repair->ticketstatus->name;
+                            })
                             ->addColumn('action', function($repair){
                                 return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
                             })
