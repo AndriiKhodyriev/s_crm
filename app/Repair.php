@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Repair extends Model
 {
-    public function objects(){
+    public function object(){
         return $this->belongsTo('App\Object');
     }
 
