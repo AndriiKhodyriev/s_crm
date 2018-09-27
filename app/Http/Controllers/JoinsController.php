@@ -100,6 +100,7 @@ class JoinsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'city_name' => 'required',
             'street'    => 'required',
             'build'     => 'required',
             'full_name' => 'required',
@@ -108,6 +109,7 @@ class JoinsController extends Controller
 
          //create post 
          $joins                     = new Join;
+         $joins->city_id            = $request->input('city_name');
          $joins->street             = $request->input('street');
          $joins->build              = $request->input('build');
          $joins->full_name          = $request->input('full_name');

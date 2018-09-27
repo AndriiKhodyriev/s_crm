@@ -109,7 +109,7 @@ class RepairsController extends Controller
     {
         $this->validate($request, [
             'login' => 'required',
-            'city_id' => 'required',
+            'city_name' => 'required',
             'street' => 'required',
             'build' => 'required',
             'phone_num' => 'required',
@@ -119,21 +119,28 @@ class RepairsController extends Controller
 
         ]);
         // create repair
-        $repair = new Repair;
-        $repair->login = $request->input('login');
-        $repair->city_id = $request->input('city_id');
-        $repair->street = $request->input('street');
-        $repair->build = $request->input('build');
-        $repair->phone_num = $request->input('phone_num');
-        $repair->vlan_name = $request->input('vlan_name');
-        $repair->cause = $request->input('cause');
-        $repair->comment = $request->input('comment');
-        
-        //$repair->user_id = auth()->user()->id;
-        $repair->save();
+        $values = Repair::select(['id', 'ticket_status_id', 'login'])
+                        ->where('login','=',$request->input('login'))
+                        ->where('city_id','=',$request->input('city_name'))
+                        ->where('ticket_status_id','!=', 3)->get();
+        if ($values->count() >= 1){
+          
+           return redirect('/repairs')->with('error', 'Уже имеется открытая заявка! ');
+        } else {
+            $repair                     = new Repair;
+            $repair->login              = $request->input('login');
+            $repair->city_id            = $request->input('city_name');
+            $repair->street             = $request->input('street');
+            $repair->build              = $request->input('build');
+            $repair->phone_num          = $request->input('phone_num');
+            $repair->vlan_name          = $request->input('vlan_name');
+            $repair->cause              = $request->input('cause');
+            $repair->comment            = $request->input('comment');
+            $repair->ticket_status_id   = 1;
+            $repair->save();
 
-        return redirect('/repairs')->with('success', 'Post Created');
-
+            return redirect('/repairs')->with('success', 'Заявка составлена');
+        }
     }
 
     /**

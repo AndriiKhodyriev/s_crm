@@ -40,7 +40,6 @@
             <div class="container-fluid paper-wrap bevel tlbr">
                         <!-- CONTENT -->
                         <!--TITLE -->
-                @include('inc.message')
                 @yield('content')
                             <!-- /END OF CONTENT -->
                             <!-- FOOTER -->

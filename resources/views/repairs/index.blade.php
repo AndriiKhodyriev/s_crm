@@ -24,6 +24,7 @@
             <!-- END OF BREADCRUMB -->
         <div class="content-wrap">
             <hr>
+        @include('inc.message')
         <div class="row">
             <div class="col-sm-2"> 
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createRepair">

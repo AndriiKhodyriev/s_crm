@@ -22,16 +22,11 @@
       <!-- Modal body -->
       <div class="modal-body">
         {!! Form::open(['action' => 'RepairsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-        
         <div class="form-group">
             {{Form::label('login', 'Логин')}}
             {{Form::text('login','',['class' => 'form-control', 'placeholder' => 'ЛОГИН'])}}
         </div>
-        <div class="form-group">
-            {{Form::label('city_id', 'Объект')}}
-            {{Form::text('city_id','',['class' => 'form-control', 'placeholder' => 'ЛОГИН'])}}
-        </div>
-        
+       
         <div class="form-group">
             {{Form::label('street', 'Улица')}}
             {{Form::text('street','',['class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
@@ -56,9 +51,8 @@
             {{Form::label('comment', 'Комментарий')}}
             {{Form::textarea('comment','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => 'Тут можно указать любой комментарий по текущей заявке'])}}
          </div>
-         
         {{Form::submit('Составить заявку на ремонт!', ['class' => 'btn btn-primary'])}}
-    {!! Form::close() !!}
+        {!! Form::close() !!}
       </div>
 
       <!-- Modal footer -->

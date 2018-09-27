@@ -18,10 +18,13 @@
             {{Form::text('login','',['class' => 'form-control', 'placeholder' => 'Логин'])}}
         </div>
         <div class="form-group">
-            {{Form::label('city_id', 'Объект')}}
-            {{Form::text('city_id','',['class' => 'form-control', 'placeholder' => 'Объект'])}}
+            {{Form::label('city', 'Город')}}
+            <select name="city_name" id="">
+                @foreach($cities as $city)
+                    <option value="{{$city->id}}">{{$city->name}}</option>
+                @endforeach
+            </select>
         </div>
-        
         <div class="form-group">
             {{Form::label('street', 'Улица')}}
             {{Form::text('street','',['class' => 'form-control', 'placeholder' => 'Ульяновская ул.'])}}
