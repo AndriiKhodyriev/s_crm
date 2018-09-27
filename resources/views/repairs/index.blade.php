@@ -25,15 +25,28 @@
         <div class="content-wrap">
             <hr>
         <div class="row">
+            <div class="col-sm-2"> 
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createRepair">
                     <span class="entypo-plus-squared">   
                             Составить заявку
-                </button> | 
-            <div class="btn-group" position="rigth">
+                </button> 
+            </div>
+            <div class="col-sm-2"> 
+                <div class="btn-group" position="rigth">
 
-                <button class="btn btn-warning btn-select" id="1">Новые заявки</button>
-                <button class="btn btn-danger btn-select" id="2">В работе</button>
-                <button class="btn btn-info btn-select" id="3">Закрытые</button>
+                    <button class="btn btn-warning btn-select" id="1">Новые заявки</button>
+                    <button class="btn btn-danger btn-select" id="2">В работе</button>
+                    <button class="btn btn-info btn-select" id="3">Закрытые</button>
+                </div>
+            </div>
+            <div class="col-sm-2"> 
+                    <select name="cities" class="city-ch">
+                            <option value="0">Все города</option>
+                        @foreach($cities as $city)
+                            <option value="{{$city->id}}">{{$city->name}}</option>
+                        @endforeach
+                    </select>
+                    <span>Для выборки по объекту - выберите город</span>
             </div>
         </div>
         <hr>
@@ -51,24 +64,19 @@
 				<th>Номер телефона</th>
 				<th>Причина обращения</th>
 				<th>Комментарий</th>
-				<th>Дата создания</th>
+                <th>Дата создания</th>
+                <th>Статус заявки</th>
 				<th>Изменить</th>
 			</tr>
-			
 		</thead>
-</table>
+    </table>
 </div>
 
 @include('inc.repairCreateForm')
 @include('inc.repairUpdateForm')
-
 <script type="text/javascript">
-	
     $(document).on( "click", ".update",function() {
-			 //$('#updateRepair').modal('show');
 			 var id = $(this).attr("id");
-			 //alert(id);
-
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -80,7 +88,6 @@
                         success:function(data)
                         {
                             $('#updateRepair').modal('show');
-                            //alert(data.toSource());
                             $('#username').val(data.login);
                             $('#arrea_id').val(data.city_id); 
                             $('#str').val(data.street);
@@ -90,7 +97,6 @@
                             $('#cause').val(data.cause);
                             $('#comment').val(data.cause);
                             $('#action').val(data.id);
-                            //$('#login').val(data.login);
                             $('#action_module').attr('action','/repairs/'+data.id);
                         }
                 })
@@ -108,32 +114,52 @@
                     serverSide: true,
                     ajax: url,
                     columns: [
-                                    { data: 'id',               name: 'id' },
-	                                { data: 'login',            name: 'login'},
-	                                { data: 'city_id',        name: 'city_id' },
-	                                { data: 'street',           name: 'street' },
-	                                { data: 'build',            name: 'build' },
-	                                { data: 'vlan_name',        name: 'vlan_name' },
-	                                { data: 'phone_num',        name: 'phone_num'},
-	                                { data: 'cause',            name: 'cause'},
-	                                { data: 'comment',          name: 'comment'},
-	                                { data: 'created_at',       name: 'created_at'},
-	                                { data: 'action',           name: 'action', orderable: false, searchable: false}
+                                    { data: 'id',                    name: 'id' },
+	                                { data: 'login',                 name: 'login'},
+	                                { data: 'city_name',             name: 'city_name' },
+	                                { data: 'street',                name: 'street' },
+	                                { data: 'build',                 name: 'build' },
+	                                { data: 'vlan_name',             name: 'vlan_name' },
+	                                { data: 'phone_num',             name: 'phone_num'},
+	                                { data: 'cause',                 name: 'cause'},
+	                                { data: 'comment',               name: 'comment'},
+	                                { data: 'created_at',            name: 'created_at'},
+                                    { data: 'status_name',           name: 'status_name'},
+	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
                             ]
                     });
                 });
             });
-            </script>
-
-	
-
 </script>
-
-	
-
-	
-
-
+<script>
+        $('.city-ch').change(function() {
+                    var id = this.value;
+                    var url = '/datatablesRepairCityId/'+id;
+                    var table = $('#repairs_table').DataTable();
+                    table.destroy();
+                        $(function(){
+                            $('#repairs_table').DataTable({
+                                processing: true, 
+                                serverSide: true,
+                                ajax: url,
+                                columns: [
+                                    { data: 'id',                    name: 'id' },
+	                                { data: 'login',                 name: 'login'},
+	                                { data: 'city_name',             name: 'city_name' },
+	                                { data: 'street',                name: 'street' },
+	                                { data: 'build',                 name: 'build' },
+	                                { data: 'vlan_name',             name: 'vlan_name' },
+	                                { data: 'phone_num',             name: 'phone_num'},
+	                                { data: 'cause',                 name: 'cause'},
+	                                { data: 'comment',               name: 'comment'},
+	                                { data: 'created_at',            name: 'created_at'},
+                                    { data: 'status_name',           name: 'status_name'},
+	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
+                                ]
+                            });
+                        });
+                });
+</script>
 @endsection
 
 @section('dt_script')
@@ -145,19 +171,18 @@
 	            ajax: '{{ url('datablesAllRepairs') }}',
 	            //'id','login', 'city','street', 'build','vlan_name','phone_num', 'cause', 'created_at'
 	            columns: [
-	                                { data: 'id',               name: 'id' },
-	                                { data: 'login',        name: 'login'},
-	                                { data: 'city_id',           name: 'city_id' },
-	                                { data: 'street',           name: 'street' },
-	                                { data: 'build',            name: 'build' },
-	                                { data: 'vlan_name',            name: 'vlan_name' },
-	                                { data: 'phone_num',        name: 'phone_num'},
-	                                
-	                                //{ data: 'ticket_status_id', name: 'ticket_status_id'},
-	                                { data: 'cause',          name: 'cause'},
-	                                { data: 'comment',          name: 'comment'},
-	                                { data: 'created_at',       name: 'created_at'},
-	                                { data: 'action',           name: 'action', orderable: false, searchable: false}
+                                    { data: 'id',                    name: 'id' },
+	                                { data: 'login',                 name: 'login'},
+	                                { data: 'city_name',             name: 'city_name' },
+	                                { data: 'street',                name: 'street' },
+	                                { data: 'build',                 name: 'build' },
+	                                { data: 'vlan_name',             name: 'vlan_name' },
+	                                { data: 'phone_num',             name: 'phone_num'},
+	                                { data: 'cause',                 name: 'cause'},
+	                                { data: 'comment',               name: 'comment'},
+	                                { data: 'created_at',            name: 'created_at'},
+                                    { data: 'status_name',           name: 'status_name'},
+	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
 	                            ]
 
 	        });

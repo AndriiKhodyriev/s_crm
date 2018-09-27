@@ -25,15 +25,28 @@
             <div class="content-wrap">
                 <hr>
             <div class="row">
+                <div class="col-sm-2">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newJoinModal">
                       <span class="entypo-plus-squared">
                                 Составить заявку
-                    </button> | 
-                <div class="btn-group" position="rigth">
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <div class="btn-group" position="rigth">
+                        <button class="btn btn-warning btn-select" id="1">Новые заявки</button>
+                        <button class="btn btn-danger btn-select" id="2">В работе</button>
+                        <button class="btn btn-info btn-select" id="3">Закрытые</button>
+                    </div>
+                </div>
+                <div class="col-sm-2"> 
+                        <select name="cities" class="city-ch">
+                                <option value="0">Все города</option>
+                            @foreach($cities as $city)
+                                <option value="{{$city->id}}">{{$city->name}}</option>
+                            @endforeach
+                        </select>
+                        <span>Для выборки по объекту - выберите город</span>
 
-                    <button class="btn btn-warning btn-select" id="1">Новые заявки</button>
-                    <button class="btn btn-danger btn-select" id="2">В работе</button>
-                    <button class="btn btn-info btn-select" id="3">Закрытые</button>
                 </div>
             </div>
         <hr>
@@ -83,28 +96,54 @@
         </script>
         {{--  --}}
         <script type="text/javascript">
+                $('.city-ch').change(function() {
+                    var id = this.value;
+                    var url = '/datatablesFindByCityId/'+id;
+                    var table = $('#joins_table').DataTable();
+                    table.destroy();
+                        $(function(){
+                            $('#joins_table').DataTable({
+                                processing: true, 
+                                serverSide: true,
+                                ajax: url,
+                                columns: [
+                                    { data: 'id',               name: 'id' },
+                                    { data: 'city_name',        name: 'city_name'},
+                                    { data: 'street',           name: 'street' },
+                                    { data: 'build',            name: 'build' },
+                                    { data: 'full_name',        name: 'full_name'},
+                                    { data: 'phone_num',        name: 'phone_num'},
+                                    { data: 'created_at',       name: 'created_at'},
+                                    { data: 'status_name',      name: 'status_name'},
+                                    { data: 'comment',          name: 'comment'},
+                                    { data: 'action',           name: 'action', orderable: false, searchable: false}
+                                ]
+                            });
+                        });
+                });
+
                 $(document).on('click', '.btn-select', function(){  
                     var id = $(this).attr("id");
                     var url ='/datatablesFindByTicketStatusId/'+id;
                     var table = $('#joins_table').DataTable();
                     table.destroy();
                      $(function() {
-                    $('#joins_table').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: url,
-                    columns: [
-                                { data: 'id',               name: 'id' },
-                                { data: 'city_name',      name: 'city_name'},
-                                { data: 'street',           name: 'street' },
-                                { data: 'build',            name: 'build' },
-                                { data: 'full_name',        name: 'full_name'},
-                                { data: 'phone_num',        name: 'phone_num'},
-                                { data: 'created_at',       name: 'created_at'},
-                                { data: 'status_name',      name: 'status_name'},
-                                { data: 'comment',          name: 'comment'},
-                                { data: 'action',           name: 'action', orderable: false, searchable: false}
-                            ]
+                        $('#joins_table').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        ajax: url,
+                        columns: [
+                                    { data: 'id',               name: 'id' },
+                                    { data: 'city_name',        name: 'city_name'},
+                                    { data: 'street',           name: 'street' },
+                                    { data: 'build',            name: 'build' },
+                                    { data: 'full_name',        name: 'full_name'},
+                                    { data: 'phone_num',        name: 'phone_num'},
+                                    { data: 'created_at',       name: 'created_at'},
+                                    { data: 'status_name',      name: 'status_name'},
+                                    { data: 'comment',          name: 'comment'},
+                                    { data: 'action',           name: 'action', orderable: false, searchable: false}
+                                ]
                     });
                 });
             });
@@ -120,7 +159,7 @@
                     ajax: '{{ url('datablesAllJoins') }}',
                     columns: [
                                 { data: 'id',               name: 'id' },
-                                { data: 'city_name',      name: 'city_name'},
+                                { data: 'city_name',        name: 'city_name'},
                                 { data: 'street',           name: 'street' },
                                 { data: 'build',            name: 'build' },
                                 { data: 'full_name',        name: 'full_name'},

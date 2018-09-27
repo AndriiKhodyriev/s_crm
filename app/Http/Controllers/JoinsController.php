@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Join;
+use App\City;
 use Datatables;
 use DB;
 
@@ -16,12 +17,13 @@ class JoinsController extends Controller
      */
     public function index()
     {
-        
-        return view('joins.index');
+        $cities = City::all();
+        return view('joins.index')->with('cities', $cities);
         
     }
     public function datablesAllJoins(){ 
-        $joins = Join::where('ticket_status_id', '!=', 3)->orderBy('id','DESC');
+        $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment'])
+                        ->where('ticket_status_id', '!=', 3)->get();
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                  return $join->city->name;
@@ -41,10 +43,35 @@ class JoinsController extends Controller
     }
 
     public function datatablesFindByTicketStatusId($id){ 
-        $joins = Join::where('ticket_status_id', '=', $id)->orderBy('id','DESC');
+        $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment'])
+                            ->where('ticket_status_id', '=', $id)->get();
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                     return $join->city->name;
+                            })
+                            ->addColumn('status_name', function($join){
+                                return $join->ticketstatus->name;
+                            })
+                            ->addColumn('action', function($join){
+                                return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                            })
+                            ->make(true);
+    }
+    public function datatablesFindByCityId($id){
+        if($id == 0){
+            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment'])
+                            ->where('ticket_status_id', '!=', 3)
+                            ->get();
+        } else {
+            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment'])
+                            ->where('city_id','=', $id)
+                            ->where('ticket_status_id', '!=', 3)
+                            ->get();
+        }
+
+        return Datatables::of($joins)
+                            ->addColumn('city_name', function($join){
+                                return $join->city->name;
                             })
                             ->addColumn('status_name', function($join){
                                 return $join->ticketstatus->name;
