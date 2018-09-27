@@ -124,8 +124,10 @@ class RepairsController extends Controller
                         ->where('city_id','=',$request->input('city_name'))
                         ->where('ticket_status_id','!=', 3)->get();
         if ($values->count() >= 1){
-          
-           return redirect('/repairs')->with('error', 'Уже имеется открытая заявка! ');
+        foreach($values as $val){
+            $id = $val->id;
+        }
+        return redirect('/repairs')->with('error', 'Уже имеется открытая заявка! Номер заявки: '.$id);
         } else {
             $repair                     = new Repair;
             $repair->login              = $request->input('login');
