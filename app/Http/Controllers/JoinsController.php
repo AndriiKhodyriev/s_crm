@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Join;
 use App\City;
+use App\TicketStatus;
 use Datatables;
 use DB;
 
@@ -18,7 +19,8 @@ class JoinsController extends Controller
     public function index()
     {
         $cities = City::all();
-        return view('joins.index')->with('cities', $cities);
+        $statuses = TicketStatus::all();
+        return view('joins.index')->with(['cities' => $cities, 'statuses' => $statuses]);
         
     }
     public function datablesAllJoins(){ 

@@ -12,16 +12,26 @@
       <!-- Modal body -->
       <div class="modal-body">
         {!! Form::open(['id' => 'action_module', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-        
+        <div class="form-group">
+            {{Form::label('status', 'Сатус заявки')}}
+            <select name="status_name" id="status_name">
+                @foreach($statuses as $status)
+                    <option value="{{$status->id}}">{{$status->name}}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="form-group">
             {{Form::label('login', 'Логин')}}
             {{Form::text('login','',['class' => 'form-control', 'id' => 'username'])}}
         </div>
         <div class="form-group">
-            {{Form::label('city_id', 'Объект')}}
-            {{Form::text('city_id','',['class' => 'form-control', 'id' => 'arrea_id', 'placeholder' => 'Объект'])}}
+            {{Form::label('city', 'Город')}}
+            <select name="city_name" id="city_name">
+                @foreach($cities as $city)
+                    <option value="{{$city->id}}">{{$city->name}}</option>
+                @endforeach
+            </select>
         </div>
-        
         <div class="form-group">
             {{Form::label('street', 'Улица')}}
             {{Form::text('street','',['class' => 'form-control', 'id' => 'str', 'placeholder' => 'Ульяновская ул.'])}}

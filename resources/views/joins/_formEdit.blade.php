@@ -14,7 +14,14 @@
                             {{Form::label('street', 'Улица')}}
                             {{Form::text('street','',['id'=> 'str', 'class' => 'form-control'])}}
                         </div>
-                   
+                        <div class="form-group">
+                            {{Form::label('status', 'Сатус заявки')}}
+                            <select name="status_name" id="status_name">
+                                @foreach($statuses as $status)
+                                    <option value="{{$status->id}}">{{$status->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             {{Form::label('build', 'Дом')}}
                             {{Form::text('build','',['id'=> 'build', 'class' => 'form-control'])}}

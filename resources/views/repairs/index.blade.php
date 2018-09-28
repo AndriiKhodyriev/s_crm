@@ -90,7 +90,6 @@
                         {
                             $('#updateRepair').modal('show');
                             $('#username').val(data.login);
-                            $('#arrea_id').val(data.city_id); 
                             $('#str').val(data.street);
                             $('#build').val(data.build);
                             $('#vlan_name').val(data.vlan_name);
@@ -98,6 +97,8 @@
                             $('#cause').val(data.cause);
                             $('#comment').val(data.cause);
                             $('#action').val(data.id);
+                            $('#status_name option[value='+data.ticket_status_id+']').attr('selected', 'selected');
+                            $('#city_name option[value='+data.city_id+']').attr('selected', 'selected');
                             $('#action_module').attr('action','/repairs/'+data.id);
                         }
                 })

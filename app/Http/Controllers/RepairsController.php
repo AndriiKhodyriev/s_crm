@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repair;
 use App\City;
+use App\TicketStatus;
 use Illuminate\Support\Facades\App;
 use Datatables;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +19,9 @@ class RepairsController extends Controller
      */
     public function index()
     {
+        $statuses = TicketStatus::all();
         $cities = City::all();
-        return view('repairs.index')->with('cities', $cities);;
+        return view('repairs.index')->with(['cities' => $cities, 'statuses' => $statuses]);
     }
 
     public function datablesAllRepairs()

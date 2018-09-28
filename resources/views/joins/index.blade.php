@@ -186,6 +186,15 @@
                         dataType:"json",
                         success:function(data)
                         {
+                            // Убираем все значения selected (для установки верного если больше 
+                            // 3 статусов установить в переменную coulumn в нужное количество )
+                            var count = 0; 
+                            var column = 3;
+                            while(count<=column){
+                                $('#status_name option[value='+count+']').removeAttr('selected');
+                                count++;
+                            }
+                            $('#status_name option[value='+data.ticket_status_id+']').attr('selected', 'selected');
                             $('#updateJoin').modal('show');
                             $('#str').val(data.street);
                             $('#build').val(data.build);
@@ -195,7 +204,7 @@
                             $('#action').val(data.id);
                             $('#action_module').attr('action','/joins/'+data.id);
                         }
-                })
+                });
             });
             </script>
         
