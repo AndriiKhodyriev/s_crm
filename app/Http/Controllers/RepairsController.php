@@ -180,7 +180,6 @@ class RepairsController extends Controller
     {
         $this->validate($request, [
             'login' => 'required',
-            'city_id' => 'required',
             'street' => 'required',
             'build' => 'required',
             'phone_num' => 'required',
