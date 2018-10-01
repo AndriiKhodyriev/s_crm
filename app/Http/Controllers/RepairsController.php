@@ -120,15 +120,15 @@ class RepairsController extends Controller
             'comment' => 'nullable'
 
         ]);
-        // create repair
+        // create repair 
         $values = Repair::select(['id', 'ticket_status_id', 'login'])
                         ->where('login','=',$request->input('login'))
                         ->where('city_id','=',$request->input('city_name'))
                         ->where('ticket_status_id','!=', 3)->get();
         if ($values->count() >= 1){
-        foreach($values as $val){
-            $id = $val->id;
-        }
+            foreach($values as $val){
+                $id = $val->id;
+            }
         return redirect('/repairs')->with('error', 'Уже имеется открытая заявка! Номер заявки: '.$id);
         } else {
             $repair                     = new Repair;
@@ -191,19 +191,22 @@ class RepairsController extends Controller
         ]);
         // create repair
         $repair = Repair::find($id);
+        if ($request->input('status_name') != 0) {
+            $repair->ticket_status_id = $requers->input('status_name');
+        }
+        if ($request->input('city_name') != 0) {
+            $repair->city_id = $request->input('city_name');
+        }
         $repair->login = $request->input('login');
-        $repair->city_id = $request->input('city_id');
         $repair->street = $request->input('street');
         $repair->build = $request->input('build');
         $repair->phone_num = $request->input('phone_num');
         $repair->vlan_name = $request->input('vlan_name');
         $repair->cause = $request->input('cause');
         $repair->comment = $request->input('comment');
-        
-        //$repair->user_id = auth()->user()->id;
         $repair->save();
 
-        return redirect('/repairs')->with('success', 'Repair Updated');
+        return redirect('/repairs')->with('success', 'Заявка на ремонт обновлена!');
     }
 
     /**

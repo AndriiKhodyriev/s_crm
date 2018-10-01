@@ -97,8 +97,6 @@
                             $('#cause').val(data.cause);
                             $('#comment').val(data.cause);
                             $('#action').val(data.id);
-                            $('#status_name option[value='+data.ticket_status_id+']').attr('selected', 'selected');
-                            $('#city_name option[value='+data.city_id+']').attr('selected', 'selected');
                             $('#action_module').attr('action','/repairs/'+data.id);
                         }
                 })
@@ -128,7 +126,8 @@
 	                                { data: 'created_at',            name: 'created_at'},
                                     { data: 'status_name',           name: 'status_name'},
 	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
-                            ]
+                            ],
+                    order: [ [0, 'desc']]
                     });
                 });
             });
@@ -145,19 +144,20 @@
                                 serverSide: true,
                                 ajax: url,
                                 columns: [
-                                    { data: 'id',                    name: 'id' },
-	                                { data: 'login',                 name: 'login'},
-	                                { data: 'city_name',             name: 'city_name' },
-	                                { data: 'street',                name: 'street' },
-	                                { data: 'build',                 name: 'build' },
-	                                { data: 'vlan_name',             name: 'vlan_name' },
-	                                { data: 'phone_num',             name: 'phone_num'},
-	                                { data: 'cause',                 name: 'cause'},
-	                                { data: 'comment',               name: 'comment'},
-	                                { data: 'created_at',            name: 'created_at'},
-                                    { data: 'status_name',           name: 'status_name'},
-	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
-                                ]
+                                            { data: 'id',                    name: 'id' },
+                                            { data: 'login',                 name: 'login'},
+                                            { data: 'city_name',             name: 'city_name' },
+                                            { data: 'street',                name: 'street' },
+                                            { data: 'build',                 name: 'build' },
+                                            { data: 'vlan_name',             name: 'vlan_name' },
+                                            { data: 'phone_num',             name: 'phone_num'},
+                                            { data: 'cause',                 name: 'cause'},
+                                            { data: 'comment',               name: 'comment'},
+                                            { data: 'created_at',            name: 'created_at'},
+                                            { data: 'status_name',           name: 'status_name'},
+                                            { data: 'action',                name: 'action', orderable: false, searchable: false}
+                                ],
+                                order: [ [0, 'desc']]
                             });
                         });
                 });
@@ -185,7 +185,8 @@
 	                                { data: 'created_at',            name: 'created_at'},
                                     { data: 'status_name',           name: 'status_name'},
 	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
-	                            ]
+	                            ],
+                order: [ [0, 'desc']]
 
 	        });
     });

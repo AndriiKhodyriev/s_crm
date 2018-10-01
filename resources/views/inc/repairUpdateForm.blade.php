@@ -15,23 +15,26 @@
         <div class="form-group">
             {{Form::label('status', 'Сатус заявки')}}
             <select name="status_name" id="status_name">
+                    <option value="0">Выберете город для изменения!</option>
                 @foreach($statuses as $status)
                     <option value="{{$status->id}}">{{$status->name}}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group">
+                {{Form::label('city', 'Город')}}
+                <select name="city_name" id="city_name">
+                        <option value="0">Выберите статус для изменения!</option>
+                    @foreach($cities as $city)
+                        <option value="{{$city->id}}">{{$city->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        <div class="form-group">
             {{Form::label('login', 'Логин')}}
             {{Form::text('login','',['class' => 'form-control', 'id' => 'username'])}}
         </div>
-        <div class="form-group">
-            {{Form::label('city', 'Город')}}
-            <select name="city_name" id="city_name">
-                @foreach($cities as $city)
-                    <option value="{{$city->id}}">{{$city->name}}</option>
-                @endforeach
-            </select>
-        </div>
+        
         <div class="form-group">
             {{Form::label('street', 'Улица')}}
             {{Form::text('street','',['class' => 'form-control', 'id' => 'str', 'placeholder' => 'Ульяновская ул.'])}}
@@ -63,9 +66,6 @@
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
-      </div>
 
     </div>
   </div>
