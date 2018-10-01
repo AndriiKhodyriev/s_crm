@@ -11,16 +11,28 @@
                 <div class="modal-body">  
                     {!! Form::open(['id' => 'action_module', 'class' => 'form-horizontal', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!} 
                         <div class="form-group">
-                            {{Form::label('street', 'Улица')}}
-                            {{Form::text('street','',['id'=> 'str', 'class' => 'form-control'])}}
+                            {{Form::label('city_name', 'Город заявки')}}
+                            <select name="city_name" id="city_name">
+                                    <option value="0">Выберете город для изменения!</option>
+                                @foreach($cities as $city)
+                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                @endforeach
+                                <span>Для изменения города, выберите из списка</span>
+                            </select>
                         </div>
                         <div class="form-group">
                             {{Form::label('status', 'Сатус заявки')}}
                             <select name="status_name" id="status_name">
+                                    <option value="0">Выберите статус для изменения!</option>
                                 @foreach($statuses as $status)
                                     <option value="{{$status->id}}">{{$status->name}}</option>
                                 @endforeach
+                                <span>Для изменения статуса, выберите из списка.</span>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('street', 'Улица')}}
+                            {{Form::text('street','',['id'=> 'str', 'class' => 'form-control'])}}
                         </div>
                         <div class="form-group">
                             {{Form::label('build', 'Дом')}}

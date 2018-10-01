@@ -161,12 +161,17 @@ class JoinsController extends Controller
             'phone_num' => 'required',
         ]);
         $join                     = Join::find($id);
+            if ($request->input('status_name') != 0) {
+                $join->ticket_status_id   = $request->input('status_name');
+            }
+            if ($request->input('city_name') != 0) { 
+                $join->city_id   = $request->input('city_name');
+            }
         $join->street             = $request->input('street');
         $join->build              = $request->input('build');
         $join->full_name          = $request->input('full_name');
         $join->phone_num          = $request->input('phone_num');
         $join->comment            = $request->input('comment');
-        $join->ticket_status_id   = 3;
         $join->save();
         return redirect('/joins')->with('success', 'Измененно');
 
