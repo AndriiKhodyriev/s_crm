@@ -20,3 +20,7 @@ Route::resource('repairs', 'RepairsController');
     Route::get('/datatablesRepairCityId/{id}', 'RepairsController@datatablesRepairCityId');
     Route::get('/datatablesRepairsFindByTicId/{id}', 'RepairsController@datatablesRepairsFindByTicId');
     
+
+Auth::routes();
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+//Route::get('/home', 'HomeController@index')->name('home');

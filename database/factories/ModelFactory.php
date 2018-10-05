@@ -57,7 +57,7 @@ $factory->define(App\Join::class, function (Faker\Generator $faker) {
         'phone_num' => $faker->phoneNumber,
         'comment' => $faker->sentence,
         'ticket_status_id' => rand(1,3),
-        'city_id' => rand(1,2),
+        'city_id' => rand(1,5),
 
 
     ];
