@@ -19,7 +19,7 @@ Route::resource('repairs', 'RepairsController');
     Route::post('/datablesRepairFindById', 'RepairsController@datablesRepairFindById');
     Route::get('/datatablesRepairCityId/{id}', 'RepairsController@datatablesRepairCityId');
     Route::get('/datatablesRepairsFindByTicId/{id}', 'RepairsController@datatablesRepairsFindByTicId');
-    
+Route::resource('cities', 'CitiesController');
 
 Auth::routes();
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

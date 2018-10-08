@@ -62,6 +62,21 @@
                         </li>
 
                         <li>
+                                <a class="tooltip-tip" href="#" title="Заявки">
+                                    <i class="icon-view-thumb"></i>
+                                    <span>Управление данными</span>
+    
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a class="tooltip-tip2" href="/cities" title="Населенные пункты"><i class="entypo-doc-text"></i><span>Населенные пункт</span></a>
+                                    </li>
+                                    <li>
+                                        <a class="tooltip-tip2" href="/statuses" title="Статусы заявок"><i class="entypo-newspaper"></i><span>Статусы заявок</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <li>
                             <a class="tooltip-tip ajax-load" href="index.html" title="Dashboard">
                                 <i class="icon-window"></i>
                                 <span>Dashboard</span>
