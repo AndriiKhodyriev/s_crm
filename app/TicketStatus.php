@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketStatus extends Model
 {
+    public $timestamps = false;
     public function joins(){
         return $this->hasMany('App\Join');
     }
