@@ -1,3 +1,4 @@
+@if(Auth::check())
 <div id="skin-select">
         <div id="logo">
             <h1>kronos CRM
@@ -233,4 +234,6 @@
             </div>
         </div>
     </div>
+    @else 
+    @endif
     <!-- END OF SIDE MENU -->

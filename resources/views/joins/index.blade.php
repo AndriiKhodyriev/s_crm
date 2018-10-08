@@ -51,6 +51,7 @@
                 </div>
             </div>
         <hr>
+        
             <table id="joins_table" class="table ">
                 <thead>
                     <tr>
