@@ -33,15 +33,15 @@
                         <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
                             <li>
                                 <a href="#">
-                                    <span class="entypo-user"></span>&#160;&#160;Мой профиль</a>
+                                    <span class="entypo-user"></span>&#160;&#160;<del>Мой профиль</del></a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="entypo-vcard"></span>&#160;&#160;Настройки</a>
+                                    <span class="entypo-vcard"></span>&#160;&#160;<del>Настройки</del></a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="entypo-lifebuoy"></span>&#160;&#160;Помощь</a>
+                                    <span class="entypo-lifebuoy"></span>&#160;&#160;<del>Помощь</del></a>
                             </li>
                             <li class="divider"></li>
                             <li>

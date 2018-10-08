@@ -77,7 +77,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        <li>
+                        {{-- <li>
                             <a class="tooltip-tip ajax-load" href="index.html" title="Dashboard">
                                 <i class="icon-window"></i>
                                 <span>Dashboard</span>
@@ -138,7 +138,7 @@
                                 <i class="icon-download"></i>
                                 <span>Login</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                     </ul>
 
@@ -152,7 +152,7 @@
                             </a>
                         </li>
 
-
+{{-- 
                         <li>
                             <a class="tooltip-tip" href="#" title="UI Element">
                                 <i class="icon-monitor"></i>
@@ -228,7 +228,7 @@
                                 <span>Map</span>
 
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
