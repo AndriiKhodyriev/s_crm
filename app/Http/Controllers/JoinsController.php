@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Join;
 use App\City;
@@ -108,7 +109,8 @@ class JoinsController extends Controller
             'full_name' => 'required',
             'phone_num' => 'required',
         ]);
-
+         //get user id
+         $userId = Auth::id();   
          //create post 
          $joins                     = new Join;
          $joins->city_id            = $request->input('city_name');
@@ -118,6 +120,8 @@ class JoinsController extends Controller
          $joins->phone_num          = $request->input('phone_num');
          $joins->comment            = $request->input('comment');
          $joins->ticket_status_id   = 1;
+         $joins->create_user_id   = $userId;
+         $joins->close_user_id   = $userId;
 
          $joins->save();
          return redirect('/joins')->with('success', 'Заявка составлена');
@@ -160,6 +164,11 @@ class JoinsController extends Controller
             'full_name' => 'required',
             'phone_num' => 'required',
         ]);
+        
+        //get user id
+        $userId = Auth::id();   
+        //$userId = 1;   
+        
         $join                     = Join::find($id);
             if ($request->input('status_name') != 0) {
                 $join->ticket_status_id   = $request->input('status_name');
@@ -172,6 +181,7 @@ class JoinsController extends Controller
         $join->full_name          = $request->input('full_name');
         $join->phone_num          = $request->input('phone_num');
         $join->comment            = $request->input('comment');
+        $join->close_user_id   = $userId;
         $join->save();
         return redirect('/joins')->with('success', 'Измененно');
 

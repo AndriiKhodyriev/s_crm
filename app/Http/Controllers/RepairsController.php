@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Repair;
 use App\City;
@@ -120,6 +121,9 @@ class RepairsController extends Controller
             'comment' => 'nullable'
 
         ]);
+        
+        //get user id
+        $userId = Auth::id();   
         // create repair 
         $values = Repair::select(['id', 'ticket_status_id', 'login'])
                         ->where('login','=',$request->input('login'))
@@ -141,6 +145,9 @@ class RepairsController extends Controller
             $repair->cause              = $request->input('cause');
             $repair->comment            = $request->input('comment');
             $repair->ticket_status_id   = 1;
+            $repair->create_user_id   = $userId;
+            $repair->close_user_id   = $userId;
+
             $repair->save();
 
             return redirect('/repairs')->with('success', 'Заявка составлена');
@@ -188,6 +195,8 @@ class RepairsController extends Controller
             'comment' => 'nullable'
 
         ]);
+        //get user id
+        $userId = Auth::id(); 
         // create repair
         $repair = Repair::find($id);
         if ($request->input('status_name') != 0) {
@@ -203,6 +212,8 @@ class RepairsController extends Controller
         $repair->vlan_name = $request->input('vlan_name');
         $repair->cause = $request->input('cause');
         $repair->comment = $request->input('comment');
+        $repair->create_user_id   = $userId;
+        $repair->close_user_id   = $userId;
         $repair->save();
 
         return redirect('/repairs')->with('success', 'Заявка на ремонт обновлена!');

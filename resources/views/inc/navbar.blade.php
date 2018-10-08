@@ -44,7 +44,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('logout') }}">
                                 <span class="entypo-logout"></span>&#160;&#160;Выйти</a>
                         </li>
                     </ul>
