@@ -63,6 +63,7 @@
                         <th>Телефон</th>
                         <th>Дата составления заявки</th>
                         <th>Статус заявки</th>
+                        <th>Кем создана</th>
                         <th>Комментарий</th>
                         <th>action</th>
                     </tr>
@@ -197,14 +198,15 @@
                     ajax: '{{ url('datablesAllJoins') }}',
                     columns: [
                                 { data: 'id',               name: 'id' },
-                                { data: 'city_name',        name: 'city_name'},
+                                { data: 'city_name',        name: 'city_name' },
                                 { data: 'street',           name: 'street' },
                                 { data: 'build',            name: 'build' },
-                                { data: 'full_name',        name: 'full_name'},
-                                { data: 'phone_num',        name: 'phone_num'},
-                                { data: 'created_at',       name: 'created_at'},
-                                { data: 'status_name',      name: 'status_name'},
-                                { data: 'comment',          name: 'comment'},                               
+                                { data: 'full_name',        name: 'full_name' },
+                                { data: 'phone_num',        name: 'phone_num' },
+                                { data: 'created_at',       name: 'created_at' },
+                                { data: 'status_name',      name: 'status_name' },
+                                { data: 'user_name',        name: 'user_name' },
+                                { data: 'comment',          name: 'comment' },                               
                                 { data: 'action',           name: 'action', orderable: false, searchable: false}
                             ],
                     order: [ [0, 'desc']]

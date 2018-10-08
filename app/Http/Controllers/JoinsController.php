@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Join;
 use App\City;
+use App\User;
 use App\TicketStatus;
 use Datatables;
 use DB;
@@ -32,7 +33,16 @@ class JoinsController extends Controller
                                  return $join->city->name;
                             })
                             ->addColumn('status_name', function($join){
-                                return $join->ticketstatus->name;
+                                if($join->ticket_status_id == 1) {
+                                    return '<span class="label label-info">' . $join->ticketstatus->name . '</span>';
+                                } elseif ($join->ticket_status_id == 2) {
+                                    return '<span class="label label-warning">' . $join->ticketstatus->name . '</span>';
+                                } else {
+                                    return '<span class="label">' . $join->ticketstatus->name . '</span>';
+                                }
+                            })
+                            ->addColumn('user_name', function($join){
+                                return Join::find($join->id)->user->username;
                             })
                             ->addColumn('action', function($join){
                                 return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
@@ -53,7 +63,16 @@ class JoinsController extends Controller
                                     return $join->city->name;
                             })
                             ->addColumn('status_name', function($join){
-                                return $join->ticketstatus->name;
+                                if($join->ticket_status_id == 1) {
+                                    return '<span class="label label-info">' . $join->ticketstatus->name . '</span>';
+                                } elseif ($join->ticket_status_id == 2) {
+                                    return '<span class="label label-warning">' . $join->ticketstatus->name . '</span>';
+                                } elseif ($join->ticket_status_id == 3) {
+                                    return '<span class="label label-important">' . $join->ticketstatus->name . '</span>';
+                                }
+                            })
+                            ->addColumn('user_name', function($join){
+                                return Join::find($join->id)->user->username;
                             })
                             ->addColumn('action', function($join){
                                 return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
