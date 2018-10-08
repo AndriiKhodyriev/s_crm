@@ -191,7 +191,7 @@ class RepairsController extends Controller
         // create repair
         $repair = Repair::find($id);
         if ($request->input('status_name') != 0) {
-            $repair->ticket_status_id = $requers->input('status_name');
+            $repair->ticket_status_id = $request->input('status_name');
         }
         if ($request->input('city_name') != 0) {
             $repair->city_id = $request->input('city_name');
