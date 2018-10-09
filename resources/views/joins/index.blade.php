@@ -63,7 +63,7 @@
                         <th>Телефон</th>
                         <th>Дата составления заявки</th>
                         <th>Статус заявки</th>
-                        <th>Кем создана</th>
+                        <th>Кем создана/закрыта</th>
                         <th>Комментарий</th>
                         <th>action</th>
                     </tr>
@@ -118,6 +118,7 @@
                                     { data: 'phone_num',        name: 'phone_num'},
                                     { data: 'created_at',       name: 'created_at'},
                                     { data: 'status_name',      name: 'status_name'},
+                                    { data: 'user_name',        name: 'user_name' },
                                     { data: 'comment',          name: 'comment'},
                                     { data: 'action',           name: 'action', orderable: false, searchable: false}
                                 ],
@@ -145,6 +146,7 @@
                                     { data: 'phone_num',        name: 'phone_num'},
                                     { data: 'created_at',       name: 'created_at'},
                                     { data: 'status_name',      name: 'status_name'},
+                                    { data: 'user_name',        name: 'user_name' },
                                     { data: 'comment',          name: 'comment'},
                                     { data: 'action',           name: 'action', orderable: false, searchable: false}
                                 ],
