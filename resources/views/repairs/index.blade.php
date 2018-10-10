@@ -52,8 +52,7 @@
         </div>
         <hr>
 	<!-- Button to Open the Modal -->
-<div class="container">
-	<table id="repairs_table" class="table">
+<table id="repairs_table" class="table">
 		<thead>
 			<tr>
 				<th>id</th>
@@ -67,12 +66,11 @@
 				<th>Комментарий</th>
                 <th>Дата создания</th>
                 <th>Статус заявки</th>
+                <th>Кем создана / закрыта</th>
 				<th>Изменить</th>
 			</tr>
 		</thead>
     </table>
-</div>
-
 @include('inc.repairCreateForm')
 @include('inc.repairUpdateForm')
 <script type="text/javascript">
@@ -125,6 +123,7 @@
 	                                { data: 'comment',               name: 'comment'},
 	                                { data: 'created_at',            name: 'created_at'},
                                     { data: 'status_name',           name: 'status_name'},
+                                    { data: 'user_name',             name: 'user_name'},
 	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
                             ],
                     order: [ [0, 'desc']]
@@ -155,6 +154,7 @@
                                             { data: 'comment',               name: 'comment'},
                                             { data: 'created_at',            name: 'created_at'},
                                             { data: 'status_name',           name: 'status_name'},
+                                            { data: 'user_name',             name: 'user_name'},
                                             { data: 'action',                name: 'action', orderable: false, searchable: false}
                                 ],
                                 order: [ [0, 'desc']]
@@ -184,6 +184,7 @@
 	                                { data: 'comment',               name: 'comment'},
 	                                { data: 'created_at',            name: 'created_at'},
                                     { data: 'status_name',           name: 'status_name'},
+                                    { data: 'user_name',             name: 'user_name'},
 	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
 	                            ],
                 order: [ [0, 'desc']]

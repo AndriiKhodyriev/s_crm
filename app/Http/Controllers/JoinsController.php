@@ -26,7 +26,8 @@ class JoinsController extends Controller
         
     }
     public function datablesAllJoins(){ 
-        $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment'])
+        $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment', 
+                            'close_user_id', 'create_user_id', 'join_area'])
                         ->where('ticket_status_id', '!=', 3)->get();
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
@@ -42,7 +43,14 @@ class JoinsController extends Controller
                                 }
                             })
                             ->addColumn('user_name', function($join){
-                                return Join::find($join->id)->user->username;
+                                return '<span class="label label-info">' .  User::find($join->create_user_id)->username . '</span>';
+                            })
+                            ->addColumn('join_area', function($join){
+                                if($join->join_area == NULL) {
+                                    return '<span class="label label-important"> Место не установленно</span>';
+                                } else {
+                                    return '<span class="label label-info">' . $join->join_area . '</span>';
+                                }
                             })
                             ->addColumn('action', function($join){
                                 return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
@@ -56,7 +64,8 @@ class JoinsController extends Controller
     }
 
     public function datatablesFindByTicketStatusId($id){ 
-        $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment'])
+        $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                'close_user_id', 'create_user_id', 'join_area'])
                             ->where('ticket_status_id', '=', $id)->get();
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
@@ -72,7 +81,18 @@ class JoinsController extends Controller
                                 }
                             })
                             ->addColumn('user_name', function($join){
-                                return Join::find($join->id)->user->username;
+                                if($join->ticket_status_id == 3) {
+                                    return '<span class="label label-important">' . User::find($join->close_user_id)->username . '</span>';
+                                } else {
+                                    return '<span class="label label-info">' . User::find($join->create_user_id)->username . '</span>';
+                                }
+                            })
+                            ->addColumn('join_area', function($join){
+                                if($join->join_area == NULL) {
+                                    return '<span class="label label-important"> Место не установленно</span>';
+                                } else {
+                                    return '<span class="label label-info">' . $join->join_area . '</span>';
+                                }
                             })
                             ->addColumn('action', function($join){
                                 return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
@@ -81,11 +101,13 @@ class JoinsController extends Controller
     }
     public function datatablesFindByCityId($id){
         if($id == 0){
-            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment'])
+            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                'close_user_id', 'create_user_id', 'join_area'])
                             ->where('ticket_status_id', '!=', 3)
                             ->get();
         } else {
-            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment'])
+            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                'close_user_id', 'create_user_id', 'join_area'])
                             ->where('city_id','=', $id)
                             ->where('ticket_status_id', '!=', 3)
                             ->get();
@@ -105,7 +127,14 @@ class JoinsController extends Controller
                                 }
                             })
                             ->addColumn('user_name', function($join){
-                                return Join::find($join->id)->user->username;
+                                return '<span class="label label-info">' . User::find($join->create_user_id)->username . '</span>';
+                            })
+                            ->addColumn('join_area', function($join){
+                                if($join->join_area == NULL) {
+                                    return '<span class="label label-important"> Место не установленно</span>';
+                                } else {
+                                    return '<span class="label label-info">' . $join->join_area . '</span>';
+                                }
                             })
                             ->addColumn('action', function($join){
                                 return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
@@ -148,8 +177,8 @@ class JoinsController extends Controller
          $joins->phone_num          = $request->input('phone_num');
          $joins->comment            = $request->input('comment');
          $joins->ticket_status_id   = 1;
-         $joins->create_user_id   = $userId;
-         $joins->close_user_id   = $userId;
+         $joins->create_user_id     = $userId;
+         $joins->close_user_id      = $userId;
 
          $joins->save();
          return redirect('/joins')->with('success', 'Заявка составлена');
@@ -200,18 +229,22 @@ class JoinsController extends Controller
         $join                     = Join::find($id);
             if ($request->input('status_name') != 0) {
                 $join->ticket_status_id   = $request->input('status_name');
+                if($request->input('status_name') == 3) {
+                    $join->close_user_id = $userId;
+                }
             }
             if ($request->input('city_name') != 0) { 
                 $join->city_id   = $request->input('city_name');
             }
+
         $join->street             = $request->input('street');
         $join->build              = $request->input('build');
         $join->full_name          = $request->input('full_name');
         $join->phone_num          = $request->input('phone_num');
         $join->comment            = $request->input('comment');
-        $join->close_user_id   = $userId;
+        $join->join_area          = $request->input('join_area');
         $join->save();
-        return redirect('/joins')->with('success', 'Измененно');
+        return redirect('/joins')->with('success', 'Заявка на подключение обновлена!');
 
     }
 
@@ -219,7 +252,7 @@ class JoinsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response 
      */
     public function destroy($id)
     {

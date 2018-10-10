@@ -31,6 +31,10 @@
                             </select>
                         </div>
                         <div class="form-group">
+                                {{Form::label('join_area', 'Место включения!')}}
+                                {{Form::text('join_area','',['id'=> 'join_area', 'class' => 'form-control'])}}
+                            </div>
+                        <div class="form-group">
                             {{Form::label('street', 'Улица')}}
                             {{Form::text('street','',['id'=> 'str', 'class' => 'form-control'])}}
                         </div>

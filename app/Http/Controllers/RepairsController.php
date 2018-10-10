@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Repair;
 use App\City;
+use App\User;
 use App\TicketStatus;
 use Illuminate\Support\Facades\App;
 use Datatables;
@@ -28,14 +29,21 @@ class RepairsController extends Controller
     public function datablesAllRepairs()
     {
         $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment', 
-                                'ticket_status_id', 'created_at'])
+                                'ticket_status_id', 'created_at','create_user_id'])
                           ->where('ticket_status_id', '!=', 3)->get();
         return Datatables::of($repairs)
                             ->addColumn('city_name', function($repair){
                                 return $repair->city->name;
                             })
                             ->addColumn('status_name', function($repair){
-                                return $repair->ticketstatus->name;
+                                if($repair->ticket_status_id == 1) { 
+                                    return '<span class="label label-info">' .  $repair->ticketstatus->name . '</span>';
+                                } else {
+                                    return '<span class="label label-warning">' .  $repair->ticketstatus->name . '</span>';
+                                }
+                            })
+                            ->addColumn('user_name', function($repair){
+                                return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
                             })
                             ->addColumn('action', function($repair){
                                 return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
@@ -52,14 +60,30 @@ class RepairsController extends Controller
 
     public function datatablesRepairsFindByTicId($id){
         $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id'])
+                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id'])
                           ->where('ticket_status_id', '=', $id)->get();
         return Datatables::of($repairs)
                             ->addColumn('city_name', function($repair){
                                 return $repair->city->name;
                             })
                             ->addColumn('status_name', function($repair){
+                                if($repair->ticket_status_id == 1) {
+                                    return '<span class="label label-info">' .  $repair->ticketstatus->name . '</span>';
+                                } elseif($repair->ticket_status_id == 2) {
+                                    return '<span class="label label-warning">' .  $repair->ticketstatus->name . '</span>';
+                                } elseif ($repair->ticket_status_id == 3) {
+                                    return '<span class="label label-important">' .  $repair->ticketstatus->name . '</span>';
+                                } else {
+
+                                }
                                 return $repair->ticketstatus->name;
+                            })
+                            ->addColumn('user_name', function($repair){
+                                if($repair->ticket_status_id == 3) {
+                                    return '<span class="label label-important">' .  User::find($repair->close_user_id)->username . '</span>';
+                                } else { 
+                                    return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
+                                }   
                             })
                             ->addColumn('action', function($repair){
                                 return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
@@ -70,11 +94,11 @@ class RepairsController extends Controller
     public function datatablesRepairCityId($id) {
         if ($id == 0){
             $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id'])
+                                'created_at', 'ticket_status_id','create_user_id'])
                         ->where('ticket_status_id', '!=', 3)->get();
         } else {
             $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id'])
+                                'created_at', 'ticket_status_id', 'create_user_id'])
                           ->where('city_id', '=', $id)
                           ->where('ticket_status_id','!=',3)->get();
         }
@@ -84,7 +108,10 @@ class RepairsController extends Controller
                                 return $repair->city->name;
                             })
                             ->addColumn('status_name', function($repair){
-                                return $repair->ticketstatus->name;
+                                return '<span class="label label-info">' .  $repair->ticketstatus->name . '</span>';
+                            })
+                            ->addColumn('user_name', function($repair){
+                                return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
                             })
                             ->addColumn('action', function($repair){
                                 return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
@@ -201,19 +228,20 @@ class RepairsController extends Controller
         $repair = Repair::find($id);
         if ($request->input('status_name') != 0) {
             $repair->ticket_status_id = $request->input('status_name');
+            if($request->input('status_name') == 3){
+                $repair->close_user_id = $userId;
+            }
         }
         if ($request->input('city_name') != 0) {
             $repair->city_id = $request->input('city_name');
         }
-        $repair->login = $request->input('login');
-        $repair->street = $request->input('street');
-        $repair->build = $request->input('build');
-        $repair->phone_num = $request->input('phone_num');
-        $repair->vlan_name = $request->input('vlan_name');
-        $repair->cause = $request->input('cause');
-        $repair->comment = $request->input('comment');
-        $repair->create_user_id   = $userId;
-        $repair->close_user_id   = $userId;
+        $repair->login              = $request->input('login');
+        $repair->street             = $request->input('street');
+        $repair->build              = $request->input('build');
+        $repair->phone_num          = $request->input('phone_num');
+        $repair->vlan_name          = $request->input('vlan_name');
+        $repair->cause              = $request->input('cause');
+        $repair->comment            = $request->input('comment');
         $repair->save();
 
         return redirect('/repairs')->with('success', 'Заявка на ремонт обновлена!');

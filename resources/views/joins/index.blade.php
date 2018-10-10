@@ -65,6 +65,7 @@
                         <th>Статус заявки</th>
                         <th>Кем создана/закрыта</th>
                         <th>Комментарий</th>
+                        <th>Место включения GPON</th>
                         <th>action</th>
                     </tr>
             </table>
@@ -92,6 +93,7 @@
                             $('#phone_num').val(data.phone_num);
                             $('#comment').val(data.comment);
                             $('#action').val(data.id);
+                            $('#join_area').val(data.join_area);
                             $('#action_module').attr('action','/joins/'+data.id);
                         }
                 })
@@ -120,6 +122,7 @@
                                     { data: 'status_name',      name: 'status_name'},
                                     { data: 'user_name',        name: 'user_name' },
                                     { data: 'comment',          name: 'comment'},
+                                    { data: 'join_area',        name: 'join_area'},
                                     { data: 'action',           name: 'action', orderable: false, searchable: false}
                                 ],
                                 order: [ [0, 'desc']]
@@ -148,6 +151,7 @@
                                     { data: 'status_name',      name: 'status_name'},
                                     { data: 'user_name',        name: 'user_name' },
                                     { data: 'comment',          name: 'comment'},
+                                    { data: 'join_area',        name: 'join_area'},
                                     { data: 'action',           name: 'action', orderable: false, searchable: false}
                                 ],
                         order: [ [0, 'desc']]
@@ -208,7 +212,8 @@
                                 { data: 'created_at',       name: 'created_at' },
                                 { data: 'status_name',      name: 'status_name' },
                                 { data: 'user_name',        name: 'user_name' },
-                                { data: 'comment',          name: 'comment' },                               
+                                { data: 'comment',          name: 'comment' },
+                                { data: 'join_area',        name: 'join_area'},                               
                                 { data: 'action',           name: 'action', orderable: false, searchable: false}
                             ],
                     order: [ [0, 'desc']]
