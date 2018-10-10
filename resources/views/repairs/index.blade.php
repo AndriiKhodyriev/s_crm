@@ -121,7 +121,7 @@
 	                                { data: 'phone_num',             name: 'phone_num'},
 	                                { data: 'cause',                 name: 'cause'},
 	                                { data: 'comment',               name: 'comment'},
-	                                { data: 'created_at',            name: 'created_at'},
+	                                { data: 'date_action',           name: 'date_action'},
                                     { data: 'status_name',           name: 'status_name'},
                                     { data: 'user_name',             name: 'user_name'},
 	                                { data: 'action',                name: 'action', orderable: false, searchable: false}
@@ -152,7 +152,7 @@
                                             { data: 'phone_num',             name: 'phone_num'},
                                             { data: 'cause',                 name: 'cause'},
                                             { data: 'comment',               name: 'comment'},
-                                            { data: 'created_at',            name: 'created_at'},
+                                            { data: 'date_action',           name: 'date_action'},
                                             { data: 'status_name',           name: 'status_name'},
                                             { data: 'user_name',             name: 'user_name'},
                                             { data: 'action',                name: 'action', orderable: false, searchable: false}
@@ -182,7 +182,7 @@
 	                                { data: 'phone_num',             name: 'phone_num'},
 	                                { data: 'cause',                 name: 'cause'},
 	                                { data: 'comment',               name: 'comment'},
-	                                { data: 'created_at',            name: 'created_at'},
+	                                { data: 'date_action',           name: 'date_action'},
                                     { data: 'status_name',           name: 'status_name'},
                                     { data: 'user_name',             name: 'user_name'},
 	                                { data: 'action',                name: 'action', orderable: false, searchable: false}

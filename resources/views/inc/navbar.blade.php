@@ -28,7 +28,7 @@
             <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
                     <li>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" class="admin-pic img-circle" src="">Привет, {{Auth::user()->username}} <b class="caret"></b>
+                            <img alt="" class="admin-pic img-circle" src="">Привет,<b> {{Auth::user()->username}} </b><b class="caret"></b>
                         </a>
                         <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
                             <li>

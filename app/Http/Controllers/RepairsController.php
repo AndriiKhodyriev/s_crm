@@ -42,6 +42,9 @@ class RepairsController extends Controller
                                     return '<span class="label label-warning">' .  $repair->ticketstatus->name . '</span>';
                                 }
                             })
+                            ->addColumn('date_action', function($repair){
+                                return '<span class="label label-info">' .  $repair->created_at . '</span>';
+                            })
                             ->addColumn('user_name', function($repair){
                                 return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
                             })
@@ -60,7 +63,7 @@ class RepairsController extends Controller
 
     public function datatablesRepairsFindByTicId($id){
         $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id'])
+                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
                           ->where('ticket_status_id', '=', $id)->get();
         return Datatables::of($repairs)
                             ->addColumn('city_name', function($repair){
@@ -78,6 +81,13 @@ class RepairsController extends Controller
                                 }
                                 return $repair->ticketstatus->name;
                             })
+                            ->addColumn('date_action', function($repair){
+                                if($repair->ticket_status_id == 3) {
+                                    return '<span class="label label-important">' .  $repair->updated_at . '</span>';
+                                } else { 
+                                    return '<span class="label label-info">' .  $repair->created_at . '</span>';
+                                }
+                            })
                             ->addColumn('user_name', function($repair){
                                 if($repair->ticket_status_id == 3) {
                                     return '<span class="label label-important">' .  User::find($repair->close_user_id)->username . '</span>';
@@ -94,11 +104,11 @@ class RepairsController extends Controller
     public function datatablesRepairCityId($id) {
         if ($id == 0){
             $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id','create_user_id'])
+                                'created_at', 'ticket_status_id','create_user_id', 'created_at'])
                         ->where('ticket_status_id', '!=', 3)->get();
         } else {
             $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id', 'create_user_id'])
+                                'created_at', 'ticket_status_id', 'create_user_id', 'created_at'])
                           ->where('city_id', '=', $id)
                           ->where('ticket_status_id','!=',3)->get();
         }
@@ -106,6 +116,9 @@ class RepairsController extends Controller
         return Datatables::of($repairs)
                             ->addColumn('city_name', function($repair){
                                 return $repair->city->name;
+                            })
+                            ->addColumn('date_action', function($repair){
+                                return '<span class="label label-info">' .  $repair->created_at . '</span>';
                             })
                             ->addColumn('status_name', function($repair){
                                 return '<span class="label label-info">' .  $repair->ticketstatus->name . '</span>';

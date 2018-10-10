@@ -60,11 +60,11 @@
                         <th>Улица</th>
                         <th>Дом</th>
                         <th>ФИО</th>
-                        <th>Телефон</th>
-                        <th>Дата составления заявки</th>
+                        <th>Телефон</th>.
+                        <th>Комментарий</th>
+                        <th>Создано / Закрыто </th>
                         <th>Статус заявки</th>
                         <th>Кем создана/закрыта</th>
-                        <th>Комментарий</th>
                         <th>Место включения GPON</th>
                         <th>action</th>
                     </tr>
@@ -118,10 +118,10 @@
                                     { data: 'build',            name: 'build' },
                                     { data: 'full_name',        name: 'full_name'},
                                     { data: 'phone_num',        name: 'phone_num'},
-                                    { data: 'created_at',       name: 'created_at'},
+                                    { data: 'comment',          name: 'comment'},
+                                    { data: 'date_action',      name: 'date_action' },
                                     { data: 'status_name',      name: 'status_name'},
                                     { data: 'user_name',        name: 'user_name' },
-                                    { data: 'comment',          name: 'comment'},
                                     { data: 'join_area',        name: 'join_area'},
                                     { data: 'action',           name: 'action', orderable: false, searchable: false}
                                 ],
@@ -147,10 +147,10 @@
                                     { data: 'build',            name: 'build' },
                                     { data: 'full_name',        name: 'full_name'},
                                     { data: 'phone_num',        name: 'phone_num'},
-                                    { data: 'created_at',       name: 'created_at'},
+                                    { data: 'comment',          name: 'comment'},
+                                    { data: 'date_action',      name: 'date_action' },
                                     { data: 'status_name',      name: 'status_name'},
                                     { data: 'user_name',        name: 'user_name' },
-                                    { data: 'comment',          name: 'comment'},
                                     { data: 'join_area',        name: 'join_area'},
                                     { data: 'action',           name: 'action', orderable: false, searchable: false}
                                 ],
@@ -172,15 +172,6 @@
                         dataType:"json",
                         success:function(data)
                         {
-                            // Убираем все значения selected (для установки верного если больше 
-                            // 3 статусов установить в переменную coulumn в нужное количество )
-                            var count = 0; 
-                            var column = 3;
-                            while(count<=column){
-                                $('#status_name option[value='+count+']').removeAttr('selected');
-                                count++;
-                            }
-                            //$('#status_name option[value='+data.ticket_status_id+']').attr('selected', 'selected');
                             $('#updateJoin').modal('show');
                             $('#str').val(data.street);
                             $('#build').val(data.build);
@@ -209,10 +200,10 @@
                                 { data: 'build',            name: 'build' },
                                 { data: 'full_name',        name: 'full_name' },
                                 { data: 'phone_num',        name: 'phone_num' },
-                                { data: 'created_at',       name: 'created_at' },
+                                { data: 'comment',          name: 'comment' },
+                                { data: 'date_action',      name: 'date_action' },
                                 { data: 'status_name',      name: 'status_name' },
                                 { data: 'user_name',        name: 'user_name' },
-                                { data: 'comment',          name: 'comment' },
                                 { data: 'join_area',        name: 'join_area'},                               
                                 { data: 'action',           name: 'action', orderable: false, searchable: false}
                             ],

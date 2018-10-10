@@ -42,8 +42,11 @@ class JoinsController extends Controller
                                     return '<span class="label">' . $join->ticketstatus->name . '</span>';
                                 }
                             })
+                            ->addColumn('date_action', function($join){
+                                    return '<span class="label label-info">' .$join->created_at. '</span>';   
+                            })
                             ->addColumn('user_name', function($join){
-                                return '<span class="label label-info">' .  User::find($join->create_user_id)->username . '</span>';
+                                return '<span class="label label-info">' . User::find($join->create_user_id)->username . '</span>';
                             })
                             ->addColumn('join_area', function($join){
                                 if($join->join_area == NULL) {
@@ -65,7 +68,7 @@ class JoinsController extends Controller
 
     public function datatablesFindByTicketStatusId($id){ 
         $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
-                                'close_user_id', 'create_user_id', 'join_area'])
+                                'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
                             ->where('ticket_status_id', '=', $id)->get();
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
@@ -78,6 +81,13 @@ class JoinsController extends Controller
                                     return '<span class="label label-warning">' . $join->ticketstatus->name . '</span>';
                                 } elseif ($join->ticket_status_id == 3) {
                                     return '<span class="label label-important">' . $join->ticketstatus->name . '</span>';
+                                }
+                            })
+                            ->addColumn('date_action', function($join){
+                                if($join->ticket_status_id == 3) {
+                                    return '<span class="label label-important">' . $join->updated_at . '</span>';
+                                } else {
+                                    return '<span class="label label-info">' . $join->created_at . '</span>';
                                 }
                             })
                             ->addColumn('user_name', function($join){
@@ -125,6 +135,9 @@ class JoinsController extends Controller
                                 } elseif ($join->ticket_status_id == 3) {
                                     return '<span class="label label-important">' . $join->ticketstatus->name . '</span>';
                                 }
+                            })
+                            ->addColumn('date_action', function($join){
+                                return '<span class="label label-info">' . $join->created_at . '</span>';
                             })
                             ->addColumn('user_name', function($join){
                                 return '<span class="label label-info">' . User::find($join->create_user_id)->username . '</span>';
