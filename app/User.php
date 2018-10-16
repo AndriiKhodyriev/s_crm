@@ -27,14 +27,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function joins(){
+    public function joinsCreate(){
         return $this->hasMany('App\Join', 'create_user_id', 'id'); //select * from joins 
                                                                     //where joins.create_user_id 
                                                                     // = 
                                                                      // нашему users.id
     }
-    /*public function repairs()
-    {
-        return $this->belongsToMany('App\Repair');
-    }*/
+    public function joinsClose(){
+        return $this->hasMany('App\Join', 'close_user_id', 'id'); 
+    }
+    public function repairsCreate(){
+        return $this->hasMany('App\Repair', 'create_user_id', 'id'); 
+    }
+    public function repairsClose(){
+        return $this->hasMany('App\Repair', 'close_user_id', 'id'); 
+    }
+    
 }
