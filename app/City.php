@@ -15,5 +15,8 @@ class City extends Model
     public function repairs(){ 
         return $this->hasMany('App\Repair');
     }
-    
+     public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }
