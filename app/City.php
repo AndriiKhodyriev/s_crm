@@ -15,4 +15,5 @@ class City extends Model
     public function repairs(){ 
         return $this->hasMany('App\Repair');
     }
+    
 }

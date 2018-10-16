@@ -25,10 +25,15 @@ class JoinsController extends Controller
         return view('joins.index')->with(['cities' => $cities, 'statuses' => $statuses]);
         
     }
-    public function datablesAllJoins(){ 
+    public function datablesAllJoins(Request $request){ 
+        $userId = $request->user()->id;
         $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment', 
                             'close_user_id', 'create_user_id', 'join_area'])
-                        ->where('ticket_status_id', '!=', 3)->get();
+                        //->where([['ticket_status_id', '=', 4],['create_user_id', '=', $userId]])
+                        //->where('ticket_status_id', '!=', 3)
+                        ->whereIn('ticket_status_id', [1,2,3,4])
+                        ->where('create_user_id', '=', $userId)
+                        ->get();
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                  return $join->city->name;
@@ -67,9 +72,13 @@ class JoinsController extends Controller
     }
 
     public function datatablesFindByTicketStatusId($id){ 
+        
+        //print_r($user);
         $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                 'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
-                            ->where('ticket_status_id', '=', $id)->get();
+                            
+                            ->where('ticket_status_id', '=', $id)
+                            ->get();
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                     return $join->city->name;

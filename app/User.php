@@ -42,5 +42,11 @@ class User extends Authenticatable
     public function repairsClose(){
         return $this->hasMany('App\Repair', 'close_user_id', 'id'); 
     }
+    public function cities(){
+        return $this->hasMany('App\City'); 
+    }
+    public function role(){
+        return $this->belongsTo('App\Role'); 
+    }
     
 }
