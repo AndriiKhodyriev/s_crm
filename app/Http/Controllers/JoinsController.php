@@ -23,7 +23,7 @@ class JoinsController extends Controller
          $user = $request->user();
         
 
-        if ($user->is('grunt')) {
+        if ($user->hasRole('grunt')) {
             $cities_id = [];
             foreach ($user->cities as $city) {
                 array_push($cities_id, $city->id);
@@ -39,33 +39,27 @@ class JoinsController extends Controller
         return view('joins.index')->with(['cities' => $cities, 'statuses' => $statuses]);
         
     }
-    public function datablesAllJoins(Request $request){ 
+    public function datablesAllJoins(Request $request)
+    { 
         $user = $request->user();
         
 
-        if ($user->is('grunt')) {
+        if ($user->hasRole('grunt')) {
             $cities = [];
             foreach ($user->cities as $city) {
                 array_push($cities, $city->id);
             };
-
             $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment', 
                             'close_user_id', 'create_user_id', 'join_area'])
-                        //->where([['ticket_status_id', '=', 4],['create_user_id', '=', $userId]])
                         ->where('ticket_status_id', '!=', 3)
                         ->whereIn('city_id', $cities)
-                        //->where('create_user_id', '=', $userId)
                         ->get();
         } else {
             $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment', 
                             'close_user_id', 'create_user_id', 'join_area'])
-                        //->where([['ticket_status_id', '=', 4],['create_user_id', '=', $userId]])
                         ->where('ticket_status_id', '!=', 3)
-                        //->whereIn('ticket_status_id', [1,2,3,4])
-                        //->where('create_user_id', '=', $userId)
                         ->get();
-        }
-        
+        };
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                  return $join->city->name;
@@ -109,12 +103,11 @@ class JoinsController extends Controller
         $user = $request->user();
         
 
-        if ($user->is('grunt')) {
+        if ($user->hasRole('grunt')) {
             $cities = [];
             foreach ($user->cities as $city) {
                 array_push($cities, $city->id);
             };
-
             $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                 'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
                             
@@ -122,14 +115,13 @@ class JoinsController extends Controller
                             ->whereIn('city_id', $cities)
                             ->get();
         } else {
-
             $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                     'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
                                 
                                 ->where('ticket_status_id', '=', $id)
                                 ->get();
                 };                
-        return Datatables::of($joins)
+            return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                     return $join->city->name;
                             })
@@ -173,7 +165,7 @@ class JoinsController extends Controller
             $user = $request->user();
         
 
-            if ($user->is('grunt')) {
+            if ($user->hasRole('grunt')) {
                 $cities = [];
                 foreach ($user->cities as $city) {
                     array_push($cities, $city->id);
@@ -194,7 +186,7 @@ class JoinsController extends Controller
             $user = $request->user();
         
 
-            if ($user->is('grunt')) {
+            if ($user->hasRole('grunt')) {
                 $cities = [];
                 foreach ($user->cities as $city) {
                     array_push($cities, $city->id);

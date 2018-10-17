@@ -48,7 +48,7 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo('App\Role'); 
     }
-    public function is($roleName)
+    public function hasRole($roleName)
     {
         foreach ($this->role()->get() as $role)
         {

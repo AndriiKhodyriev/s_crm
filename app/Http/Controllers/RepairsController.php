@@ -24,7 +24,7 @@ class RepairsController extends Controller
         $user = $request->user();
         
 
-        if ($user->is('grunt')) {
+        if ($user->hasRole('grunt')) {
             $cities_id = [];
             foreach ($user->cities as $city) {
                 array_push($cities_id, $city->id);
@@ -45,7 +45,7 @@ class RepairsController extends Controller
         $user = $request->user();
         
 
-        if ($user->is('grunt')) {
+        if ($user->hasRole('grunt')) {
             $cities = [];
             foreach ($user->cities as $city) {
                 array_push($cities, $city->id);
@@ -58,7 +58,8 @@ class RepairsController extends Controller
         } else {
             $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment', 
                                 'ticket_status_id', 'created_at','create_user_id'])
-                          ->where('ticket_status_id', '!=', 3)->get();
+                          ->where('ticket_status_id', '!=', 3)
+                          ->get();
         };    
         
         return Datatables::of($repairs)
@@ -95,7 +96,7 @@ class RepairsController extends Controller
         $user = $request->user();
         
 
-        if ($user->is('grunt')) {
+        if ($user->hasRole('grunt')) {
             $cities = [];
             foreach ($user->cities as $city) {
                 array_push($cities, $city->id);
@@ -152,7 +153,7 @@ class RepairsController extends Controller
         $user = $request->user();
         if ($id == 0){
             
-            if ($user->is('grunt')) {
+            if ($user->hasRole('grunt')) {
                 $cities = [];
                 foreach ($user->cities as $city) {
                     array_push($cities, $city->id);
@@ -172,7 +173,7 @@ class RepairsController extends Controller
                         ->where('ticket_status_id', '!=', 3)->get();
              }   
         } else {
-            if ($user->is('grunt')) {
+            if ($user->hasRole('grunt')) {
                 $cities = [];
                 foreach ($user->cities as $city) {
                     array_push($cities, $city->id);
