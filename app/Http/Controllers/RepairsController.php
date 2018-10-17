@@ -149,7 +149,7 @@ class RepairsController extends Controller
                             ->make(true);
     }
 
-    public function datatablesRepairCityId($id) {
+    public function datatablesRepairCityId(Request $request, $id) {
         $user = $request->user();
         if ($id == 0){
             

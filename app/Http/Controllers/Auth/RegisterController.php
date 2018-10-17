@@ -78,7 +78,10 @@ class RegisterController extends Controller
         $user->password = bcrypt($data['password']);
         //$user->email = 'useremail@something.com';
         $user->save();
-        $user->cities()->attach($data['city']);
+        if (isset($data['city'])) {
+            $user->cities()->attach($data['city']);
+        }
+        
         return $user;
     }
 }

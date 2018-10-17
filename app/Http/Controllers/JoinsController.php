@@ -160,7 +160,7 @@ class JoinsController extends Controller
                             })
                             ->make(true);
     }
-    public function datatablesFindByCityId($id){
+    public function datatablesFindByCityId(Request $request, $id){
         if($id == 0){
             $user = $request->user();
         
