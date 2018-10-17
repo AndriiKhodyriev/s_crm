@@ -27,10 +27,12 @@ class CitiesController extends Controller
     {
         $this->validate($request, [
             'city' => 'required',
+            'chat_id' => 'required',
         ]);
 
         $city = new City;
         $city->name = $request->input('city');
+        $city->chat_id = $request->input('chat_id');
         $city->save();
 
         return redirect('/cities')->with('success', 'Город был успешно создан!');

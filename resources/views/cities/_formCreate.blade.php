@@ -13,13 +13,17 @@
                             {{Form::label('city', 'Полное название населенного пункта')}}
                             {{Form::text('city','',['class' => 'form-control', 'placeholder' => 'Полное название!'])}}
                         </div>
+                        <div class="form-group">
+                            {{Form::label('chat_id', 'ID чата телеграмма!')}}
+                            {{Form::text('chat_id','',['class' => 'form-control', 'placeholder' => '-1001179946668'])}}
+                        </div>
+
                 </div>      
                 <!-- Modal footer -->
                 <div class="modal-footer">
                         {{Form::submit('Создать запись!', ['class' => 'btn btn-success'])}}
                         {!! Form::close() !!}
                 </div>
-                    
             </div>
         </div>
     </div>

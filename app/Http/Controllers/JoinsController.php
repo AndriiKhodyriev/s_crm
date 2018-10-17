@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Join;
 use App\City;
 use App\User;
+use App\Moduls\Telegram;
 use App\TicketStatus;
 use Datatables;
 use DB;
@@ -42,7 +43,6 @@ class JoinsController extends Controller
     public function datablesAllJoins(Request $request)
     { 
         $user = $request->user();
-        
 
         if ($user->hasRole('grunt')) {
             $cities = [];
@@ -276,9 +276,15 @@ class JoinsController extends Controller
          $joins->ticket_status_id   = 1;
          $joins->create_user_id     = $userId;
          $joins->close_user_id      = $userId;
-
          $joins->save();
-         return redirect('/joins')->with('success', 'Заявка составлена');
+         $city = City::find($request->input('city_name'));
+         $chat_id = $city->chat_id;
+         $text = "ЗАЯВКА НА ПОДКЛЮЧЕНИЕ!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
+                . "\r\n Телефон : " . $request->input('phone_num') 
+                . "\r\n ФИО : " . $request->input('full_name') 
+                . "\r\n Комментарий : " . $request->input('comment');
+         sendMessage($text, $chat_id);
+         return redirect('/joins')->with('success', 'Заявка сформирована! Сообщение было отправленно! ');
     }
 
     /**
