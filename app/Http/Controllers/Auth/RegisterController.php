@@ -34,10 +34,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest');
+    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -60,7 +60,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(Request $request, array $data )
     {
         /*return User::create([
             'username' => $data['username'],
@@ -78,10 +78,10 @@ class RegisterController extends Controller
         $user->password = bcrypt($data['password']);
         //$user->email = 'useremail@something.com';
         $user->save();
+        
         if (isset($data['city'])) {
             $user->cities()->attach($data['city']);
         }
-        
         return $user;
     }
 }

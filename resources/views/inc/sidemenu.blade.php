@@ -51,7 +51,6 @@
                             </a>
                         </li>
                     </ul>
-
                     <ul class="topnav menu-left-nest">
                         <li>
                             <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
@@ -77,13 +76,22 @@
                                     </li>
                                 </ul>
                             </li>
-                        {{-- <li>
-                            <a class="tooltip-tip ajax-load" href="index.html" title="Dashboard">
-                                <i class="icon-window"></i>
-                                <span>Dashboard</span>
-
-                            </a>
-                        </li>
+                            <li>
+                                    <a class="tooltip-tip" href="#" title="Заявки">
+                                        <i class="icon-document-new"></i>
+                                        <span>Пользователи</span>
+        
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a class="tooltip-tip2" href="/allUsers" title="Все пользователи"><i class="entypo-doc-text"></i><span>Все пользователи</span></a>
+                                        </li>
+                                        <li>
+                                            <a class="tooltip-tip2" href="/register" title="Регистрация"><i class="entypo-newspaper"></i><span>Регистрация</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                        {{--
                         <li>
                             <a class="tooltip-tip ajax-load" href="mail.html" title="Mail">
                                 <i class="icon-mail"></i>

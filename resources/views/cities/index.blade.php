@@ -52,6 +52,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">НАЗВАНИЕ</th>
+                <th scope="col">ЧАТ ID</th>
               </tr>
             </thead>
             <tbody>
@@ -59,6 +60,7 @@
             <tr>
                 <th scope="row">{{$city->id}}</th>
                 <td>{{$city->name}}</td>
+                <td>{{$city->chat_id}}</td>
             </tr>
         @endforeach
 </div>
