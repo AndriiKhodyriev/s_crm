@@ -38,6 +38,18 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group">
+                            @foreach (App\Role::all() as $role)
+                                {!! Form::Label('name', $role->name) !!}
+                                {!! Form::radio('role', $role->id, ['class' => 'form-control']) !!}
+                            @endforeach
+                        </div>
+                        <div class="form-group">
+                            @foreach (App\City::all() as $city)
+                                {!! Form::Label('name', $city->name) !!}
+                                {!! Form::checkbox('city[]', $city->id, false) !!}
+                            @endforeach
+                        </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>

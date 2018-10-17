@@ -36,8 +36,10 @@ $factory->define(App\Repair::class, function (Faker\Generator $faker) {
         'phone_num' => $faker->phoneNumber,
         'vlan_name' => $faker->randomNumber,
         'cause' => $faker->sentence,
-        'ticket_status_id' => rand(1,3),
-        'city_id' => rand(1,2),
+        'ticket_status_id' => rand(1,4),
+        'city_id' => rand(1,4),
+        'create_user_id' => rand(1,2),
+        'close_user_id' => rand(13,14),
 
 
     ];
@@ -56,8 +58,10 @@ $factory->define(App\Join::class, function (Faker\Generator $faker) {
         'full_name' => $faker->name,
         'phone_num' => $faker->phoneNumber,
         'comment' => $faker->sentence,
-        'ticket_status_id' => rand(1,3),
-        'city_id' => rand(1,5),
+        'ticket_status_id' => rand(1,4),
+        'city_id' => rand(1,4),
+        'create_user_id' => rand(1,2),
+        'close_user_id' => rand(13,14),
 
 
     ];

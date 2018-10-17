@@ -18,22 +18,54 @@ class JoinsController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cities = City::all();
+         $user = $request->user();
+        
+
+        if ($user->is('grunt')) {
+            $cities_id = [];
+            foreach ($user->cities as $city) {
+                array_push($cities_id, $city->id);
+            };
+        //$cities = City::all();
+            $cities = City::select(['id','name'])
+                    ->whereIn('id', $cities_id)
+                    ->get();
+        } else {
+            $cities = City::all();
+        }            
         $statuses = TicketStatus::all();
         return view('joins.index')->with(['cities' => $cities, 'statuses' => $statuses]);
         
     }
     public function datablesAllJoins(Request $request){ 
-        $userId = $request->user()->id;
-        $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment', 
+        $user = $request->user();
+        
+
+        if ($user->is('grunt')) {
+            $cities = [];
+            foreach ($user->cities as $city) {
+                array_push($cities, $city->id);
+            };
+
+            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment', 
                             'close_user_id', 'create_user_id', 'join_area'])
                         //->where([['ticket_status_id', '=', 4],['create_user_id', '=', $userId]])
-                        //->where('ticket_status_id', '!=', 3)
-                        ->whereIn('ticket_status_id', [1,2,3,4])
-                        ->where('create_user_id', '=', $userId)
+                        ->where('ticket_status_id', '!=', 3)
+                        ->whereIn('city_id', $cities)
+                        //->where('create_user_id', '=', $userId)
                         ->get();
+        } else {
+            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment', 
+                            'close_user_id', 'create_user_id', 'join_area'])
+                        //->where([['ticket_status_id', '=', 4],['create_user_id', '=', $userId]])
+                        ->where('ticket_status_id', '!=', 3)
+                        //->whereIn('ticket_status_id', [1,2,3,4])
+                        //->where('create_user_id', '=', $userId)
+                        ->get();
+        }
+        
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                  return $join->city->name;
@@ -71,14 +103,32 @@ class JoinsController extends Controller
         return response()->json($join);
     }
 
-    public function datatablesFindByTicketStatusId($id){ 
+    public function datatablesFindByTicketStatusId(Request $request, $id){ 
         
         //print_r($user);
-        $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+        $user = $request->user();
+        
+
+        if ($user->is('grunt')) {
+            $cities = [];
+            foreach ($user->cities as $city) {
+                array_push($cities, $city->id);
+            };
+
+            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                 'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
                             
                             ->where('ticket_status_id', '=', $id)
+                            ->whereIn('city_id', $cities)
                             ->get();
+        } else {
+
+            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                    'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
+                                
+                                ->where('ticket_status_id', '=', $id)
+                                ->get();
+                };                
         return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                     return $join->city->name;
@@ -120,16 +170,49 @@ class JoinsController extends Controller
     }
     public function datatablesFindByCityId($id){
         if($id == 0){
-            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+            $user = $request->user();
+        
+
+            if ($user->is('grunt')) {
+                $cities = [];
+                foreach ($user->cities as $city) {
+                    array_push($cities, $city->id);
+                };
+
+                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                'close_user_id', 'create_user_id', 'join_area'])
+                            ->where('ticket_status_id', '!=', 3)
+                            ->whereIn('city_id', $cities)
+                            ->get();
+            } else {
+                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                 'close_user_id', 'create_user_id', 'join_area'])
                             ->where('ticket_status_id', '!=', 3)
                             ->get();
+            }                
         } else {
-            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+            $user = $request->user();
+        
+
+            if ($user->is('grunt')) {
+                $cities = [];
+                foreach ($user->cities as $city) {
+                    array_push($cities, $city->id);
+                };
+
+                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                'close_user_id', 'create_user_id', 'join_area'])
+                            ->where('city_id','=', $id)
+                            ->where('ticket_status_id', '!=', 3)
+                            ->whereIn('city_id', $cities)
+                            ->get();
+            } else {
+                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                 'close_user_id', 'create_user_id', 'join_area'])
                             ->where('city_id','=', $id)
                             ->where('ticket_status_id', '!=', 3)
                             ->get();
+            }
         }
 
         return Datatables::of($joins)

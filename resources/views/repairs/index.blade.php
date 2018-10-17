@@ -42,11 +42,11 @@
             </div>
             <div class="col-sm-2"> 
                     <select name="cities" class="city-ch">
-                            <option value="0">Все города</option>
-                        @foreach($cities as $city)
-                            <option value="{{$city->id}}">{{$city->name}}</option>
-                        @endforeach
-                    </select>
+                                <option value="0">Все города</option>
+                                @foreach($cities as $city)
+                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                @endforeach     
+                        </select>
                     <span>Для выборки по объекту - выберите город</span>
             </div>
         </div>

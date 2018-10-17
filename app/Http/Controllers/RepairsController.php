@@ -19,18 +19,48 @@ class RepairsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $user = $request->user();
+        
+
+        if ($user->is('grunt')) {
+            $cities_id = [];
+            foreach ($user->cities as $city) {
+                array_push($cities_id, $city->id);
+            };
+        //$cities = City::all();
+            $cities = City::select(['id','name'])
+                    ->whereIn('id', $cities_id)
+                    ->get();
+        } else {
+            $cities = City::all();
+        }            
         $statuses = TicketStatus::all();
-        $cities = City::all();
         return view('repairs.index')->with(['cities' => $cities, 'statuses' => $statuses]);
     }
 
-    public function datablesAllRepairs()
+    public function datablesAllRepairs(Request $request)
     {
-        $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment', 
+        $user = $request->user();
+        
+
+        if ($user->is('grunt')) {
+            $cities = [];
+            foreach ($user->cities as $city) {
+                array_push($cities, $city->id);
+            };
+            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment', 
+                                'ticket_status_id', 'created_at','create_user_id'])
+                          ->where('ticket_status_id', '!=', 3)
+                          ->whereIn('city_id', $cities)
+                          ->get();
+        } else {
+            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment', 
                                 'ticket_status_id', 'created_at','create_user_id'])
                           ->where('ticket_status_id', '!=', 3)->get();
+        };    
+        
         return Datatables::of($repairs)
                             ->addColumn('city_name', function($repair){
                                 return $repair->city->name;
@@ -61,10 +91,27 @@ class RepairsController extends Controller
         return response()->json($repair);
     }
 
-    public function datatablesRepairsFindByTicId($id){
-        $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+    public function datatablesRepairsFindByTicId(Request $request, $id){
+        $user = $request->user();
+        
+
+        if ($user->is('grunt')) {
+            $cities = [];
+            foreach ($user->cities as $city) {
+                array_push($cities, $city->id);
+            };
+            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                          ->where('ticket_status_id', '=', $id)
+                          ->whereIn('city_id', $cities)
+                          ->get();
+        } else {
+            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
                           ->where('ticket_status_id', '=', $id)->get();
+        }    
+
+        
         return Datatables::of($repairs)
                             ->addColumn('city_name', function($repair){
                                 return $repair->city->name;
@@ -102,15 +149,47 @@ class RepairsController extends Controller
     }
 
     public function datatablesRepairCityId($id) {
+        $user = $request->user();
         if ($id == 0){
-            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+            
+            if ($user->is('grunt')) {
+                $cities = [];
+                foreach ($user->cities as $city) {
+                    array_push($cities, $city->id);
+                };
+
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                'created_at', 'ticket_status_id','create_user_id', 'created_at'])
+                        ->where('ticket_status_id', '!=', 3)
+                        ->whereIn('city_id', $cities)
+                        ->get();
+                
+             } else {
+               
+
+               $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id','create_user_id', 'created_at'])
                         ->where('ticket_status_id', '!=', 3)->get();
+             }   
         } else {
-            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+            if ($user->is('grunt')) {
+                $cities = [];
+                foreach ($user->cities as $city) {
+                    array_push($cities, $city->id);
+                };
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                'created_at', 'ticket_status_id', 'create_user_id', 'created_at'])
+                          ->where('city_id', '=', $id)
+                          ->where('ticket_status_id','!=',3)
+                          ->whereIn('city_id', $cities)
+                          ->get();
+            } else {
+                
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id', 'create_user_id', 'created_at'])
                           ->where('city_id', '=', $id)
                           ->where('ticket_status_id','!=',3)->get();
+            }
         }
         
         return Datatables::of($repairs)
