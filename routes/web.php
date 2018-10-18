@@ -21,8 +21,9 @@ Route::resource('repairs', 'RepairsController');
     Route::get('/datatablesRepairsFindByTicId/{id}', 'RepairsController@datatablesRepairsFindByTicId');
 Route::resource('cities', 'CitiesController');
 Route::resource('statuses', 'StatusesController');
-
-
+Route::resource('users', 'UsersController');
+// Route::get('/users', 'UsersController@index');
+    Route::post('/findUserId', 'UsersController@getUser');  
 Auth::routes();
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 //Route::get('/home', 'HomeController@index')->name('home');

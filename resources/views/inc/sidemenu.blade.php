@@ -84,7 +84,7 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a class="tooltip-tip2" href="/allUsers" title="Все пользователи"><i class="entypo-doc-text"></i><span>Все пользователи</span></a>
+                                            <a class="tooltip-tip2" href="/users" title="Все пользователи"><i class="entypo-doc-text"></i><span>Все пользователи</span></a>
                                         </li>
                                         <li>
                                             <a class="tooltip-tip2" href="/register" title="Регистрация"><i class="entypo-newspaper"></i><span>Регистрация</span></a>
