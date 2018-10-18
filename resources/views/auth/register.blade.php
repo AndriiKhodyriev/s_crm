@@ -38,19 +38,27 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            @foreach (App\Role::all() as $role)
-                                {!! Form::Label('name', $role->name) !!}
-                                {!! Form::radio('role', $role->id, ['class' => 'form-control']) !!}
-                            @endforeach
-                        </div>
-                        <div class="form-group">
-                            @foreach (App\City::all() as $city)
-                                {!! Form::Label('name', $city->name) !!}
-                                {!! Form::checkbox('city[]', $city->id, false) !!}
-                            @endforeach
-                        </div>
-
+                        <div class="container">
+                                <div class="col-sm-3">
+                                    <span>Объекты пользователя: </span>
+                                    @foreach (App\City::all() as $city)
+                                        <div class="form-check">
+                                            {!! Form::checkbox('city[]', $city->id, false) !!}
+                                            {!! Form::Label('name', $city->name) !!}
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="col-sm-2">
+                                    <span>Роль пользователя: </span>
+                                    @foreach (App\Role::all() as $role)
+                                        <div class="form-check">
+                                            {!! Form::radio('role', $role->id, ['class' => 'form-control']) !!}
+                                            {!! Form::Label('name', $role->name) !!}
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                      
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
