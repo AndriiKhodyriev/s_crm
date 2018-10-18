@@ -51,6 +51,8 @@
 
                 </div>
             </div>
+            
+
         <hr>
         
             <table id="joins_table" class="table ">
@@ -66,8 +68,9 @@
                         <th>Создано / Закрыто </th>
                         <th>Статус заявки</th>
                         <th>Кем создана/закрыта</th>
-                        <th>Место включения GPON</th>
+                        <th>GPON</th>
                         <th>action</th>
+                        <th>del</th>
                     </tr>
             </table>
             {{-- INCLUDE modal windows --}}
@@ -124,7 +127,9 @@
                                     { data: 'status_name',      name: 'status_name'},
                                     { data: 'user_name',        name: 'user_name' },
                                     { data: 'join_area',        name: 'join_area'},
-                                    { data: 'action',           name: 'action', orderable: false, searchable: false}
+                                    { data: 'action',           name: 'action', orderable: false, searchable: false},
+                                    { data: 'delete',           name: 'delete', orderable: false, searchable: false}
+
                                 ],
                                 order: [ [0, 'desc']]
                             });
@@ -153,7 +158,9 @@
                                     { data: 'status_name',      name: 'status_name'},
                                     { data: 'user_name',        name: 'user_name' },
                                     { data: 'join_area',        name: 'join_area'},
-                                    { data: 'action',           name: 'action', orderable: false, searchable: false}
+                                    { data: 'action',           name: 'action', orderable: false, searchable: false},
+                                    { data: 'delete',           name: 'delete', orderable: false, searchable: false}
+
                                 ],
                         order: [ [0, 'desc']]
                     });
@@ -206,7 +213,8 @@
                                 { data: 'status_name',      name: 'status_name' },
                                 { data: 'user_name',        name: 'user_name' },
                                 { data: 'join_area',        name: 'join_area'},                               
-                                { data: 'action',           name: 'action', orderable: false, searchable: false}
+                                { data: 'action',           name: 'action', orderable: false, searchable: false},
+                                { data: 'delete',           name: 'delete', orderable: false, searchable: false}
                             ],
                     order: [ [0, 'desc']]
                     });

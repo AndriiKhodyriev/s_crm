@@ -61,8 +61,8 @@
                 @endforeach
             </tbody>
 </div>
-@include('users._formEdit');
 
+@include('users._formEdit');
         <script>
             $(document).on('click', '.update', function(){
                 var id = $(this).attr("id");

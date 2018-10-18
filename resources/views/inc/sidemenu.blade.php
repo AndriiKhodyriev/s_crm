@@ -51,6 +51,7 @@
                             </a>
                         </li>
                     </ul>
+                    @if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) 
                     <ul class="topnav menu-left-nest">
                         <li>
                             <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
@@ -91,6 +92,8 @@
                                         </li>
                                     </ul>
                                 </li>
+                        @else 
+                        @endif
                         {{--
                         <li>
                             <a class="tooltip-tip ajax-load" href="mail.html" title="Mail">
