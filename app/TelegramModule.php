@@ -1,6 +1,4 @@
 <?php
-namespace App\Moduls;
-
 if(!function_exists('sendMessage')) { 
     function sendMessage($text, $chat_id) {
         $telegramToken = env('TELEGRAM_TOKEN');
@@ -14,14 +12,10 @@ if(!function_exists('sendMessage')) {
                 CURLOPT_TIMEOUT => 10,
                 CURLOPT_POSTFIELDS => array(
                     'chat_id' => $chat_id,
-                    'parse_mode' => 'HTML',
                     'text' => $text,
                 ),
             )
         );
         curl_exec($ch);
-
     };
 }
-
-    
