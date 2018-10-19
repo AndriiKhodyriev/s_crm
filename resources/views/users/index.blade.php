@@ -32,9 +32,7 @@
 </div> --}}
 
 {{-- All list cities --}}
-<div class="container">
-      
-</div>
+@if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2)
 <div class="container">
     <h3>Список всех пользователей</h3>
     <table class="table">
@@ -89,4 +87,7 @@
                 })
             });
         </script>
+@else 
+        <h1>НЕТ ДОСТУПА</h1>
+@endif
 @endsection

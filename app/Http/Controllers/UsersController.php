@@ -36,6 +36,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->fullname = $request->input('full_name');
         $user->phone_num = $request->input('phone_num');
+        $user->role_id = $request->input('role');
         $cityVal = $request->input('city');
         if (isset($cityVal)) {
             $user->cities()->detach();

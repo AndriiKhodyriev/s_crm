@@ -34,10 +34,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest');
+    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -81,6 +81,7 @@ class RegisterController extends Controller
         if (isset($data['city'])) {
             $user->cities()->attach($data['city']);
         }
-        return $user;
+        return view('users.index');
+        // return $user;
     }
 }

@@ -21,6 +21,8 @@
                         </div>
                     </div>
 {{-- buttons CREATE and OTHER! --}}
+@if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2)
+
 <div class="container">
     <div class="row">
         <div class="col-sm-4"> 
@@ -64,4 +66,7 @@
             </tr>
         @endforeach
 </div>
+@else 
+    <h1>НЕТ ДОСТУПА</h1>
+@endif
 @endsection
