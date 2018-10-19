@@ -80,7 +80,16 @@ class RepairsController extends Controller
                                 return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
                             })
                             ->addColumn('action', function($repair){
-                                return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) {
+                                return '<form method="post" action="/repairs/'.$repair->id.'">
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <div class="form-group">
+                                        <input type="hidden" name="_token" value="'.csrf_token().'">
+                                        <button type="submit" class="label label-important">Удалить</button></form>
+                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                } else {
+                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                }
                             })
                             ->make(true);
     }
@@ -144,7 +153,16 @@ class RepairsController extends Controller
                                 }   
                             })
                             ->addColumn('action', function($repair){
-                                return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) {
+                                return '<form method="post" action="/repairs/'.$repair->id.'">
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <div class="form-group">
+                                        <input type="hidden" name="_token" value="'.csrf_token().'">
+                                        <button type="submit" class="label label-important">Удалить</button></form>
+                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                } else {
+                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                }
                             })
                             ->make(true);
     }
@@ -207,7 +225,16 @@ class RepairsController extends Controller
                                 return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
                             })
                             ->addColumn('action', function($repair){
-                                return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) {
+                                return '<form method="post" action="/repairs/'.$repair->id.'">
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <div class="form-group">
+                                        <input type="hidden" name="_token" value="'.csrf_token().'">
+                                        <button type="submit" class="label label-important">Удалить</button></form>
+                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                } else {
+                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                }
                             })
                             ->make(true);
     }
@@ -356,6 +383,8 @@ class RepairsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $repair = Repair::find($id);
+        $repair->delete();
+        return redirect('/repairs')->with('success', 'Заявка на ремонт УДАЛЕНА!');
     }
 }

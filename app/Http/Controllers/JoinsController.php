@@ -87,19 +87,16 @@ class JoinsController extends Controller
                                 }
                             })
                             ->addColumn('action', function($join){
-                                return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
-                            })
-                            ->addColumn('delete', function($join){
                                 if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) {
-                                    return '<form method="post" action="/joins/'.$join->id.'">
+                                return '<form method="post" action="/joins/'.$join->id.'">
                                         <input name="_method" type="hidden" value="DELETE">
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
-                                        <button type="submit" class="btn label-important">Delete</button>';
-                                } else { 
-                                    return "НЕТ ДОСТУПА";
+                                        <button type="submit" class="label label-important">Удалить</button></form>
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                } else {
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
                                 }
-                                
                             })
                             ->make(true);
     }
@@ -168,19 +165,16 @@ class JoinsController extends Controller
                                 }
                             })
                             ->addColumn('action', function($join){
-                                return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
-                            })
-                            ->addColumn('delete', function($join){
                                 if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) {
-                                    return '<form method="post" action="/joins/'.$join->id.'">
+                                return '<form method="post" action="/joins/'.$join->id.'">
                                         <input name="_method" type="hidden" value="DELETE">
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
-                                        <button type="submit" class="btn label-important">Delete</button>';
-                                } else { 
-                                    return "НЕТ ДОСТУПА";
+                                        <button type="submit" class="label label-important">Удалить</button></form>
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                } else {
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
                                 }
-                                
                             })
                             ->make(true);
     }
@@ -258,19 +252,16 @@ class JoinsController extends Controller
                                 }
                             })
                             ->addColumn('action', function($join){
-                                return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
-                            })
-                            ->addColumn('delete', function($join){
                                 if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) {
-                                    return '<form method="post" action="/joins/'.$join->id.'">
+                                return '<form method="post" action="/joins/'.$join->id.'">
                                         <input name="_method" type="hidden" value="DELETE">
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
-                                        <button type="submit" class="btn label-important">Delete</button>';
-                                } else { 
-                                    return "НЕТ ДОСТУПА";
+                                        <button type="submit" class="label label-important">Удалить</button></form>
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                } else {
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
                                 }
-                                
                             })
                             ->make(true);
     }
@@ -397,6 +388,6 @@ class JoinsController extends Controller
     {
         $join = Join::find($id);
         $join->delete();
-        return redirect('/joins')->with('success', 'Заявка на подключение УДАЛЕНА! ВОЗМОЖНО ПОЛУЧИТЕ ПИ!');
+        return redirect('/joins')->with('success', 'Заявка на подключение УДАЛЕНА!');
     }
 }
