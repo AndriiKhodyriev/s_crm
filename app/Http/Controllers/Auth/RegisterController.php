@@ -81,7 +81,6 @@ class RegisterController extends Controller
         if (isset($data['city'])) {
             $user->cities()->attach($data['city']);
         }
-        return view('users.index');
-        // return $user;
+        return $user;
     }
 }

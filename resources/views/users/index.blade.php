@@ -14,7 +14,7 @@
                                         <div class="tittle-middle-header">
                                             <div class="alert">
                                                 <button type="button" class="close" data-dismiss="alert">×</button>
-                                                <span class="tittle-alert entypo-info-circled"> Список всех городов! Для изменения и удаления вы должны быть администратором или менеджером </span>
+                                                <span class="tittle-alert entypo-info-circled"> Список всех пользователей! Город необходимо установить ТОЛЬКО пользователю с ролью GRUNT(мастер) </span>
                                             </div>
                                         </div>
                                     </div>
