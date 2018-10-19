@@ -37,14 +37,14 @@
                             </ul>
                         </li>
                         <li>
-                            <a class="tooltip-tip" href="social.html" title="База абонентов">
+                            <a class="tooltip-tip" href="/" title="База абонентов">
                                 <i class="entypo-users"></i>
                                 <span>База абонентов</span>
 
                             </a>
                         </li>
                         <li>
-                            <a class="tooltip-tip ajax-load" href="media.html" title="Задачи">
+                            <a class="tooltip-tip ajax-load" href="/" title="Задачи">
                                 <i class="entypo-flag"></i>
                                 <span>Задачи</span>
 
