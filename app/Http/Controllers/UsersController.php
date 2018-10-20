@@ -8,7 +8,7 @@ use App\User;
 class UsersController extends Controller
 {
     public function index() { 
-        $users = User::all();
+        $users = User::orderBy('id', 'desc')->paginate(10);
 
         return view('users.index')->with('users', $users);
     }
@@ -47,5 +47,23 @@ class UsersController extends Controller
         $user->save();
         return redirect('/users')->with('success', 'Пользователь изменен!');
 
+    }
+
+    public function store(Request $request){
+        $this->validate($request, [
+            'user_name' => 'required',
+            'full_name' => 'required',
+            'phone_num' => 'required',
+        ]);
+        $user = new User();
+
+        $user->username = $request->input('user_name');
+        $user->role_id = $request->input('role');
+        $user->fullname = $request->input('full_name');
+        $user->phone_num = $request->input('phone_num');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+        redirect('/');
+        return redirect('/users')->with('success', 'Пользователь создан!');
     }
 }

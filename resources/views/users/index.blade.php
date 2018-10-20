@@ -33,8 +33,12 @@
 
 {{-- All list cities --}}
 @if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2)
+
 <div class="container">
     <h3>Список всех пользователей</h3>
+    <button class="btn btn-warning" data-toggle="modal" data-target="#newUser">
+            Создать нового пользователя
+          </button>
     <table class="table">
             <thead>
               <tr>
@@ -57,10 +61,20 @@
                     <td><button type="button" name="update" id='{{$user->id}}' class="btn btn-warning btn-xs update" >Изменить</button></td>
                 </tr>
                 @endforeach
+                <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{$users->links()}}</td>
+                    </tr>
             </tbody>
 </div>
 
+
 @include('users._formEdit');
+@include('users._formNew');
         <script>
             $(document).on('click', '.update', function(){
                 var id = $(this).attr("id");
