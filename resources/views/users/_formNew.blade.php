@@ -12,8 +12,8 @@
             <div class="modal-body">
                     {!! Form::open(['action' => 'UsersController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
-                            {{Form::label('user_name', 'Логин: ')}}
-                            {{Form::text('user_name','',['id'=> 'user_name', 'class' => 'form-control', 'placeholder' => 'Иванов Иван Ианович'])}}
+                            {{Form::label('login', 'Логин: ')}}
+                            {{Form::text('login','',[ 'class' => 'form-control', 'placeholder' => 'Иванов Иван Ианович'])}}
                         </div>
                         <div class="container">
                             <div class="col-sm-6">
@@ -40,19 +40,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            {{Form::label('full_name', 'Ф.И.О.!')}}
-                            {{Form::text('full_name','',['id'=> 'full_name', 'class' => 'form-control', 'placeholder' => 'Иванов Иван Ианович'])}}
+                            {{Form::label('name', 'Ф.И.О.!')}}
+                            {{Form::text('name','',['class' => 'form-control', 'placeholder' => 'Иванов Иван Ианович'])}}
                         </div>
                         <div class="form-group">
-                            {{Form::label('phone_num', 'Номер телефона')}}
-                            {{Form::text('phone_num','',['id'=> 'phone_num', 'class' => 'form-control', 'placeholder' => '+380991234567'])}}
+                            {{Form::label('phone', 'Номер телефона')}}
+                            {{Form::text('phone','',['class' => 'form-control', 'placeholder' => '+380991234567'])}}
                         </div>
                         <div class="container">
                             <div class="col-sm-3">
                                 <span>Роль пользователя: </span>
                                 @foreach (App\Role::all() as $role)
                                     <div class="form-check">
-                                        {!! Form::radio('role', $role->id, false, ['id' => "role".$role->id]) !!}
+                                        {!! Form::radio('role', $role->id, false) !!}
                                         {!! Form::Label('name', $role->name) !!}
                                     </div>
                                 @endforeach

@@ -51,16 +51,16 @@ class UsersController extends Controller
 
     public function store(Request $request){
         $this->validate($request, [
-            'user_name' => 'required',
-            'full_name' => 'required',
-            'phone_num' => 'required',
+            'login' => 'required',
+            'name' => 'required',
+            'phone' => 'required',
         ]);
         $user = new User();
 
-        $user->username = $request->input('user_name');
+        $user->username = $request->input('login');
         $user->role_id = $request->input('role');
-        $user->fullname = $request->input('full_name');
-        $user->phone_num = $request->input('phone_num');
+        $user->fullname = $request->input('name');
+        $user->phone_num = $request->input('phone');
         $user->password = bcrypt($request->input('password'));
         $user->save();
         redirect('/');
