@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'password', 'role_id'
     ];
 
     /**
@@ -26,4 +26,39 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function joinsCreate(){
+        return $this->hasMany('App\Join', 'create_user_id', 'id'); //select * from joins 
+                                                                    //where joins.create_user_id 
+                                                                    // = 
+                                                                     // нашему users.id
+    }
+    public function joinsClose(){
+        return $this->hasMany('App\Join', 'close_user_id', 'id'); 
+    }
+    public function repairsCreate(){
+        return $this->hasMany('App\Repair', 'create_user_id', 'id'); 
+    }
+    public function repairsClose(){
+        return $this->hasMany('App\Repair', 'close_user_id', 'id'); 
+    }
+    public function cities(){
+        return $this->belongsToMany('App\City'); 
+    }
+    public function role(){
+        return $this->belongsTo('App\Role'); 
+    }
+    public function hasRole($roleName)
+    {
+        foreach ($this->role()->get() as $role)
+        {
+            if ($role->name == $roleName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
 }

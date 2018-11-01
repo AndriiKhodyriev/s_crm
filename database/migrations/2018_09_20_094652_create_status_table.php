@@ -13,7 +13,7 @@ class CreateStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_status', function($table){
+        Schema::create('ticket_statuses', function($table){
             $table->increments('id');
             $table->string('name');
         });
@@ -26,6 +26,6 @@ class CreateStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_status');
+        Schema::dropIfExists('ticket_statuses');
     }
 }
