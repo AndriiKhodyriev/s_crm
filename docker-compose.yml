@@ -1,0 +1,89 @@
+# version: '2'
+# services:
+
+#   # The Application
+#   app:
+#     build:
+#       context: ./
+#       dockerfile: app.dockerfile
+#     working_dir: /var/www/html/s_crm
+#     volumes:
+#       - ./:/var/www/html/s_crm
+#     environment:
+      
+#       - "DB_CONNECTION: mysql"
+#       - "DB_PORT: 3306"
+#       - "DB_HOST: 127.0.0.1"
+#       - "DB_DATABASE: scrm"
+#       - "DB_USERNAME: root"
+#       - "DB_PASSWORD: 1984"
+#     network_mode: "host"  
+
+#   # The Web Server
+#   web:
+#     build:
+#       context: ./
+#       dockerfile: web.dockerfile
+#     working_dir: /var/www/html/s_crm
+#     volumes:
+#       - ./:/var/www/html/s_crm
+#     ports:
+#       - 8080:80
+
+  # The Database
+#   database:
+#     image: mysql:5.6
+#     volumes:
+#       - dbdata:/var/lib/mysql
+#     environment:
+#       - "MYSQL_DATABASE=scrm"
+#       - "MYSQL_USER=root"
+#       - "MYSQL_PASSWORD=1984"
+#       - "MYSQL_ROOT_PASSWORD=1984"
+#     ports:
+#         - "33061:3306"
+
+# volumes:
+#   dbdata:
+
+version: '3'
+
+services: 
+  web: 
+    
+    build: 
+      context: ./
+      dockerfile: web.dockerfile
+    # network_mode: host
+    volumes:
+      - ./:/var/www/html/s_crm
+    ports:
+      - "9090:80"
+    
+    
+      
+    links:
+      - app
+
+      
+  app: 
+    restart: always
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    # network_mode: host
+    volumes:
+      - ./:/var/www/html/s_crm
+    # environment:
+      
+    #   - "DB_CONNECTION: mysql"
+    #   - "DB_PORT: 3306"
+    #   - "DB_HOST: 172.17.0.1"
+    #   - "DB_DATABASE: scrm"
+    #   - "DB_USERNAME: scrm"
+    #   - "DB_PASSWORD: 1984"
+    
+  
+      
+    # network_mode: "host"
+
