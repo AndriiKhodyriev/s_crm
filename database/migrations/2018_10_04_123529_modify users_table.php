@@ -22,7 +22,7 @@ class ModifyUsersTable extends Migration
             $table->string('phone_num')->nullable();
             $table->string('telegram_us')->unique()->nullable();
             $table->string('email')->nullable()->change();
-            
+            $table->integer('role_id')->nullable();
         });
     }
 

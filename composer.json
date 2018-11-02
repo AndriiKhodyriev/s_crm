@@ -11,6 +11,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "yajra/laravel-datatables-oracle": "~6.0"
+        
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
