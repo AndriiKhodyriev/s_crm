@@ -77,7 +77,7 @@ class RepairsController extends Controller
                                 return '<span class="label label-info">' .  $repair->created_at . '</span>';
                             })
                             ->addColumn('user_name', function($repair){
-                                return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
+                                return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span>';
                             })
                             ->addColumn('action', function($repair){
                                 if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) {
@@ -147,9 +147,9 @@ class RepairsController extends Controller
                             })
                             ->addColumn('user_name', function($repair){
                                 if($repair->ticket_status_id == 3) {
-                                    return '<span class="label label-important">' .  User::find($repair->close_user_id)->username . '</span>';
+                                    return '<span class="label label-important">' .  User::find($repair->close_user_id)->fullname . '</span>';
                                 } else { 
-                                    return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
+                                    return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span>';
                                 }   
                             })
                             ->addColumn('action', function($repair){
@@ -222,7 +222,7 @@ class RepairsController extends Controller
                                 return '<span class="label label-info">' .  $repair->ticketstatus->name . '</span>';
                             })
                             ->addColumn('user_name', function($repair){
-                                return '<span class="label label-info">' .  User::find($repair->create_user_id)->username . '</span>';
+                                return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span>';
                             })
                             ->addColumn('action', function($repair){
                                 if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) {

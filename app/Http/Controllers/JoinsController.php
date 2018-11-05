@@ -77,7 +77,7 @@ class JoinsController extends Controller
                                     return '<span class="label label-info">' .$join->created_at. '</span>';   
                             })
                             ->addColumn('user_name', function($join){
-                                return '<span class="label label-info">' . User::find($join->create_user_id)->username . '</span>';
+                                return '<span class="label label-info">' . User::find($join->create_user_id)->fullname . '</span>';
                             })
                             ->addColumn('join_area', function($join){
                                 if($join->join_area == NULL) {
@@ -152,9 +152,9 @@ class JoinsController extends Controller
                             })
                             ->addColumn('user_name', function($join){
                                 if($join->ticket_status_id == 3) {
-                                    return '<span class="label label-important">' . User::find($join->close_user_id)->username . '</span>';
+                                    return '<span class="label label-important">' . User::find($join->close_user_id)->fullname . '</span>';
                                 } else {
-                                    return '<span class="label label-info">' . User::find($join->create_user_id)->username . '</span>';
+                                    return '<span class="label label-info">' . User::find($join->create_user_id)->fullname . '</span>';
                                 }
                             })
                             ->addColumn('join_area', function($join){
@@ -242,7 +242,7 @@ class JoinsController extends Controller
                                 return '<span class="label label-info">' . $join->created_at . '</span>';
                             })
                             ->addColumn('user_name', function($join){
-                                return '<span class="label label-info">' . User::find($join->create_user_id)->username . '</span>';
+                                return '<span class="label label-info">' . User::find($join->create_user_id)->fullname . '</span>';
                             })
                             ->addColumn('join_area', function($join){
                                 if($join->join_area == NULL) {
