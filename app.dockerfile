@@ -6,9 +6,9 @@ RUN apt-get update && apt-get install -y libmcrypt-dev mysql-client git zip unzi
 WORKDIR /var/www/html/s_crm
 COPY . /var/www/html/s_crm
 RUN cd /var/www/html/s_crm
-RUN composer install 
-RUN php artisan cache:clear
+RUN chmod 777 -R /var/www/html/s_crm
+RUN composer install -d /var/www/html/s_crm
 RUN php artisan key:generate
 RUN php artisan optimize
-RUN composer update
 RUN php artisan migrate
+RUN php artisan db:seed
