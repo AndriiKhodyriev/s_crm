@@ -7,6 +7,7 @@ WORKDIR /var/www/html/s_crm
 COPY . /var/www/html/s_crm
 RUN cd /var/www/html/s_crm
 RUN chmod 777 -R /var/www/html/s_crm
+RUN chmod 777 -R /var/www/html/s_crm/storage
 RUN composer install -d /var/www/html/s_crm
 RUN php artisan key:generate
 RUN php artisan optimize
