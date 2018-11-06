@@ -93,7 +93,7 @@
                             $('#vlan_name').val(data.vlan_name);
                             $('#phone_num').val(data.phone_num);
                             $('#cause').val(data.cause);
-                            $('#comment').val(data.cause);
+                            $('#comment').val(data.comment);
                             $('#action').val(data.id);
                             $('#action_module').attr('action','/repairs/'+data.id);
                         }
