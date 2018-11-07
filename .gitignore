@@ -10,8 +10,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
-storage/framework/cache/data/63/2c/632c9d5c44e6c8f502a205173be93a6bd9875436
-storage/framework/cache/data/5c/16/5c16e9bf45b3e36a7209f9ad02547d9aa4567ff2
-storage/framework/cache/data/94/e1/94e1b4b7e1de236abd1d52b9d14cf5e4a430333f
-storage/framework/cache/data/f9/17/f91793b8df8757855df9974f2e53358f5a341325
-storage/framework/cache/data/f9/17/f91793b8df8757855df9974f2e53358f5a341325
+
