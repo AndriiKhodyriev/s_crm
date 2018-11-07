@@ -371,7 +371,15 @@ class RepairsController extends Controller
         $repair->cause              = $request->input('cause');
         $repair->comment            = $request->input('comment');
         $repair->save();
-
+        $city = City::find($repair->city_id);
+        $chat_id = $city->chat_id;
+        $text = "ЗАЯВКА НА РЕМОНТ!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
+                . "\r\n Телефон : "     . $request->input('phone_num') 
+                . "\r\n ЛОГИН : "       . $login
+                . "\r\n VLAN : "        . $request->input('vlan_name') 
+                . "\r\n Причина : "     . $request->input('cause')
+                . "\r\n Комментарий : " . $request->input('comment');
+        sendMessage($text, $chat_id);
         return redirect('/repairs')->with('success', 'Заявка на ремонт обновлена!');
     }
 
