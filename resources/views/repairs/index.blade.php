@@ -52,7 +52,11 @@
         </div>
         <hr>
 	<!-- Button to Open the Modal -->
-<table id="repairs_table" class="table">
+
+<div class="container">
+<div class="table-responsive">
+<table id="repairs_table" class="display responsive no-wrap" width="100%" data-page-length="25">
+{{-- <table id="repairs_table" class="table"> --}}
 		<thead>
 			<tr>
 				<th>id</th>
@@ -71,6 +75,8 @@
 			</tr>
 		</thead>
     </table>
+</div>
+</div>    
 @include('inc.repairCreateForm')
 @include('inc.repairUpdateForm')
 <script type="text/javascript">

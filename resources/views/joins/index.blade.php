@@ -56,8 +56,10 @@
             
 
         <hr>
-        
-            <table id="joins_table" class="table ">
+	    <div class="container">
+	    <div class="table-responsive">
+	    <table id="joins_table" class="display responsive no-wrap" width="100%" data-page-length="25">        
+            {{--<table id="joins_table" class="table "> --}}
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -75,6 +77,8 @@
                         {{-- <th>del</th> --}}
                     </tr>
             </table>
+            </div>
+            </div>
             {{-- INCLUDE modal windows --}}
    @include('joins._formNew')
    @include('joins._formEdit')
