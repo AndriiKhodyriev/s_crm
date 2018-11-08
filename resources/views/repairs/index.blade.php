@@ -6,7 +6,7 @@
                                     <div class="col-sm-3">
                                         <h2 class="tittle-content-header">
                                             <i class="icon-window"></i> 
-                                            <span>CRM</span>
+                                            <span>CRM | Заявки на ремонт</span>
                                         </h2>
                                     </div>
                                     <div class="col-sm-9">
