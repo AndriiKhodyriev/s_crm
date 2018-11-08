@@ -74,7 +74,8 @@ class RepairsController extends Controller
                                 }
                             })
                             ->addColumn('date_action', function($repair){
-                                return '<span class="label label-info">' .  $repair->created_at . '</span>';
+                                $date = $repair->created_at;
+                                return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                             })
                             ->addColumn('user_name', function($repair){
                                 return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span>';
@@ -168,9 +169,11 @@ class RepairsController extends Controller
                             })
                             ->addColumn('date_action', function($repair){
                                 if($repair->ticket_status_id == 3) {
-                                    return '<span class="label label-important">' .  $repair->updated_at . '</span>';
+                                    $date = $repair->updated_at;
+                                    return '<span class="label label-important">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                                 } else { 
-                                    return '<span class="label label-info">' .  $repair->created_at . '</span>';
+                                    $date = $repair->created_at;
+                                    return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                                 }
                             })
                             ->addColumn('user_name', function($repair){
@@ -240,7 +243,8 @@ class RepairsController extends Controller
                                 return $repair->city->name;
                             })
                             ->addColumn('date_action', function($repair){
-                                return '<span class="label label-info">' .  $repair->created_at . '</span>';
+                                $date = $repair->created_at;
+                                return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                             })
                             ->addColumn('status_name', function($repair){
                                 return '<span class="label label-info">' .  $repair->ticketstatus->name . '</span>';
