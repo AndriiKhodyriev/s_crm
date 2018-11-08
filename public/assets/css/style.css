@@ -287,12 +287,18 @@ body {
 }
 .label-warning {
     background-color: #FBB44C!important;
+    font-size: 10pt;
+    color: black;
 }
 .label-important {
     background-color: #FF6B6B!important;
+    font-size: 10pt;
+    color: black;
 }
 .label-info {
     background-color: #65C3DF!important;
+    font-size: 10pt;
+    color: black;
 }
 .label-inverse {
     background-color: #888!important;

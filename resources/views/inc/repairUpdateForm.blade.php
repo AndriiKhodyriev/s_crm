@@ -15,7 +15,7 @@
         <div class="form-group">
             {{Form::label('status', 'Сатус заявки')}}
             <select name="status_name" id="status_name">
-                    <option value="0">Выберете город для изменения!</option>
+                    <option value="0">Выберете статус для изменения!</option>
                 @foreach($statuses as $status)
                     <option value="{{$status->id}}">{{$status->name}}</option>
                 @endforeach
@@ -24,7 +24,7 @@
         <div class="form-group">
                 {{Form::label('city', 'Город')}}
                 <select name="city_name" id="city_name">
-                        <option value="0">Выберите статус для изменения!</option>
+                        <option value="0">Выберите город для изменения!</option>
                     @foreach($cities as $city)
                         <option value="{{$city->id}}">{{$city->name}}</option>
                     @endforeach

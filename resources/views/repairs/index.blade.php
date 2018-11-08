@@ -6,7 +6,7 @@
                                     <div class="col-sm-3">
                                         <h2 class="tittle-content-header">
                                             <i class="icon-window"></i> 
-                                            <span>CRM</span>
+                                            <span>CRM | Заявки на ремонт</span>
                                         </h2>
                                     </div>
                                     <div class="col-sm-9">
@@ -34,10 +34,10 @@
             </div>
             <div class="col-sm-2"> 
                 <div class="btn-group" position="rigth">
-
-                    <button class="btn btn-warning btn-select" id="1">Новые заявки</button>
-                    <button class="btn btn-danger btn-select" id="2">В работе</button>
-                    <button class="btn btn-info btn-select" id="3">Закрытые</button>
+                    <button class="btn btn-success btn-select" id="0">Все</button>
+                    <button class="btn btn-info btn-select" id="1">Новые заявки</button>
+                    <button class="btn btn-warning btn-select" id="2">В работе</button>
+                    <button class="btn btn-danger btn-select" id="3">Закрытые</button>
                 </div>
             </div>
             <div class="col-sm-2"> 
@@ -109,7 +109,8 @@
         <script type="text/javascript">
                 $(document).on('click', '.btn-select', function(){  
                     var id = $(this).attr("id");
-                    var url ='/datatablesRepairsFindByTicId/'+id;
+                    var cityID = $(".city-ch option:selected").val();
+                    var url ='/datatablesRepairsFindByTicId/'+id+'/'+cityID;
                     var table = $('#repairs_table').DataTable();
                     table.destroy();
                      $(function() {

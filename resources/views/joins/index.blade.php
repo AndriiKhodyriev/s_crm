@@ -6,7 +6,7 @@
                                     <div class="col-sm-3">
                                         <h2 class="tittle-content-header">
                                             <i class="icon-window"></i> 
-                                            <span>CRM</span>
+                                            <span>CRM | Заявки на подключения</span>
                                         </h2>
                                     </div>
                                     <div class="col-sm-9">
@@ -37,8 +37,7 @@
                         <button class="btn btn-success btn-select" id="0">Все</button>
                         <button class="btn btn-info btn-select" id="1">Новые заявки</button>
                         <button class="btn btn-warning btn-select" id="2">В работе</button>
-                        <button class="btn btn-danger btn-select" id="3">Закрытые</button>
-                        <button class="btn btn-dark btn-select" id="4">СРОЧНЫЕ</button>
+                        <button class="btn btn-danger btn-select" id="3">Подключенные</button>
                     </div>
                 </div>
                 <div class="col-sm-2"> 
@@ -142,7 +141,8 @@
 
                 $(document).on('click', '.btn-select', function(){  
                     var id = $(this).attr("id");
-                    var url ='/datatablesFindByTicketStatusId/'+id;
+                    var cityID = $(".city-ch option:selected").val();
+                    var url ='/datatablesFindByTicketStatusId/'+id+'/'+cityID;
                     var table = $('#joins_table').DataTable();
                     table.destroy();
                      $(function() {

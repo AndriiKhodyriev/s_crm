@@ -732,8 +732,8 @@ pre code {
   overflow-y: scroll;
 }
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 1px;
+  padding-left: 1px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -753,8 +753,8 @@ pre code {
   }
 }
 .container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 1px;
+  padding-left: 1px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -1648,6 +1648,7 @@ label {
   display: inline-block;
   margin-bottom: 5px;
   font-weight: bold;
+  font-size: 25;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;

@@ -101,24 +101,52 @@ class RepairsController extends Controller
         return response()->json($repair);
     }
 
-    public function datatablesRepairsFindByTicId(Request $request, $id){
+    public function datatablesRepairsFindByTicId(Request $request, $id, $cityID){
         $user = $request->user();
-        
-
         if ($user->hasRole('grunt')) {
             $cities = [];
             foreach ($user->cities as $city) {
                 array_push($cities, $city->id);
             };
-            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
-                          ->where('ticket_status_id', '=', $id)
-                          ->whereIn('city_id', $cities)
-                          ->get();
+            if ($id == 0){
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                    'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                            ->where('city_id', $cities)
+                            ->get();
+            } else {
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                    'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                            ->where('ticket_status_id', '=', $id)
+                            ->whereIn('city_id', $cities)
+                            ->get();
+            }
         } else {
-            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+            if ($id == 0) { 
+                if ($cityID == 0) {
+                    $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                    'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])->get();
+                } else {
+                    $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                    'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                                    ->where('city_id', '=', $cityID)
+                                    ->get();
+                }
+                    
+            } else {
+                if ($cityID == 0) {
+                    $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
                           ->where('ticket_status_id', '=', $id)->get();
+                } else {
+                    $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                          ->where('ticket_status_id', '=', $id)
+                          ->where('city_id', '=', $cityID)
+                          ->get();
+                }
+                
+            }
+            
         }    
 
         
@@ -170,25 +198,21 @@ class RepairsController extends Controller
     public function datatablesRepairCityId(Request $request, $id) {
         $user = $request->user();
         if ($id == 0){
-            
             if ($user->hasRole('grunt')) {
                 $cities = [];
                 foreach ($user->cities as $city) {
                     array_push($cities, $city->id);
                 };
-
                 $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id','create_user_id', 'created_at'])
                         ->where('ticket_status_id', '!=', 3)
                         ->whereIn('city_id', $cities)
                         ->get();
-                
              } else {
-               
-
                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id','create_user_id', 'created_at'])
-                        ->where('ticket_status_id', '!=', 3)->get();
+                        ->where('ticket_status_id', '!=', 3)
+                        ->get();
              }   
         } else {
             if ($user->hasRole('grunt')) {
@@ -280,7 +304,7 @@ class RepairsController extends Controller
             foreach($values as $val){
                 $id = $val->id;
             }
-        return redirect('/repairs')->with('error', 'Уже имеется открытая заявка! Номер заявки: '.$id);
+            return redirect('/repairs')->with('error', 'Уже имеется открытая заявка! Номер заявки: '.$id);
         } else {
             $repair                     = new Repair;
             $repair->login              = $request->input('login');
@@ -357,6 +381,9 @@ class RepairsController extends Controller
         if ($request->input('status_name') != 0) {
             $repair->ticket_status_id = $request->input('status_name');
             if($request->input('status_name') == 3){
+                $this->validate($request,[
+                    'comment' => 'required'
+                ]);
                 $repair->close_user_id = $userId;
             }
         }
@@ -372,14 +399,16 @@ class RepairsController extends Controller
         $repair->comment            = $request->input('comment');
         $repair->save();
         $city = City::find($repair->city_id);
-        $chat_id = $city->chat_id;
-        $text = "ЗАЯВКА НА РЕМОНТ!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
+        if ($request->input('status_name') != 3 ) {
+            $chat_id = $city->chat_id;
+            $text = "ЗАЯВКА НА РЕМОНТ!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
                 . "\r\n Телефон : "     . $request->input('phone_num') 
                 . "\r\n ЛОГИН : "       . $request->input('login') 
                 . "\r\n VLAN : "        . $request->input('vlan_name') 
                 . "\r\n Причина : "     . $request->input('cause')
                 . "\r\n Комментарий : " . $request->input('comment');
-        sendMessage($text, $chat_id);
+            sendMessage($text, $chat_id);
+        }
         return redirect('/repairs')->with('success', 'Заявка на ремонт обновлена!');
     }
 
