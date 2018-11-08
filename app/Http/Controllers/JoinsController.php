@@ -405,12 +405,15 @@ class JoinsController extends Controller
         $join->join_area          = $request->input('join_area');
         $join->save();
         $city = City::find($join->city_id);
-        $chat_id = $city->chat_id;
-        $text = "ЗАЯВКА НА ПОДКЛЮЧЕНИЕ ОБНОВЛЕНА!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
+        if ($request->input('status_name') != 3) {
+            $chat_id = $city->chat_id;
+             $text = "ЗАЯВКА НА ПОДКЛЮЧЕНИЕ ОБНОВЛЕНА!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
                 . "\r\n Телефон : " . $request->input('phone_num') 
                 . "\r\n ФИО : " . $request->input('full_name') 
                 . "\r\n Комментарий : " . $request->input('comment');
-         sendMessage($text, $chat_id);
+            sendMessage($text, $chat_id);
+        }
+        
         return redirect('/joins')->with('success', 'Заявка на подключение обновлена!');
 
     }

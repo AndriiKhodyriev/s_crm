@@ -304,7 +304,7 @@ class RepairsController extends Controller
             foreach($values as $val){
                 $id = $val->id;
             }
-        return redirect('/repairs')->with('error', 'Уже имеется открытая заявка! Номер заявки: '.$id);
+            return redirect('/repairs')->with('error', 'Уже имеется открытая заявка! Номер заявки: '.$id);
         } else {
             $repair                     = new Repair;
             $repair->login              = $request->input('login');
@@ -399,14 +399,16 @@ class RepairsController extends Controller
         $repair->comment            = $request->input('comment');
         $repair->save();
         $city = City::find($repair->city_id);
-        $chat_id = $city->chat_id;
-        $text = "ЗАЯВКА НА РЕМОНТ!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
+        if ($request->input('status_name') != 3 ) {
+            $chat_id = $city->chat_id;
+            $text = "ЗАЯВКА НА РЕМОНТ!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
                 . "\r\n Телефон : "     . $request->input('phone_num') 
                 . "\r\n ЛОГИН : "       . $request->input('login') 
                 . "\r\n VLAN : "        . $request->input('vlan_name') 
                 . "\r\n Причина : "     . $request->input('cause')
                 . "\r\n Комментарий : " . $request->input('comment');
-        sendMessage($text, $chat_id);
+            sendMessage($text, $chat_id);
+        }
         return redirect('/repairs')->with('success', 'Заявка на ремонт обновлена!');
     }
 
