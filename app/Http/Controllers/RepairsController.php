@@ -145,7 +145,6 @@ class RepairsController extends Controller
                           ->get();
                 }
                 
->>>>>>> 25fc82cf0bb2e529d07057d2a6b69e0cec7dd51e
             }
             
         }    
