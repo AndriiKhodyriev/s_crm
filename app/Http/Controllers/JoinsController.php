@@ -117,19 +117,30 @@ class JoinsController extends Controller
             foreach ($user->cities as $city) {
                 array_push($cities, $city->id);
             };
-            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+            if($id == 0) {
+                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                 'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
-                            
+                            ->where('city_id', $cities)
+                            ->get();
+            } else {
+                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
                             ->where('ticket_status_id', '=', $id)
                             ->whereIn('city_id', $cities)
                             ->get();
+            };
         } else {
-            $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+            if($id == 0) {
+                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                     'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
-                                
-                                ->where('ticket_status_id', '=', $id)
                                 ->get();
-                };                
+            } else {
+                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                        'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
+                                    ->where('ticket_status_id', '=', $id)
+                                    ->get();
+            };
+        };                
             return Datatables::of($joins)
                             ->addColumn('city_name', function($join){
                                     return $join->city->name;
@@ -140,6 +151,8 @@ class JoinsController extends Controller
                                 } elseif ($join->ticket_status_id == 2) {
                                     return '<span class="label label-warning">' . $join->ticketstatus->name . '</span>';
                                 } elseif ($join->ticket_status_id == 3) {
+                                    return '<span class="label label-important">' . $join->ticketstatus->name . '</span>';
+                                } elseif ($join->ticket_status_id == 4) {
                                     return '<span class="label label-important">' . $join->ticketstatus->name . '</span>';
                                 }
                             })
@@ -235,6 +248,8 @@ class JoinsController extends Controller
                                 } elseif ($join->ticket_status_id == 2) {
                                     return '<span class="label label-warning">' . $join->ticketstatus->name . '</span>';
                                 } elseif ($join->ticket_status_id == 3) {
+                                    return '<span class="label label-important">' . $join->ticketstatus->name . '</span>';
+                                } elseif ($join->ticket_status_id == 4) {
                                     return '<span class="label label-important">' . $join->ticketstatus->name . '</span>';
                                 }
                             })

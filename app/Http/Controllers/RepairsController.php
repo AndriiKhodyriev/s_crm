@@ -375,7 +375,7 @@ class RepairsController extends Controller
         $chat_id = $city->chat_id;
         $text = "ЗАЯВКА НА РЕМОНТ!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
                 . "\r\n Телефон : "     . $request->input('phone_num') 
-                . "\r\n ЛОГИН : "       . $login
+                . "\r\n ЛОГИН : "       . $request->input('login') 
                 . "\r\n VLAN : "        . $request->input('vlan_name') 
                 . "\r\n Причина : "     . $request->input('cause')
                 . "\r\n Комментарий : " . $request->input('comment');
