@@ -101,10 +101,8 @@ class RepairsController extends Controller
         return response()->json($repair);
     }
 
-    public function datatablesRepairsFindByTicId(Request $request, $id){
+    public function datatablesRepairsFindByTicId(Request $request, $id, $cityID){
         $user = $request->user();
-        
-
         if ($user->hasRole('grunt')) {
             $cities = [];
             foreach ($user->cities as $city) {
@@ -124,12 +122,29 @@ class RepairsController extends Controller
             }
         } else {
             if ($id == 0) { 
-                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])->get();
+                if ($cityID == 0) {
+                    $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                    'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])->get();
+                } else {
+                    $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                    'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                                    ->where('city_id', '=', $cityID)
+                                    ->get();
+                }
+                    
             } else {
-                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                if ($cityID == 0) {
+                    $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
                           ->where('ticket_status_id', '=', $id)->get();
+                } else {
+                    $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                          ->where('ticket_status_id', '=', $id)
+                          ->where('city_id', '=', $cityID)
+                          ->get();
+                }
+                
             }
             
         }    

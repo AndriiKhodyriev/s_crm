@@ -141,7 +141,8 @@
 
                 $(document).on('click', '.btn-select', function(){  
                     var id = $(this).attr("id");
-                    var url ='/datatablesFindByTicketStatusId/'+id;
+                    var cityID = $(".city-ch option:selected").val();
+                    var url ='/datatablesFindByTicketStatusId/'+id+'/'+cityID;
                     var table = $('#joins_table').DataTable();
                     table.destroy();
                      $(function() {
