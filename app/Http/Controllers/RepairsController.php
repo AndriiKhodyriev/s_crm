@@ -110,15 +110,28 @@ class RepairsController extends Controller
             foreach ($user->cities as $city) {
                 array_push($cities, $city->id);
             };
-            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
-                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
-                          ->where('ticket_status_id', '=', $id)
-                          ->whereIn('city_id', $cities)
-                          ->get();
+            if ($id == 0){
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                    'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                            ->where('city_id', $cities)
+                            ->get();
+            } else {
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                    'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
+                            ->where('ticket_status_id', '=', $id)
+                            ->whereIn('city_id', $cities)
+                            ->get();
+            }
         } else {
-            $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+            if ($id == 0) { 
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
+                                'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])->get();
+            } else {
+                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id', 'create_user_id', 'close_user_id', 'updated_at'])
                           ->where('ticket_status_id', '=', $id)->get();
+            }
+            
         }    
 
         
@@ -170,25 +183,21 @@ class RepairsController extends Controller
     public function datatablesRepairCityId(Request $request, $id) {
         $user = $request->user();
         if ($id == 0){
-            
             if ($user->hasRole('grunt')) {
                 $cities = [];
                 foreach ($user->cities as $city) {
                     array_push($cities, $city->id);
                 };
-
                 $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id','create_user_id', 'created_at'])
                         ->where('ticket_status_id', '!=', 3)
                         ->whereIn('city_id', $cities)
                         ->get();
-                
              } else {
-               
-
                $repairs = Repair::select(['id', 'login', 'city_id', 'street', 'build', 'vlan_name', 'phone_num','cause', 'comment', 'comment',
                                 'created_at', 'ticket_status_id','create_user_id', 'created_at'])
-                        ->where('ticket_status_id', '!=', 3)->get();
+                        ->where('ticket_status_id', '!=', 3)
+                        ->get();
              }   
         } else {
             if ($user->hasRole('grunt')) {
@@ -357,6 +366,9 @@ class RepairsController extends Controller
         if ($request->input('status_name') != 0) {
             $repair->ticket_status_id = $request->input('status_name');
             if($request->input('status_name') == 3){
+                $this->validate($request,[
+                    'comment' => 'required'
+                ]);
                 $repair->close_user_id = $userId;
             }
         }

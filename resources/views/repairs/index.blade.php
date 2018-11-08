@@ -6,7 +6,7 @@
                                     <div class="col-sm-3">
                                         <h2 class="tittle-content-header">
                                             <i class="icon-window"></i> 
-                                            <span>CRM</span>
+                                            <span>CRM | Заявки на ремонт</span>
                                         </h2>
                                     </div>
                                     <div class="col-sm-9">
@@ -34,7 +34,7 @@
             </div>
             <div class="col-sm-2"> 
                 <div class="btn-group" position="rigth">
-
+                    <button class="btn btn-success btn-select" id="0">Все</button>
                     <button class="btn btn-warning btn-select" id="1">Новые заявки</button>
                     <button class="btn btn-danger btn-select" id="2">В работе</button>
                     <button class="btn btn-info btn-select" id="3">Закрытые</button>
