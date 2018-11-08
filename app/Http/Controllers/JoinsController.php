@@ -106,12 +106,10 @@ class JoinsController extends Controller
         return response()->json($join);
     }
 
-    public function datatablesFindByTicketStatusId(Request $request, $id){ 
+    public function datatablesFindByTicketStatusId(Request $request, $id, $cityID){ 
         
         //print_r($user);
         $user = $request->user();
-        
-
         if ($user->hasRole('grunt')) {
             $cities = [];
             foreach ($user->cities as $city) {
@@ -131,14 +129,31 @@ class JoinsController extends Controller
             };
         } else {
             if($id == 0) {
-                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                if ($cityID == 0) {
+                    $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                     'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
                                 ->get();
+                } else {
+                    $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                         'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
+                                    ->where('city_id', '=', $cityID)
+                                    ->get();
+
+                }
             } else {
-                $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                if ($cityID == 0) {
+                    $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
                                         'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
                                     ->where('ticket_status_id', '=', $id)
                                     ->get();
+                } else { 
+                    $joins = Join::select(['id', 'city_id', 'street', 'build', 'full_name', 'phone_num', 'created_at', 'ticket_status_id', 'comment',
+                                        'close_user_id', 'create_user_id', 'join_area', 'updated_at'])
+                                    ->where('city_id', '=', $cityID)
+                                    ->where('ticket_status_id', '=', $id)
+                                    ->get();
+                }
+                
             };
         };                
             return Datatables::of($joins)
@@ -390,12 +405,15 @@ class JoinsController extends Controller
         $join->join_area          = $request->input('join_area');
         $join->save();
         $city = City::find($join->city_id);
-        $chat_id = $city->chat_id;
-        $text = "ЗАЯВКА НА ПОДКЛЮЧЕНИЕ ОБНОВЛЕНА!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
+        if ($request->input('status_name') != 3) {
+            $chat_id = $city->chat_id;
+             $text = "ЗАЯВКА НА ПОДКЛЮЧЕНИЕ ОБНОВЛЕНА!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
                 . "\r\n Телефон : " . $request->input('phone_num') 
                 . "\r\n ФИО : " . $request->input('full_name') 
                 . "\r\n Комментарий : " . $request->input('comment');
-         sendMessage($text, $chat_id);
+            sendMessage($text, $chat_id);
+        }
+        
         return redirect('/joins')->with('success', 'Заявка на подключение обновлена!');
 
     }
