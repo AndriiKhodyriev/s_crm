@@ -37,8 +37,7 @@
                         <button class="btn btn-success btn-select" id="0">Все</button>
                         <button class="btn btn-info btn-select" id="1">Новые заявки</button>
                         <button class="btn btn-warning btn-select" id="2">В работе</button>
-                        <button class="btn btn-danger btn-select" id="3">Закрытые</button>
-                        <button class="btn btn-dark btn-select" id="4">СРОЧНЫЕ</button>
+                        <button class="btn btn-danger btn-select" id="3">Подключенные</button>
                     </div>
                 </div>
                 <div class="col-sm-2"> 
