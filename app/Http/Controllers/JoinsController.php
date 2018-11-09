@@ -74,7 +74,8 @@ class JoinsController extends Controller
                                 }
                             })
                             ->addColumn('date_action', function($join){
-                                    return '<span class="label label-info">' .$join->created_at. '</span>';   
+                                    $date = $join->created_at;
+                                    return '<span class="label label-info">' . date("d-m-Y H:i:s", strtotime($date)) . '</span>';   
                             })
                             ->addColumn('user_name', function($join){
                                 return '<span class="label label-info">' . User::find($join->create_user_id)->fullname . '</span>';
@@ -173,9 +174,11 @@ class JoinsController extends Controller
                             })
                             ->addColumn('date_action', function($join){
                                 if($join->ticket_status_id == 3) {
-                                    return '<span class="label label-important">' . $join->updated_at . '</span>';
+                                    $date = $join->updated_at;
+                                    return '<span class="label label-important">' . date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                                 } else {
-                                    return '<span class="label label-info">' . $join->created_at . '</span>';
+                                    $date = $join->created_at;
+                                    return '<span class="label label-info">' . date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                                 }
                             })
                             ->addColumn('user_name', function($join){
@@ -269,7 +272,8 @@ class JoinsController extends Controller
                                 }
                             })
                             ->addColumn('date_action', function($join){
-                                return '<span class="label label-info">' . $join->created_at . '</span>';
+                                $date = $join->created_at;
+                                return '<span class="label label-info">' . date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                             })
                             ->addColumn('user_name', function($join){
                                 return '<span class="label label-info">' . User::find($join->create_user_id)->fullname . '</span>';

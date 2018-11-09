@@ -5188,7 +5188,7 @@ button.close {
 .modal-body {
   position: relative;
   padding: 20px;
-  height: 250px;
+  height: 400px;
   overflow-y: auto;
 }
 .modal-footer {
