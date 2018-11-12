@@ -163,6 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
+        OnurKose\SNMPWrapper\SNMPWrapperServiceProvider::class,
 
        /* 
        * Forms and HTML
@@ -237,6 +238,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Datatables' => Yajra\Datatables\Datatables::class,
+        'SNMPWrapper' => OnurKose\SNMPWrapper\Facades\SNMPWrapper::class,
 
 
         
