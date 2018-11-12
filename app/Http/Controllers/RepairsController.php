@@ -170,7 +170,8 @@ class RepairsController extends Controller
                             ->addColumn('date_action', function($repair){
                                 if($repair->ticket_status_id == 3) {
                                     $date = $repair->updated_at;
-                                    return '<span class="label label-important">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
+                                    $date_opn = $repair->created_at;
+                                    return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date_opn)) . '</span><br> <span class="label label-important">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                                 } else { 
                                     $date = $repair->created_at;
                                     return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
@@ -178,7 +179,7 @@ class RepairsController extends Controller
                             })
                             ->addColumn('user_name', function($repair){
                                 if($repair->ticket_status_id == 3) {
-                                    return '<span class="label label-important">' .  User::find($repair->close_user_id)->fullname . '</span>';
+                                    return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span> <br> <span class="label label-important">' .  User::find($repair->close_user_id)->fullname . '</span>';
                                 } else { 
                                     return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span>';
                                 }   
