@@ -29,10 +29,10 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a class="tooltip-tip2" href="/repairs" title="Ремонты"><i class="entypo-doc-text"></i><span>Ремонты</span></a>
+                                    <a class="tooltip-tip2" href="/repairs" title="Ремонты"><i class="entypo-cog"></i><span>Ремонты</span></a>
                                 </li>
                                 <li>
-                                    <a class="tooltip-tip2" href="/joins" title="Подключения"><i class="entypo-newspaper"></i><span>Подключения</span></a>
+                                    <a class="tooltip-tip2" href="/joins" title="Подключения"><i class="entypo-plus-squared"></i><span>Подключения</span></a>
                                 </li>
                             </ul>
                         </li>

@@ -5142,6 +5142,7 @@ button.close {
   position: relative;
   width: auto;
   margin: 10px;
+  overflow-y: initial !important
 }
 .modal-content {
   z-index: 2147483647;
@@ -5187,6 +5188,8 @@ button.close {
 .modal-body {
   position: relative;
   padding: 20px;
+  height: 400px;
+  overflow-y: auto;
 }
 .modal-footer {
   padding: 19px 20px 20px;

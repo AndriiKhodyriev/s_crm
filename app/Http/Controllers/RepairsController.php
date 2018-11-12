@@ -74,7 +74,8 @@ class RepairsController extends Controller
                                 }
                             })
                             ->addColumn('date_action', function($repair){
-                                return '<span class="label label-info">' .  $repair->created_at . '</span>';
+                                $date = $repair->created_at;
+                                return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                             })
                             ->addColumn('user_name', function($repair){
                                 return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span>';
@@ -168,14 +169,17 @@ class RepairsController extends Controller
                             })
                             ->addColumn('date_action', function($repair){
                                 if($repair->ticket_status_id == 3) {
-                                    return '<span class="label label-important">' .  $repair->updated_at . '</span>';
+                                    $date = $repair->updated_at;
+                                    $date_opn = $repair->created_at;
+                                    return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date_opn)) . '</span><br> <span class="label label-important">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                                 } else { 
-                                    return '<span class="label label-info">' .  $repair->created_at . '</span>';
+                                    $date = $repair->created_at;
+                                    return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                                 }
                             })
                             ->addColumn('user_name', function($repair){
                                 if($repair->ticket_status_id == 3) {
-                                    return '<span class="label label-important">' .  User::find($repair->close_user_id)->fullname . '</span>';
+                                    return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span> <br> <span class="label label-important">' .  User::find($repair->close_user_id)->fullname . '</span>';
                                 } else { 
                                     return '<span class="label label-info">' .  User::find($repair->create_user_id)->fullname . '</span>';
                                 }   
@@ -240,7 +244,8 @@ class RepairsController extends Controller
                                 return $repair->city->name;
                             })
                             ->addColumn('date_action', function($repair){
-                                return '<span class="label label-info">' .  $repair->created_at . '</span>';
+                                $date = $repair->created_at;
+                                return '<span class="label label-info">' .  date("d-m-Y H:i:s", strtotime($date)) . '</span>';
                             })
                             ->addColumn('status_name', function($repair){
                                 return '<span class="label label-info">' .  $repair->ticketstatus->name . '</span>';
@@ -401,7 +406,7 @@ class RepairsController extends Controller
         $city = City::find($repair->city_id);
         if ($request->input('status_name') != 3 ) {
             $chat_id = $city->chat_id;
-            $text = "ЗАЯВКА НА РЕМОНТ!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
+            $text = "ЗАЯВКА НА РЕМОНТ ИЗМЕНЕНА!\r\n \r\n Адресс: " . $request->input('street') . " Дом : " . $request->input('build')
                 . "\r\n Телефон : "     . $request->input('phone_num') 
                 . "\r\n ЛОГИН : "       . $request->input('login') 
                 . "\r\n VLAN : "        . $request->input('vlan_name') 
