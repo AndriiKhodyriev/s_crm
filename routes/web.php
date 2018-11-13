@@ -27,4 +27,8 @@ Route::resource('users', 'UsersController');
 Auth::routes();
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 //Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/snmp', 'SNMPController@getTest');
+
+//Route::resource('snmp', 'SNMPController');
+	Route::get('/snmp/{oltIP}/{onuMAC}', 'SNMPController@getONUInfo');
+	Route::post('/snmp/getONUInfo', 'SNMPController@getONUInfo');
+	Route::get('/snmp', 'SNMPController@index');
