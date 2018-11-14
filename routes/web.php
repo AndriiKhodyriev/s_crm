@@ -32,3 +32,5 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 	Route::get('/snmp/{oltIP}/{onuMAC}', 'SNMPController@getONUInfo');
 	Route::post('/snmp/getONUInfo', 'SNMPController@getONUInfo');
 	Route::get('/snmp', 'SNMPController@index');
+Route::resource('abons', 'AbonsController');
+    Route::get('/datatablesAllAbons', 'AbonsController@datatablesAllAbons');
