@@ -19,4 +19,7 @@ class City extends Model
     {
         return $this->belongsToMany('App\User');
     }
+    public function abons(){
+        return $this->hasMany('App\Abon');
+    }
 }
