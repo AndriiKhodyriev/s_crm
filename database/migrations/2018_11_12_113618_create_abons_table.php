@@ -19,9 +19,11 @@ class CreateAbonsTable extends Migration
             $table->integer('password');
             $table->string('tarif_plan');
             $table->string('fullname');
-            $table->string('address');
+            $table->string('street');
+            $table->string('build');
+            $table->string('flat')->nullable();
             $table->string('phone');
-            $table->integer('all_money');
+            $table->integer('all_money')->nullable();
             $table->integer('leng')->nullable();
             $table->string('base_ip')->nullable();
             $table->string('client_ip')->nullable();
@@ -30,7 +32,7 @@ class CreateAbonsTable extends Migration
             $table->text('comment')->nullable();
             $table->integer('city_id');
             $table->integer('t_connection_id');
-            $table->integer('create_user_id');
+            $table->integer('create_user_id')->nullable();
             $table->timestamps();
         });
     }

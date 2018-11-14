@@ -50,6 +50,15 @@
 
                             </a>
                         </li>
+                        @if(auth()->user()->role_id !== 4) 
+                        <li>
+                            <a class="tooltip-tip ajax-load" href="/snmp" title="Проверка PON">
+                                <i class="entypo-flashlight"></i>
+                                <span>Проверка PON</span>
+
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                     @if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) 
                     <ul class="topnav menu-left-nest">
