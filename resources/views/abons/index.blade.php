@@ -78,7 +78,7 @@
                                 ajax: url,
                                 columns: [
                                     { data: 'created_at',               name: 'created_at'},
-	                                { data: 'login_act',                    name: 'login_act' },
+	                                { data: 'login',                    name: 'login' },
                                     { data: 'password',                 name: 'password' },
 	                                { data: 'fullname',                 name: 'fullname' },
                                     { data: 'street',                   name: 'street' },

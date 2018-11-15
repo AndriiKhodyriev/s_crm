@@ -23,9 +23,9 @@ class AbonsController extends Controller
                         ->where('city_id', $id)
                         ->get();
         return Datatables::of($abons)
-                            ->addColumn('login_act', function($abon){
-                                return '<span class="label label-info">' .  $abon->login . '</span>';
-                            })
+                           // ->addColumn('login_act', function($abon){
+                            //    return '<span class="label label-info">' .  $abon->login . '</span>';
+                            //})
                             ->make(true);
     }
 }
