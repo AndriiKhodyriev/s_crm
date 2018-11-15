@@ -19,13 +19,12 @@ class AbonsController extends Controller
         return view('abons.index')->with(['abons' => $abons, 'cities' => $cities, 't_connections' => $t_connections]);
     }
     public function datatablesFindCityIDBase(Request $request, $id) { 
-
-        $abons = Abon::select(['id', 'city_id', 'password', 'point_inc' ,'login', 'fullname','tarif_plan', 'street', 'build', 'flat', 'phone', 'leng', 'all_money'])
+        $abons = Abon::select(['id', 'city_id','created_at', 'password', 'point_inc' ,'login', 'fullname','tarif_plan', 'street', 'build', 'flat', 'phone', 'leng', 'all_money', 'comment'])
                         ->where('city_id', $id)
                         ->get();
         return Datatables::of($abons)
-                            ->addColumn('city_name', function($abon){
-                                return $abon->city->name;
+                            ->addColumn('login_act', function($abon){
+                                return '<span class="label label-info">' .  $abon->login . '</span>';
                             })
                             ->make(true);
     }

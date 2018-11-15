@@ -52,11 +52,11 @@
                                         <th>ФИО</th>
                                         <th>Улица</th>
                                         <th>Дом</th>
-                                        <th>Квартира</th>
                                         <th>Номер телефона</th>
-                                        <th>Длинна кабеля</th>
+                                        <th>Длина кабеля</th>
                                         <th>Место включения</th>
-                                        <th>Оплаченно</th>
+                                        <th>Оплачено</th>
+                                        <th>Смета</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -77,17 +77,17 @@
                                 serverSide: true,
                                 ajax: url,
                                 columns: [
-                                    { data: 'city_name',                name: 'city_name'},
-	                                { data: 'login',                    name: 'login' },
+                                    { data: 'created_at',               name: 'created_at'},
+	                                { data: 'login_act',                    name: 'login_act' },
                                     { data: 'password',                 name: 'password' },
 	                                { data: 'fullname',                 name: 'fullname' },
                                     { data: 'street',                   name: 'street' },
 	                                { data: 'build',                    name: 'build' },
-	                                { data: 'flat',                     name: 'flat' },
 	                                { data: 'phone',                    name: 'phone'},
 	                                { data: 'leng',                     name: 'leng'},
                                     { data: 'point_inc',                name: 'point_inc'},
 	                                { data: 'all_money',                name: 'all_money'},
+                                    { data: 'comment',                  name: 'comment'}
 	                                // { data: 'date_action',           name: 'date_action'},
                                     // { data: 'status_name',           name: 'status_name'},
                                     // { data: 'user_name',             name: 'user_name'},
@@ -97,6 +97,10 @@
                             });
                         });
                 });
-
+            $(document).on('click', '.label', function(){
+                var id = $(this).attr("id");
+                $('#newAbon').modal('show');
+                    
+            });
 </script>
 @endsection                    
