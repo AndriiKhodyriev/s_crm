@@ -41,12 +41,12 @@
                     <hr>
 
 
-                    <div class="table-responsive">
-                            <table id="abon_table" class="display responsive no-wrap" width="100%" data-page-length="25">
+                    <div hidden class="table-responsive" id="main_table">
+                            <table id="abon_table" class="display responsive no-wrap" width="100%" data-page-length="50">
                         {{-- <table id="repairs_table" class="table"> --}}
                                 <thead>
                                     <tr>
-                                        <th>Объект</th>
+                                        <th>Дата</th>
                                         <th>Логин</th>
                                         <th>Пароль</th>
                                         <th>ФИО</th>
@@ -63,19 +63,23 @@
                         </div>
 
 @include('abons._new');
-@endsection                    
 
-@section('dt_script')
-	<script type="text/javascript">
-		$(function() {
-	        $('#abon_table').DataTable({
-	            processing: true,
-	            serverSide: true,
-	            ajax: '{{ url('datatablesAllAbons') }}',
-	            columns: [
-	                                { data: 'city_name',                name: 'city_name'},
+<script type="text/javascript">
+                $('.city-ch').change(function() {
+                    var id = this.value;
+                    var url = '/datatablesFindCityIDBase/'+id;
+                    var table = $('#abon_table').DataTable();
+                    $('#main_table').css('display','block');
+                    table.destroy();
+                        $(function(){
+                            $('#abon_table').DataTable({
+                                processing: true, 
+                                serverSide: true,
+                                ajax: url,
+                                columns: [
+                                    { data: 'city_name',                name: 'city_name'},
 	                                { data: 'login',                    name: 'login' },
-                                    { data: 'password',                    name: 'password' },
+                                    { data: 'password',                 name: 'password' },
 	                                { data: 'fullname',                 name: 'fullname' },
                                     { data: 'street',                   name: 'street' },
 	                                { data: 'build',                    name: 'build' },
@@ -88,10 +92,11 @@
                                     // { data: 'status_name',           name: 'status_name'},
                                     // { data: 'user_name',             name: 'user_name'},
 	                                // { data: 'action',                name: 'action', orderable: false, searchable: false}
-	                            ],
-                order: [ [0, 'desc']]
+                                ],
+                                order: [ [0, 'desc']]
+                            });
+                        });
+                });
 
-	        });
-    });
-	</script> 
-@endsection
+</script>
+@endsection                    

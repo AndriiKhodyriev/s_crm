@@ -11,12 +11,20 @@
             <div class="modal-body">
                     {!! Form::open(['action' => 'JoinsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
-                        
+                        {{Form::label('city', 'Населенный пункт')}}                        
                         <select name="city_name" id="">
                             @foreach($cities as $city)
                                 <option value="{{$city->id}}">{{$city->name}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="form-group">
+                        {{Form::label('t_connection', 'Тип подключения')}}
+                        <select name="t_connections" id="">
+                            @foreach($t_connections as $tcon)
+                                <option value="{{$tcon->id}}">{{$tcon->name}}</option>
+                            @endforeach
+                        </select>                    
                     </div>
                     <div class="form-group">
                         {{Form::label('street', 'Улица')}}

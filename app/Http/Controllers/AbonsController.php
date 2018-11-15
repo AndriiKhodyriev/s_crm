@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Abon;
 use App\City;
+use App\TConnection;
 use Illuminate\Http\Request;
 use Datatables;
 use DB;
@@ -14,17 +15,18 @@ class AbonsController extends Controller
     {
         $abons = Abon::all();
         $cities = City::all();
-        return view('abons.index')->with(['abons' => $abons, 'cities' => $cities]);
+        $t_connections = TConnection::all();
+        return view('abons.index')->with(['abons' => $abons, 'cities' => $cities, 't_connections' => $t_connections]);
     }
+    public function datatablesFindCityIDBase(Request $request, $id) { 
 
-    public function datatablesAllAbons(){ 
-        $abons = Abon::select(['id', 'city_id', 'password', 'point_inc' ,'login', 'fullname','tarif_plan', 'street', 'build', 'flat', 'phone', 'leng', 'all_money'])->get();
-
+        $abons = Abon::select(['id', 'city_id', 'password', 'point_inc' ,'login', 'fullname','tarif_plan', 'street', 'build', 'flat', 'phone', 'leng', 'all_money'])
+                        ->where('city_id', $id)
+                        ->get();
         return Datatables::of($abons)
                             ->addColumn('city_name', function($abon){
                                 return $abon->city->name;
                             })
                             ->make(true);
-
     }
 }
