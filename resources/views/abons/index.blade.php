@@ -37,6 +37,15 @@
                                     </select>
                                 <span>Для выборки по объекту - выберите город</span>
                         </div>
+                        <div class="col-sm-2" hidden id='type_con'> 
+                            <select name="t_connections" class="type-ch">
+                                        <option value="0">Все типы подключения</option>
+                                        @foreach($t_connections as $t_con)
+                                            <option value="{{$t_con->id}}">{{$t_con->name}}</option>
+                                        @endforeach     
+                                </select>
+                            <span>Для выборки по типу подключения - выберите тип </span>
+                        </div>
                     </div>
                     <hr>
 
@@ -65,14 +74,30 @@
 @include('abons._new');
 
 <script type="text/javascript">
+                
                 $('.city-ch').change(function() {
                     var id = this.value;
-                    var url = '/datatablesFindCityIDBase/'+id;
+                    $('#type_con').css('display','block');
+                    var type_con = $(".type-ch option:selected").val();
+                    var url = '/datatablesFindCityIDBase/'+id+'/'+type_con;
                     var table = $('#abon_table').DataTable();
                     $('#main_table').css('display','block');
                     table.destroy();
-                        $(function(){
-                            $('#abon_table').DataTable({
+                    dt_render(url);
+                });
+
+                $('.type-ch').change(function() {
+                    var id = this.value;
+                    var city_id = $(".city-ch option:selected").val();
+                    var url = '/datatablesFindTConIDBase/'+id+'/'+city_id;
+                    var table = $('#abon_table').DataTable();
+                    $('#main_table').css('display','block');
+                    table.destroy();
+                    dt_render(url);
+                });
+    
+            function dt_render(url) {
+                $('#abon_table').DataTable({
                                 processing: true, 
                                 serverSide: true,
                                 ajax: url,
@@ -95,8 +120,8 @@
                                 ],
                                 order: [ [0, 'desc']]
                             });
-                        });
-                });
+            }
+            
             $(document).on('click', '.label', function(){
                 var id = $(this).attr("id");
                 $('#newAbon').modal('show');
