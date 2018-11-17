@@ -23,6 +23,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-2"> 
+                            <a href="{{ route('abons.create') }}">КНОПОЧКА</a>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newAbon">
                                 <span class="entypo-plus-squared">   
                                         Добавить клиента
@@ -71,7 +72,10 @@
                             </table>
                         </div>
 
-@include('abons._new');
+{{-- @include('abons._new');
+@include('abons._newPon');
+@include('abons._newWifi');
+@include('abons._newCable'); --}}
 
 <script type="text/javascript">
                 

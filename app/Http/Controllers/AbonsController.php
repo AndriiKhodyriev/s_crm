@@ -20,6 +20,7 @@ class AbonsController extends Controller
         $t_connections = TConnection::all();
         return view('abons.index')->with(['abons' => $abons, 'cities' => $cities, 't_connections' => $t_connections]);
     }
+
     public function datatablesFindCityIDBase(Request $request, $id, $type_con) { 
         $select_query = select_all_abons(); //выбираем всех абонов (часто используется App\QueryModule)
         if ($type_con == 0) {
