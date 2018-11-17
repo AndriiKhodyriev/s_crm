@@ -13,6 +13,7 @@
                     <div class="form-group">
                         {{Form::label('city', 'Населенный пункт')}}                        
                         <select name="city_name" id="">
+                            <option value="0">Город</option>
                             @foreach($cities as $city)
                                 <option value="{{$city->id}}">{{$city->name}}</option>
                             @endforeach
@@ -20,7 +21,8 @@
                     </div>
                     <div class="form-group" id="type-ch-form">
                         {{Form::label('t_connection', 'Тип подключения')}}
-                        <select name="t_connections" id="">
+                        <select name="t_connections" id="type-ch-form">
+                            <option value="0">Тип Подключения</option>
                             @foreach($t_connections as $tcon)
                                 <option value="{{$tcon->id}}">{{$tcon->name}}</option>
                             @endforeach
@@ -101,15 +103,18 @@
                 
         </div>
     </div>
+    <script>
+            // ПО умолчанию - PON = id 1, WiFi = id 2, Cable = id 2
+              $('.type-ch-form').change(function() {
+                            var id = this.value;
+                            if (id == 1) {
+                                $('#pon_info').css('display','block');
+                            } else if (id == 2) {
+                                $('#wifi_info').css('display','block');
+                            } else if (id == 3) {
+                                $('#cable_info').css('display','block');
+                            }
+                        });
+        </script>
 </div>
 
-<script>
-      $('.type-ch-form').change(function() {
-                    var id = this.value;
-                    var city_id = $(".city-ch option:selected").val();
-                    var url = '/datatablesFindTConIDBase/'+id+'/'+city_id;
-                    var table = $('#abon_table').DataTable();
-                    $('#main_table').css('display','block');
-
-                });
-</script>

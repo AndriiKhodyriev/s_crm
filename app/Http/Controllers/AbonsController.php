@@ -22,7 +22,19 @@ class AbonsController extends Controller
     }
     public function datatablesFindCityIDBase(Request $request, $id, $type_con) { 
         $select_query = select_all_abons(); //выбираем всех абонов (часто используется App\QueryModule)
-        $type_con == 0 ? $abons = $select_query->where('city_id', $id) : $abons = $select_query->where('city_id', $id)->where('t_connection_id', $type_con);
+        if ($type_con == 0) {
+            if ($id == 0) {
+                $abons = $select_query;
+            } else { 
+                $abons = $select_query->where('city_id', $id);
+            }
+        } else {
+            if ($id == 0) {
+                $abons = $select_query->where('t_connection_id', $type_con);
+            } else { 
+                $abons = $select_query->where('city_id', $id)->where('t_connection_id', $type_con);
+            }
+        }
         //Делаем выборку согласно условию (город и если $type_con != 0 тогда и с учетом типа подключения)
         return Datatables::of($abons)
                             ->make(true);
@@ -30,7 +42,21 @@ class AbonsController extends Controller
 
     public function datatablesFindTConIDBase(Request $request, $id, $city_id) {
         $select_query = select_all_abons(); 
-        $city_id == 0 ? $abons = $select_query->where('t_connection_id', $id) : $abons = $select_query->where('t_connection_id', $id)->where('city_id', $city_id);
+        if ($city_id == 0) {
+            if ($id == 0) {
+                $abons = $select_query;
+            } else { 
+                $abons = $select_query->where('t_connection_id', $id);
+            }
+        } else {
+            if ($id == 0) {
+                $abons = $select_query->where('city_id', $city_id);
+            } else {
+                $abons = $select_query->where('t_connection_id', $id)->where('city_id', $city_id);
+            }
+
+        }
+        // $city_id == 0 ? $abons = $select_query->where('t_connection_id', $id) : $abons = $select_query->where('t_connection_id', $id)->where('city_id', $city_id);
         return Datatables::of($abons)
                             ->make(true);
     }
