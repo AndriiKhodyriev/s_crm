@@ -48,6 +48,7 @@
                         </div>
                     </div>
                     <hr>
+                    @include('inc.message')
 
 
                     <div hidden class="table-responsive" id="main_table">
@@ -65,14 +66,14 @@
                                         <th>Длина кабеля</th>
                                         <th>Место включения</th>
                                         <th>Оплачено</th>
-                                        <th>Смета</th>
+                                        <th>info</th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
 
 @include('abons._new');
-
+@include('abons._modalFormInfo');
 <script type="text/javascript">
                 
                 $('.city-ch').change(function() {
@@ -112,7 +113,7 @@
 	                                { data: 'leng',                     name: 'leng'},
                                     { data: 'point_inc',                name: 'point_inc'},
 	                                { data: 'all_money',                name: 'all_money'},
-                                    { data: 'comment',                  name: 'comment'}
+                                    { data: 'action',                   name: 'action'}
 	                                // { data: 'date_action',           name: 'date_action'},
                                     // { data: 'status_name',           name: 'status_name'},
                                     // { data: 'user_name',             name: 'user_name'},
@@ -122,10 +123,39 @@
                             });
             }
             
-            $(document).on('click', '.label', function(){
+            $(document).on('click', '.entypo-info', function(){
                 var id = $(this).attr("id");
-                $('#newAbon').modal('show');
-                    
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url:"{{ url('datatablesFindID') }}",
+                        method:"POST",
+                        data: {id:id},
+                        dataType:"json",
+                        success:function(data)
+                        {
+                            $('#editAbon').modal('show');
+                            $('#login').val(data.login);
+                            $('#password').val(data.password);
+                            $('#tp_name').val(data.tarif_plan);
+                            $('#fullname').val(data.fullname);
+                            $('#phone_num').val(data.phone);
+                            $('#street').val(data.street);
+                            $('#build').val(data.build);
+                            $('#flat').val(data.flat);
+                            $('#leng').val(data.leng);
+                            $('#comment').val(data.comment);
+                            $('#all_money').val(data.all_money);
+                            $('#mac_onu').val(data.onu_mac);
+                            $('#point_inc').val(data.point_inc);
+                            $('#base_ip').val(data.base_ip);
+                            $('#client_ip').val(data.client_ip);
+                            $('#action_module').attr('action','/abons/'+data.id);
+                        }
+                });
             });
+
+
 </script>
 @endsection                    

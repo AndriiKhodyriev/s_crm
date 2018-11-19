@@ -35,4 +35,4 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::resource('abons', 'AbonsController');
     Route::get('/datatablesFindCityIDBase/{id}/{type_con}', 'AbonsController@datatablesFindCityIDBase'); //Выборка по городу + тип подключения
     Route::get('/datatablesFindTConIDBase/{id}/{city_id}', 'AbonsController@datatablesFindTConIDBase'); // Выборка по типу подключения по выбранному городу
-    
+    Route::post('/datatablesFindID', 'AbonsController@datatablesFindID'); //взять инфу по ИД
