@@ -136,21 +136,21 @@
                         success:function(data)
                         {
                             $('#editAbon').modal('show');
-                            $('#login').val(data.login);
-                            $('#password').val(data.password);
-                            $('#tp_name').val(data.tarif_plan);
-                            $('#fullname').val(data.fullname);
-                            $('#phone_num').val(data.phone);
-                            $('#street').val(data.street);
-                            $('#build').val(data.build);
-                            $('#flat').val(data.flat);
-                            $('#leng').val(data.leng);
-                            $('#comment').val(data.comment);
-                            $('#all_money').val(data.all_money);
-                            $('#mac_onu').val(data.onu_mac);
-                            $('#point_inc').val(data.point_inc);
-                            $('#base_ip').val(data.base_ip);
-                            $('#client_ip').val(data.client_ip);
+                            $('.login').val(data.login);
+                            $('.password').val(data.password);
+                            $('.tp_name').val(data.tarif_plan);
+                            $('.fullname').val(data.fullname);
+                            $('.phone_num').val(data.phone);
+                            $('.street').val(data.street);
+                            $('.build').val(data.build);
+                            $('.flat').val(data.flat);
+                            $('.leng').val(data.leng);
+                            $('.comment').val(data.comment);
+                            $('.all_money').val(data.all_money);
+                            $('.mac_onu').val(data.onu_mac);
+                            $('.point_inc').val(data.point_inc);
+                            $('.base_ip').val(data.base_ip);
+                            $('.client_ip').val(data.client_ip);
                             $('#action_module').attr('action','/abons/'+data.id);
                         }
                 });
