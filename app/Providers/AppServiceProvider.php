@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         //
         require_once __DIR__ . '/../TelegramModule.php';
         require_once __DIR__ . '/../QueryModule.php';
+        require_once __DIR__ . '/../FuncModule.php';
     }
 }

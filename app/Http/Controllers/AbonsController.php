@@ -7,6 +7,7 @@ use App\City;
 use App\TConnection;
 use Illuminate\Http\Request;
 use App\Moduls\Query;
+use App\Moduls\Func;
 
 use Datatables;
 use DB;
@@ -54,13 +55,13 @@ class AbonsController extends Controller
             $abon->comment = $request->input('comment');
             $abon->leng = $request->input('leng');
             $abon->city_id = $request->input('city_name');
+            $abon->t_connection_id = $request->input('t_connections');
             // если выбран тип подключения ПОН то проверить поля 
             if ($request->t_connections == 1) {
                 $this->validate($request, [
                     'mac_onu'   => 'required',
                     'point_inc' => 'required',
                 ]);
-                $abon->t_connection_id = $request->input('t_connections');
                 $abon->mac_onu = $request->input('onu_mac');
                 $abon->point_inc = $request->input('point_inc');
                 $abon->save();
@@ -71,18 +72,49 @@ class AbonsController extends Controller
                     'base_ip'   => 'required',
                     'clien_ip'  => 'required',
                 ]);
-                $abon->t_connection_id = $request->input('t_connections');
                 $abon->base_ip = $request->input('base_ip');
                 $abon->client_ip = $request->input('client_ip');
                 $abon->save();
                 return redirect('/abons')->with('success', 'Клиент успешно создан!');
             } elseif ($request->t_connections == 3) {
-                $abon->t_connection_id = $request->input('t_connections');
                 $abon->save();
                 return redirect('/abons')->with('success', 'Клиент успешно создан!');
             } else {
                 return redirect('/abons')->with('error', 'Клиент не создан! Не указан тип подключения!');
             }
+        }
+    }
+    public function update(Request $request, $id){
+        $city_id = $request->input('city_name');
+        $t_connection = $request->input('t_connections');
+
+        $abon = Abon::find($id);
+
+        $this->validate($request, [
+            'street'    => 'required',
+        ]);
+        ($abon->login       != $request->input('login'))        ? $abon->login = $request->input('login') : "НЕТ ИЗМ";
+        ($abon->tarif_plan  != $request->input('tp_name'))      ? $abon->tarif_plan = $request->input('tp_name') : "НЕТ ИЗМ";
+        ($abon->password    != $request->input('password'))     ? $abon->password = $request->input('password') : "НЕТ ИЗМ";
+        ($abon->fullname    != $request->input('fullname'))     ? $abon->fullname = $request->input('fullname') : "НЕТ ИЗМ";
+        ($abon->phone       != $request->input('phone_num'))    ? $abon->phone = $request->input('phone_num') : "НЕТ ИЗМ";
+        ($abon->street      != $request->input('street'))       ? $abon->street = $request->input('street') : "НЕТ ИЗМ";
+        ($abon->build       != $request->input('build'))        ? $abon->build = $request->input('build') : "НЕТ ИЗМ";
+        ($abon->flat        != $request->input('flat'))         ? $abon->flat = $request->input('flat') : "НЕТ ИЗМ";
+        ($abon->all_money   != $request->input('all_money'))    ? $abon->all_money = $request->input('all_money') : "НЕТ ИЗМ";
+        ($abon->comment     != $request->input('comment'))      ? $abon->comment = $request->input('comment') : "НЕТ ИЗМ";
+        ($abon->leng        != $request->input('leng'))         ? $abon->leng = $request->input('leng') : "НЕТ ИЗМ";
+        //($abon->city_id     != $request->input('city_name'))    ? $abon->city_id = $request->input('city_name') : "НЕТ ИЗМ";
+        $abon->save();
+        if ($city_id == 0) {
+            if ($t_connection == 0) {
+                if ($abon->t_connection_id == 1 ) {
+                    
+                }
+                return redirect('/abons')->with('error', 'ВСЕ ЗБС!!!!');
+            } 
+        } elseif ($t_connection == 0) {
+
         }
     }
 

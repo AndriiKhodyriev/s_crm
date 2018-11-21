@@ -111,8 +111,9 @@
                         
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                        {{Form::submit('Изменить!', ['class' => 'btn btn-success'])}}
-                        {!! Form::close() !!}
+                    {{Form::hidden('_method', 'PUT')}}
+                    {{Form::submit('Изменить!', ['class' => 'btn btn-success'])}}
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
