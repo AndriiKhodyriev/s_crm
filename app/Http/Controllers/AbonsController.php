@@ -108,11 +108,17 @@ class AbonsController extends Controller
         $abon->save();
         if ($city_id == 0) {
             if ($t_connection == 0) {
-                if ($abon->t_connection_id == 1 ) {
-                    
+                if ($abon->t_connection_id == 1) {
+
+                } elseif ($abon->t_connection_id == 2) {
+
+                } elseif ($abon->t_connection_id == 3) {
+
                 }
                 return redirect('/abons')->with('error', 'ВСЕ ЗБС!!!!');
-            } 
+            } elseif ($t_connection == $abon->t_connection_id) {
+                
+            }
         } elseif ($t_connection == 0) {
 
         }
