@@ -94,7 +94,7 @@
                         {{-- КОНЕЦ ПОНА --}}
                         {{-- ЭЛЕМЕНТЫ ДЛЯ ПОДКЛЮЧЕНИЯ ПО WiFi
                             - base_ip
-                            - clien_ip
+                            - client_ip
                             --}}
                         <div id="wifi_view" hidden>
                             <div class="form-group">
@@ -102,8 +102,8 @@
                                 {{Form::text('base_ip','',['class' => 'form-control', 'placeholder' => 'http://46.164.132.206:52302'])}}
                             </div> 
                             <div class="form-group">
-                                {{Form::label('clien_ip', 'Антена клиента')}}
-                                {{Form::text('clien_ip','',['class' => 'form-control', 'placeholder' => 'http://46.164.132.206:52309'])}}
+                                {{Form::label('client_ip', 'Антена клиента')}}
+                                {{Form::text('client_ip','',['class' => 'form-control', 'placeholder' => 'http://46.164.132.206:52309'])}}
                             </div> 
                         </div>     
                         {{-- КОНЕЦ WiFi --}}

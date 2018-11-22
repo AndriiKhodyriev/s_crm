@@ -92,15 +92,15 @@
                         {{-- КОНЕЦ ПОНА --}}
                         {{-- ЭЛЕМЕНТЫ ДЛЯ ПОДКЛЮЧЕНИЯ ПО WiFi
                             - base_ip
-                            - clien_ip
+                            - client_ip
                             --}}
                             <div class="form-group">
                                 {{Form::label('base_ip', 'Базовая станция')}}
                                 {{Form::text('base_ip','',['class' => 'form-control base_ip'])}}
                             </div> 
                             <div class="form-group">
-                                {{Form::label('clien_ip', 'Антена клиента')}}
-                                {{Form::text('clien_ip','',['class' => 'form-control clien_ip'])}}
+                                {{Form::label('client_ip', 'Антена клиента')}}
+                                {{Form::text('client_ip','',['class' => 'form-control client_ip'])}}
                             </div> 
                             <div class="form-group">
                                 {{Form::label('leng', 'Кабель')}}

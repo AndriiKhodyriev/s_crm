@@ -55,9 +55,10 @@ class AbonsController extends Controller
             $abon->comment = $request->input('comment');
             $abon->leng = $request->input('leng');
             $abon->city_id = $request->input('city_name');
-            $abon->t_connection_id = $request->input('t_connections');
+            $t_con = $request->input('t_connections');
+            $abon->t_connection_id = $t_con;
             // если выбран тип подключения ПОН то проверить поля 
-            if ($request->t_connections == 1) {
+            if ($t_con == 1) {
                 $this->validate($request, [
                     'mac_onu'   => 'required',
                     'point_inc' => 'required',
@@ -67,16 +68,16 @@ class AbonsController extends Controller
                 $abon->save();
                 return redirect('/abons')->with('success', 'Клиент успешно создан!');
             // если выбран  тип подключения WiFi то проверить поля
-            } elseif ($request->t_conections == 2) {
+            } elseif ($t_con == 2) {
                 $this->validate($request, [
                     'base_ip'   => 'required',
-                    'clien_ip'  => 'required',
+                    'client_ip'  => 'required',
                 ]);
                 $abon->base_ip = $request->input('base_ip');
                 $abon->client_ip = $request->input('client_ip');
                 $abon->save();
                 return redirect('/abons')->with('success', 'Клиент успешно создан!');
-            } elseif ($request->t_connections == 3) {
+            } elseif ($t_con == 3) {
                 $abon->save();
                 return redirect('/abons')->with('success', 'Клиент успешно создан!');
             } else {
@@ -85,6 +86,7 @@ class AbonsController extends Controller
         }
     }
     public function update(Request $request, $id){
+        
         $city_id = $request->input('city_name');
         $t_connection = $request->input('t_connections');
 
@@ -106,22 +108,11 @@ class AbonsController extends Controller
         ($abon->leng        != $request->input('leng'))         ? $abon->leng = $request->input('leng') : "НЕТ ИЗМ";
         //($abon->city_id     != $request->input('city_name'))    ? $abon->city_id = $request->input('city_name') : "НЕТ ИЗМ";
         $abon->save();
-        if ($city_id == 0) {
-            if ($t_connection == 0) {
-                if ($abon->t_connection_id == 1) {
-
-                } elseif ($abon->t_connection_id == 2) {
-
-                } elseif ($abon->t_connection_id == 3) {
-
-                }
-                return redirect('/abons')->with('error', 'ВСЕ ЗБС!!!!');
-            } elseif ($t_connection == $abon->t_connection_id) {
-                
-            }
-        } elseif ($t_connection == 0) {
-
-        }
+        //В Ункцию передавать значения (1. Реквест, 2. Выборка по абону, 3. ИД город, 4. Тип подключения)
+        update_abon($request, $abon, $city_id, $t_connection);
+        //Если город не указан (значит он не изменяется)
+        
+        return redirect('/abons')->with('success', 'Данные изменены');
     }
 
     public function datatablesFindID(Request $request){ 
