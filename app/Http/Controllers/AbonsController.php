@@ -63,7 +63,7 @@ class AbonsController extends Controller
                     'mac_onu'   => 'required',
                     'point_inc' => 'required',
                 ]);
-                $abon->mac_onu = $request->input('onu_mac');
+                $abon->mac_onu = $request->input('mac_onu');
                 $abon->point_inc = $request->input('point_inc');
                 $abon->save();
                 return redirect('/abons')->with('success', 'Клиент успешно создан!');
@@ -107,7 +107,7 @@ class AbonsController extends Controller
         ($abon->comment     != $request->input('comment'))      ? $abon->comment = $request->input('comment') : "НЕТ ИЗМ";
         ($abon->leng        != $request->input('leng'))         ? $abon->leng = $request->input('leng') : "НЕТ ИЗМ";
         //($abon->city_id     != $request->input('city_name'))    ? $abon->city_id = $request->input('city_name') : "НЕТ ИЗМ";
-        $abon->save();
+//        $abon->save();
         //В Ункцию передавать значения (1. Реквест, 2. Выборка по абону, 3. ИД город, 4. Тип подключения)
         update_abon($request, $abon, $city_id, $t_connection);
         //Если город не указан (значит он не изменяется)

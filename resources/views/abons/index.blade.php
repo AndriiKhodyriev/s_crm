@@ -147,7 +147,7 @@
                             $('.leng').val(data.leng);
                             $('.comment').val(data.comment);
                             $('.all_money').val(data.all_money);
-                            $('.mac_onu').val(data.onu_mac);
+                            $('.mac_onu').val(data.mac_onu);
                             $('.point_inc').val(data.point_inc);
                             $('.base_ip').val(data.base_ip);
                             $('.client_ip').val(data.client_ip);
