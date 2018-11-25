@@ -115,6 +115,13 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a class="tooltip-tip" href="/finance" title="Финансовые отчеты">
+                                        <i class="entypo-briefcase"></i>
+                                        <span>Финансовые отчеты</span>
+        
+                                    </a>
+                                </li>
                         @else 
                         @endif
                         {{--
