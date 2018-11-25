@@ -29,7 +29,6 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="jumbotron">
-                {!! Form::open(['action' => 'AbonsController@store', 'method' => 'GET', 'enctype' => 'multipart/form-data']) !!}
                     <div class="form-group">
                         {{Form::label('city', 'Город')}}
                         <select name="city_name" id="">
@@ -43,8 +42,7 @@
                         <label for="daterange">Выбрать или ввести диапазон в формате (ММ/ДД/ГГГГ)</label>
                         <input class="form-control" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
                     </div>
-                {{Form::submit('Получить сумму и смету за выбранный период!', ['class' => 'btn btn-success'])}}
-                {!! Form::close() !!}
+                {{Form::submit('Получить сумму и смету за выбранный период!', ['class' => 'btn btn-success fin-info'])}}
             </div>
         </div>
         <div class="col-sm-4">
@@ -59,7 +57,7 @@
         </div>
     </div>
 <script>
-    //Плагин http://www.daterangepicker.com/
+//Плагин http://www.daterangepicker.com/
 $(function() {
   $('input[name="daterange"]').daterangepicker({
     opens: 'left'
