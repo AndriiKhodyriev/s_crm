@@ -29,7 +29,22 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="jumbotron">
-                
+                {!! Form::open(['action' => 'AbonsController@store', 'method' => 'GET', 'enctype' => 'multipart/form-data']) !!}
+                    <div class="form-group">
+                        {{Form::label('city', 'Город')}}
+                        <select name="city_name" id="">
+                        <option value=0>ВЫБОР ГОРОДА!</option>
+                            @foreach($cities as $city)
+                                <option value="{{$city->id}}">{{$city->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="daterange">Выбрать или ввести диапазон в формате (ММ/ДД/ГГГГ)</label>
+                        <input class="form-control" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+                    </div>
+                {{Form::submit('Получить сумму и смету за выбранный период!', ['class' => 'btn btn-success'])}}
+                {!! Form::close() !!}
             </div>
         </div>
         <div class="col-sm-4">
@@ -43,5 +58,15 @@
             </div>
         </div>
     </div>
+<script>
+    //Плагин http://www.daterangepicker.com/
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});    
+</script>
 @endsection
     
