@@ -46,13 +46,13 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="jumbotron">
-
+            <div hidden class="jumbotron" id="sum_info">
+                ТЕСТ ИНФОРМАЦИЯ
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="jumbotron">
-
+            <div hidden class="jumbotron" id="smeta_info">
+                ТЕСТ ИНФОРМАЦИЯ
             </div>
         </div>
     </div>
@@ -66,5 +66,14 @@ $(function() {
   });
 });    
 </script>
+
+<script>
+        $(document).on('click', '.fin-info', function(){
+            $('#sum_info').css('display','block');
+            $('#smeta_info').css('display','block');
+            
+        });
+    </script>
 @endsection
-    
+
+
