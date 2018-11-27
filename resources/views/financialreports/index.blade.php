@@ -31,7 +31,7 @@
             <div class="jumbotron">
                     <div class="form-group">
                         {{Form::label('city', 'Город')}}
-                        <select name="city_name" id="">
+                        <select name="city_name" id="city_name">
                         <option value=0>ВЫБОР ГОРОДА!</option>
                             @foreach($cities as $city)
                                 <option value="{{$city->id}}">{{$city->name}}</option>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label for="daterange">Выбрать или ввести диапазон в формате (ММ/ДД/ГГГГ)</label>
-                        <input class="form-control" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+                        <input id="date_diap" class="form-control" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
                     </div>
                 {{Form::submit('Получить сумму и смету за выбранный период!', ['class' => 'btn btn-success fin-info'])}}
             </div>
@@ -68,12 +68,14 @@ $(function() {
 </script>
 
 <script>
-        $(document).on('click', '.fin-info', function(){
-            $('#sum_info').css('display','block');
-            $('#smeta_info').css('display','block');
-            
-        });
-    </script>
+    $(document).on('click', '.fin-info', function(){
+        $('#sum_info').css('display','block');
+        $('#smeta_info').css('display','block');
+        var city_id = $('#city_name option:selected').val();
+        var date = $('#date_diap').val();
+        alert (date);
+    });
+</script>
 @endsection
 
 
