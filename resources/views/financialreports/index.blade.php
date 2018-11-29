@@ -47,12 +47,36 @@
         </div>
         <div class="col-sm-4">
             <div hidden class="jumbotron" id="sum_info">
-                ТЕСТ ИНФОРМАЦИЯ
+                <div class="nest" id="">
+                    <div class="title-alt">
+                        <h6> Сумма</h6>
+                        <div class="titleClose">
+                            ЛОЛ
+                        </div>
+                        <div class="titleToggle">
+                            ХОЛ
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Blank_Page_Content">
+                        Content Goes Here
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-sm-4">
             <div hidden class="jumbotron" id="smeta_info">
-                ТЕСТ ИНФОРМАЦИЯ
+                <div class="nest" id="">
+                    <div class="title-alt">
+                        <h6>Смета</h6>
+                        <div class="titleClose">
+                        </div>
+                        <div class="titleToggle">
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Blank_Page_Content">
+                        Content Goes Here
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -73,7 +97,19 @@ $(function() {
         $('#smeta_info').css('display','block');
         var city_id = $('#city_name option:selected').val();
         var date = $('#date_diap').val();
-        alert (date);
+        $.ajax({
+             headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:"{{ url('finance_key') }}",
+            method:"POST",
+            data: {city_id:city_id, date:date} ,
+            dataType:"json",
+            success:function(data)
+                {
+                    alert (data);
+                }
+        });
     });
 </script>
 @endsection
