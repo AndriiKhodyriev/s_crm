@@ -1,6 +1,9 @@
 @extends('layouts.app')    
 
 @section('content')
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> 
                     <div class="row">
                         <div id="paper-top">
                                     <div class="col-sm-3">
@@ -39,8 +42,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="daterange">Выбрать или ввести диапазон в формате (ММ/ДД/ГГГГ)</label>
-                        <input id="date_diap" class="form-control" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+                        <label for="daterange">Выбрать или ввести диапазон в формате (YYYY-MM-DD)</label>
+                        <input id="date_diap" class="form-control" type="text" name="daterange" value="" placeholder="2018-12-01 > 2018-12-31"/>
                     </div>
                 {{Form::submit('Получить сумму и смету за выбранный период!', ['class' => 'btn btn-success fin-info'])}}
             </div>
@@ -86,7 +89,10 @@ $(function() {
   $('input[name="daterange"]').daterangepicker({
     opens: 'left'
   }, function(start, end, label) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+  $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('YYYY-MM-DD') + ' > ' + picker.endDate.format('YYYY-MM-DD'));
   });
 });    
 </script>

@@ -20,10 +20,16 @@ class FinancialreportsController extends Controller
     public function report(Request $request){ 
         $id = $request->city_id;
         $date = $request->date;
+        //Разбор получаемой даты (с ней все выборки)
+        $date_F = explode(">", $date);
+        //После разбива получим (date_Start[0] - месяц, date_Start[1] - день, date_Start[2] - год) 
+        $date_Start =  $date_F[0];
+        $date_Stop = $date_F[1];
+        //ФОРМАТ ДАТЫ В MySql YYYY-MM-DD 
         $all_abons = select_all_abons();
-        $sum = $all_abons->where('city_id', $id);
+        $sum = $all_abons->where('created_at', '>=', $date_Start)->where('created_at','<=', $date_Stop);
         $count = count($sum);
      //   $join = Join::find($id);
-        return response()->json($count);
+        return response()->json($date_Stop);
     }
 }
