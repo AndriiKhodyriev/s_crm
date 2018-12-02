@@ -26,10 +26,14 @@ class FinancialreportsController extends Controller
         $date_Start =  $date_F[0];
         $date_Stop = $date_F[1];
         //ФОРМАТ ДАТЫ В MySql YYYY-MM-DD 
-        $all_abons = select_all_abons();
-        $sum = $all_abons->where('created_at', '>=', $date_Start)->where('created_at','<=', $date_Stop);
-        $count = count($sum);
-     //   $join = Join::find($id);
-        return response()->json($date_Stop);
+        $abons = Abon::select(['id', 'city_id', 'created_at', 'password', 
+                                'point_inc' ,'login', 'fullname','tarif_plan', 
+                                'street', 'build', 'flat', 'phone', 'leng', 'all_money', 
+                                'comment', 't_connection_id'])
+                            ->where('created_at', '>', $date_Start)
+                            ->where('created_at', '<', $date_Stop)
+                            ->get();
+        $count = count($abons);
+        return response()->json($count);
     }
 }
