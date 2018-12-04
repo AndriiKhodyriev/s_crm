@@ -6,6 +6,7 @@ use App\Abon;
 use App\Moduls\Query;
 use App\Moduls\Func;
 use Illuminate\Http\Request;
+use DB;
 
 class FinancialreportsController extends Controller
 {
@@ -26,14 +27,21 @@ class FinancialreportsController extends Controller
         $date_Start =  $date_F[0];
         $date_Stop = $date_F[1];
         //ФОРМАТ ДАТЫ В MySql YYYY-MM-DD 
-        $abons = Abon::select(['id', 'city_id', 'created_at', 'password', 
-                                'point_inc' ,'login', 'fullname','tarif_plan', 
-                                'street', 'build', 'flat', 'phone', 'leng', 'all_money', 
-                                'comment', 't_connection_id'])
-                            ->where('created_at', '>', $date_Start)
-                            ->where('created_at', '<', $date_Stop)
-                            ->get();
-        $count = count($abons);
-        return response()->json($count);
+        // $abons = Abon::select(['id', 'city_id', 'created_at', 'password', 
+        //                         'point_inc' ,'login', 'fullname','tarif_plan', 
+        //                         'street', 'build', 'flat', 'phone', 'leng', 'all_money', 
+        //                         'comment', 't_connection_id'])
+        //                     ->where('created_at', '>', $date_Start)
+        //                     ->where('created_at', '<', $date_Stop)
+        //                     ->get();
+        //                     $sum = 0;
+        // foreach($abons as $abon) {
+        //     $sum += $abon['all_money'];
+        // }
+        $sum = DB::table('abons')
+                    ->select(DB::raw('SUM(all_money)'))->where('created_at', '>', $date_Start)->where('created_at', '<', $date_Stop)->get();
+        // $count = count($abons);
+        // return response()->json($sum);
+        
     }
 }

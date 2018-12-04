@@ -37,6 +37,7 @@
                         <select name="city_name" id="city_name">
                         <option value=0>ВЫБОР ГОРОДА!</option>
                             @foreach($cities as $city)
+                                {{-- <option value=""> {{ $city->sum }}</option> --}}
                                 <option value="{{$city->id}}">{{$city->name}}</option>
                             @endforeach
                         </select>
@@ -113,7 +114,9 @@ $(function() {
             dataType:"json",
             success:function(data)
                 {
-                    alert (data);
+                    alert(data[0]);
+                    // alert(Object.keys(data));
+                    console.log();
                 }
         });
     });
