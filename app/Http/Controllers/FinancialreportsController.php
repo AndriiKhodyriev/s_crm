@@ -12,9 +12,7 @@ class FinancialreportsController extends Controller
 {
     public function index() 
     {
-        // $abons = Abon::all();
         $cities = City::all();
-        // $t_connections = TConnection::all();
         return view('financialreports.index')->with(['cities' => $cities]);
     }
 
@@ -27,17 +25,6 @@ class FinancialreportsController extends Controller
         $date_Start =  $date_F[0];
         $date_Stop = $date_F[1];
         //ФОРМАТ ДАТЫ В MySql YYYY-MM-DD 
-        // $abons = Abon::select(['id', 'city_id', 'created_at', 'password', 
-        //                         'point_inc' ,'login', 'fullname','tarif_plan', 
-        //                         'street', 'build', 'flat', 'phone', 'leng', 'all_money', 
-        //                         'comment', 't_connection_id'])
-        //                     ->where('created_at', '>', $date_Start)
-        //                     ->where('created_at', '<', $date_Stop)
-        //                     ->get();
-        //                     $sum = 0;
-        // foreach($abons as $abon) {
-        //     $sum += $abon['all_money'];
-        // }
         $result = [];
         if ($id == 0) {
             $sum = DB::table('abons')
@@ -57,9 +44,6 @@ class FinancialreportsController extends Controller
         foreach($sum as $s ) {
             $result['sum'] = $s->sum;
         }
-        // foreach($abons as $val ) {
-        //      $result['logins'] = $val;
-        // }
         $result['logins'] = $abons;
         $count = count($abons);
         $result['count'] = $count;
