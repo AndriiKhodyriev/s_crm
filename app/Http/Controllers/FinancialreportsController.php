@@ -38,10 +38,32 @@ class FinancialreportsController extends Controller
         // foreach($abons as $abon) {
         //     $sum += $abon['all_money'];
         // }
-        $sum = DB::table('abons')
-                    ->select(DB::raw('SUM(all_money)'))->where('created_at', '>', $date_Start)->where('created_at', '<', $date_Stop)->get();
-        // $count = count($abons);
-        // return response()->json($sum);
+        $result = [];
+        if ($id == 0) {
+            $sum = DB::table('abons')
+                    ->select(DB::raw('SUM(all_money) as sum'))->where('created_at', '>', $date_Start)->where('created_at', '<', $date_Stop)->get();
+            $abons = Abon::select(['created_at', 'login', 'comment'])->where('created_at', '>', $date_Start)->where('created_at', '<', $date_Stop)
+                            ->get();
+        } else {
+            $sum = DB::table('abons')
+                    ->select(DB::raw('SUM(all_money) as sum'))->where('created_at', '>', $date_Start)->where('created_at', '<', $date_Stop)
+                    ->where('city_id', '=', $id)
+                    ->get();
+            $abons = Abon::select(['created_at', 'login', 'comment'])->where('created_at', '>', $date_Start)->where('created_at', '<', $date_Stop)
+                            ->where('city_id', '=', $id)
+                            ->get();
+        }
+        
+        foreach($sum as $s ) {
+            $result['sum'] = $s->sum;
+        }
+        // foreach($abons as $val ) {
+        //      $result['logins'] = $val;
+        // }
+        $result['logins'] = $abons;
+        $count = count($abons);
+        $result['count'] = $count;
+        return response()->json($result);
         
     }
 }

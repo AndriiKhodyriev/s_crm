@@ -54,15 +54,13 @@
                 <div class="nest" id="">
                     <div class="title-alt">
                         <h6> Сумма</h6>
-                        <div class="titleClose">
-                            ЛОЛ
+                        <div class="titleClose" id="d_stop">
                         </div>
-                        <div class="titleToggle">
-                            ХОЛ
+                        <div class="titleToggle" id="d_start">
                         </div>
                     </div>
-                    <div class="body-nest" id="Blank_Page_Content">
-                        Content Goes Here
+                    <div class="body-nest" id="first_content">
+
                     </div>
                 </div>
             </div>
@@ -72,13 +70,13 @@
                 <div class="nest" id="">
                     <div class="title-alt">
                         <h6>Смета</h6>
-                        <div class="titleClose">
+                        <div class="titleClose" id="dt_stop">
                         </div>
-                        <div class="titleToggle">
+                        <div class="titleToggle" id="dt_start">
                         </div>
                     </div>
-                    <div class="body-nest" id="Blank_Page_Content">
-                        Content Goes Here
+                    <div class="body-nest" id="second_content">
+                        
                     </div>
                 </div>
             </div>
@@ -114,9 +112,23 @@ $(function() {
             dataType:"json",
             success:function(data)
                 {
-                    alert(data[0]);
-                    // alert(Object.keys(data));
-                    console.log();
+                    var arr = date.split('>');
+                    $('#second_content').empty();
+                    $(data.logins).each(function( index, value ) {
+                        $(value).each(function(i, data_logins){
+                            $('#second_content').append('Логин : ' + data_logins.login + '<br> Дата включения : ' + data_logins.created_at + '<br> Смета : ' + data_logins.comment + ' <hr>');
+                        })
+                    });
+                    $('#d_start').empty();
+                    $('#d_stop').empty();
+                    $('#dt_start').empty();
+                    $('#dt_stop').empty();
+                    $('#first_content').empty();
+                    $('#dt_start').append('C '+arr[0]);
+                    $('#dt_stop').append('До '+arr[1]);
+                    $('#d_start').append('C '+arr[0]);
+                    $('#d_stop').append('До '+arr[1]);
+                    $('#first_content').append('Всего получено : ' + data.sum + ' грн. / руб. <br> Всего было подключено : ' + data.count);
                 }
         });
     });
