@@ -11,12 +11,12 @@
                         {!! Form::open(['action' => 'CitiesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                         <div class="form-group">
                             {{Form::label('city', 'Полное название населенного пункта')}}
-                            {{Form::text('city','',['class' => 'form-control', 'placeholder' => 'Полное название!'])}}
+                            {{Form::text('city','',['class' => 'form-control city'])}}
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    {{Form::checkbox('check', '0', false, ['class' => 'form-control'])}}
+                                    {{Form::checkbox('check', '0', false, ['class' => 'form-control check'])}}
                                 </div>
                                 <div class="col-sm-6">
                                     {{Form::label('check', 'Видимость в ремонтах / подключениях')}}
@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             {{Form::label('chat_id', 'ID чата телеграмма!')}}
-                            {{Form::text('chat_id','',['class' => 'form-control', 'placeholder' => '-1001179946668'])}}
+                            {{Form::text('chat_id','',['class' => 'form-control chat_id', 'placeholder' => '-1001179946668'])}}
                         </div>
 
                 </div>      

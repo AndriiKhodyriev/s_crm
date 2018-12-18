@@ -93,15 +93,20 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url:"{{ url('datatablesFindID') }}",
+                url:"{{ url('citychid') }}",
                 method:"POST",
                 data: {id:id},
                 dataType:"json",
                 success:function(data)
                 {
                     $('#editCityForm').modal('show');
-                    // $('.login').val(data.login);
-                    // $('.password').val(data.password);
+                    $('.city').val(data.name);
+                    $('.chat_id').val(data.chat_id);
+                    if(data.visibility_everywhere == 1) {
+                        $('.check').attr("checked", true);
+                    } else {
+                        $('.check').attr("checked", false);
+                    }
                     // $('.tp_name').val(data.tarif_plan);
                     // $('.fullname').val(data.fullname);
                     // $('.phone_num').val(data.phone);

@@ -37,4 +37,10 @@ class CitiesController extends Controller
         $city->save();
         return redirect('/cities')->with('success', 'Город был успешно создан!');
     }
+
+    public function citychid(Request $request){ 
+        $id = $request->id;
+        $city = City::find($id);
+        return response()->json($city);
+    }
 }
