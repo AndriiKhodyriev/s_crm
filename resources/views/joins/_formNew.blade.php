@@ -11,8 +11,9 @@
                 <div class="modal-body">
                         {!! Form::open(['action' => 'JoinsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                         <div class="form-group">
-                            
+                            {{Form::label('city', 'Город')}}
                             <select name="city_name" id="">
+                                <option value=0> Выбрать город</option>
                                 @foreach($cities as $city)
                                     <option value="{{$city->id}}">{{$city->name}}</option>
                                 @endforeach
