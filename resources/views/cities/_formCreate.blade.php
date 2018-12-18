@@ -14,10 +14,15 @@
                             {{Form::text('city','',['class' => 'form-control', 'placeholder' => 'Полное название!'])}}
                         </div>
                         <div class="form-group">
-                            {{Form::checkbox('check','',['class' => 'form-control', 'placeholder' => 'Полное название!'])}}
-                            {{Form::label('check', 'Видимость в ремонтах / подключениях')}}
-                            <br>
-                            
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    {{Form::checkbox('check', '0', false, ['class' => 'form-control'])}}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{Form::label('check', 'Видимость в ремонтах / подключениях')}}
+                                </div>
+                                
+                            </div>                         
                         </div>
                         <div class="form-group">
                             {{Form::label('chat_id', 'ID чата телеграмма!')}}
