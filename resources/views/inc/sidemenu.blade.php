@@ -50,12 +50,12 @@
 
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="tooltip-tip" href="/abons" title="База абонентов">
                                 <i class="entypo-users"></i>
                                 <span>База абонентов</span>
 
-                            </a>
+                            </a> --}}
                         </li>
                         <li>
                             <a class="tooltip-tip ajax-load" href="/" title="Задачи">
