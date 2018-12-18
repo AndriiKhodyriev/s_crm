@@ -21,7 +21,7 @@
                             </a>
                         </li>
 
-                        <li>
+                        {{-- <li>
                             <a class="tooltip-tip" href="#" title="Заявки">
                                 <i class="icon-document-edit"></i>
                                 <span>Заявки</span>
@@ -35,13 +35,27 @@
                                     <a class="tooltip-tip2" href="/joins" title="Подключения"><i class="entypo-plus-squared"></i><span>Подключения</span></a>
                                 </li>
                             </ul>
+                        </li> --}}
+                        <li>
+                            <a class="tooltip-tip" href="/repairs" title="База абонентов">
+                                <i class="entypo-cog"></i>
+                                <span>Ремонты</span>
+
+                            </a>
                         </li>
                         <li>
-                            <a class="tooltip-tip" href="/" title="База абонентов">
+                            <a class="tooltip-tip" href="/joins" title="База абонентов">
+                                <i class="entypo-plus-squared"></i>
+                                <span>Подключения</span>
+
+                            </a>
+                        </li>
+                        {{-- <li>
+                            <a class="tooltip-tip" href="/abons" title="База абонентов">
                                 <i class="entypo-users"></i>
                                 <span>База абонентов</span>
 
-                            </a>
+                            </a> --}}
                         </li>
                         <li>
                             <a class="tooltip-tip ajax-load" href="/" title="Задачи">
@@ -100,6 +114,13 @@
                                             <a class="tooltip-tip2" href="/register" title="Регистрация"><i class="entypo-newspaper"></i><span><s>Регистрация</s></span></a>
                                         </li>
                                     </ul>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip" href="/finance" title="Финансовые отчеты">
+                                        <i class="entypo-briefcase"></i>
+                                        <span>Финансовые отчеты</span>
+        
+                                    </a>
                                 </li>
                         @else 
                         @endif

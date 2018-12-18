@@ -21,8 +21,7 @@ class JoinsController extends Controller
      */
     public function index(Request $request)
     {
-         $user = $request->user();
-        
+        $user = $request->user();
 
         if ($user->hasRole('grunt')) {
             $cities_id = [];

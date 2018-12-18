@@ -48,6 +48,9 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo('App\Role'); 
     }
+    public function abon(){
+        return $this->hasMany('App\Abon', 'create_user_id', 'id');
+    }
     public function hasRole($roleName)
     {
         foreach ($this->role()->get() as $role)
