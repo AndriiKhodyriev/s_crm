@@ -21,7 +21,9 @@
             {{Form::label('city', 'Город')}}
             <select name="city_name" id="">
                 @foreach($cities as $city)
+                  @if($city->visibility_everywhere != 0)
                     <option value="{{$city->id}}">{{$city->name}}</option>
+                  @endif
                 @endforeach
             </select>
         </div>
