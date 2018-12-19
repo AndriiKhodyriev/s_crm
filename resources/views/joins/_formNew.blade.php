@@ -15,7 +15,9 @@
                             <select name="city_name" id="">
                                 <option value=0> Выбрать город</option>
                                 @foreach($cities as $city)
-                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                    @if($city->visibility_everywhere != 0)
+                                        <option value="{{$city->id}}">{{$city->name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

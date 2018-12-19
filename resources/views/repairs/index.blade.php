@@ -44,7 +44,9 @@
                     <select name="cities" class="city-ch">
                                 <option value="0">Все города</option>
                                 @foreach($cities as $city)
-                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                    @if($city->visibility_everywhere != 0)
+                                        <option value="{{$city->id}}">{{$city->name}}</option>
+                                    @endif
                                 @endforeach     
                         </select>
                     <span>Для выборки по объекту - выберите город</span>
