@@ -20,6 +20,7 @@ Route::resource('repairs', 'RepairsController');
     Route::get('/datatablesRepairCityId/{id}', 'RepairsController@datatablesRepairCityId');
     Route::get('/datatablesRepairsFindByTicId/{id}/{cityID}', 'RepairsController@datatablesRepairsFindByTicId');
 Route::resource('cities', 'CitiesController');
+    Route::post('/citychid', 'CitiesController@citychid'); //взять инфу по городу по ИД
 Route::resource('statuses', 'StatusesController');
 Route::resource('users', 'UsersController');
 // Route::get('/users', 'UsersController@index');

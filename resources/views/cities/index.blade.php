@@ -34,6 +34,7 @@
 </div>
 
 @include('cities._formCreate');
+@include('cities._formEdit');
 {{-- All list cities --}}
 <div class="container">
     <h4>Для создания населенного пункта, необходимо создать канал телеграм для информирования о новых заявках!</h4>
@@ -55,6 +56,8 @@
                 <th scope="col">#</th>
                 <th scope="col">НАЗВАНИЕ</th>
                 <th scope="col">ЧАТ ID</th>
+                <th scope="col">Видимость в ремонтах/подключениях</th>
+                <th scope="col">Изменить</th>
               </tr>
             </thead>
             <tbody>
@@ -63,10 +66,64 @@
                 <th scope="row">{{$city->id}}</th>
                 <td>{{$city->name}}</td>
                 <td>{{$city->chat_id}}</td>
+                
+                @if($city->visibility_everywhere == 1) 
+                    <td>
+                        <span class="label label-info"> Видимость в ремонтах / подключениях </span>
+                    </td>
+                @else 
+                    <td>
+                        <span class="label label-important"> Только для базы</span>
+                    </td>
+                @endif
+                <td>
+                    <button type="button" name="update" id={{$city->id}} class="btn btn-warning btn-xs update" >Изменить</button>
+                </td>
             </tr>
         @endforeach
 </div>
 @else 
     <h1>НЕТ ДОСТУПА</h1>
 @endif
+
+<script type="text/javascript">
+    $(document).on('click', '.update', function(){
+        var id = $(this).attr("id");
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:"{{ url('citychid') }}",
+                method:"POST",
+                data: {id:id},
+                dataType:"json",
+                success:function(data)
+                {
+                    $('#editCityForm').modal('show');
+                    $('.city').val(data.name);
+                    $('.chat_id').val(data.chat_id);
+                    if(data.visibility_everywhere == 1) {
+                        $('.check').attr("checked", true);
+                    } else {
+                        $('.check').attr("checked", false);
+                    }
+                    $('#action_module').attr('action','/cities/'+data.id);
+                    // $('.tp_name').val(data.tarif_plan);
+                    // $('.fullname').val(data.fullname);
+                    // $('.phone_num').val(data.phone);
+                    // $('.street').val(data.street);
+                    // $('.build').val(data.build);
+                    // $('.flat').val(data.flat);
+                    // $('.leng').val(data.leng);
+                    // $('.comment').val(data.comment);
+                    // $('.all_money').val(data.all_money);
+                    // $('.mac_onu').val(data.mac_onu);
+                    // $('.point_inc').val(data.point_inc);
+                    // $('.base_ip').val(data.base_ip);
+                    // $('.client_ip').val(data.client_ip);
+                    // $('#action_module').attr('action','/abons/'+data.id);
+                }
+        });
+    });
+</script>
 @endsection

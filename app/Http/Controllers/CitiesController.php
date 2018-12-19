@@ -28,13 +28,29 @@ class CitiesController extends Controller
         $this->validate($request, [
             'city' => 'required',
             'chat_id' => 'required',
+            
         ]);
-
         $city = new City;
         $city->name = $request->input('city');
         $city->chat_id = $request->input('chat_id');
+        $city->visibility_everywhere = $request->has('check');
         $city->save();
-
         return redirect('/cities')->with('success', 'Город был успешно создан!');
+    }
+
+    public function update(Request $request, $id) 
+    {   
+        $city = City::find($id);
+        $city->name = $request->input('city');
+        $city->chat_id = $request->input('chat_id');
+        $city->visibility_everywhere = $request->has('check');
+        $city->save();
+        return redirect('/cities')->with('success', 'Город был изменен!');
+    }
+
+    public function citychid(Request $request){ 
+        $id = $request->id;
+        $city = City::find($id);
+        return response()->json($city);
     }
 }

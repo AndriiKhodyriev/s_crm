@@ -50,12 +50,11 @@
 
                             </a>
                         </li>
-                        {{-- <li>
-                            <a class="tooltip-tip" href="/abons" title="База абонентов">
-                                <i class="entypo-users"></i>
-                                <span>База абонентов</span>
-
-                            </a> --}}
+                        <li>
+                            <a class="tooltip-tip ajax-load" href="/snmp" title="Проверка PON">
+                                <i class="entypo-flashlight"></i>
+                                    <span>Проверка PON</span>
+                            </a>
                         </li>
                         <li>
                             <a class="tooltip-tip ajax-load" href="/" title="Задачи">
@@ -66,11 +65,11 @@
                         </li>
                         @if(auth()->user()->role_id !== 4) 
                         <li>
-                            <a class="tooltip-tip ajax-load" href="/snmp" title="Проверка PON">
-                                <i class="entypo-flashlight"></i>
-                                <span>Проверка PON</span>
+                            <a class="tooltip-tip" href="/abons" title="База абонентов">
+                                <i class="entypo-users"></i>
+                                <span>База абонентов</span>
 
-                            </a>
+                            </a> 
                         </li>
                         @endif
                     </ul>
