@@ -107,6 +107,7 @@
                     } else {
                         $('.check').attr("checked", false);
                     }
+                    $('#action_module').attr('action','/cities/'+data.id);
                     // $('.tp_name').val(data.tarif_plan);
                     // $('.fullname').val(data.fullname);
                     // $('.phone_num').val(data.phone);

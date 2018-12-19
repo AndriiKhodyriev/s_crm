@@ -20,6 +20,7 @@ Route::resource('repairs', 'RepairsController');
     Route::get('/datatablesRepairCityId/{id}', 'RepairsController@datatablesRepairCityId');
     Route::get('/datatablesRepairsFindByTicId/{id}/{cityID}', 'RepairsController@datatablesRepairsFindByTicId');
 Route::resource('cities', 'CitiesController');
+    Route::post('/citychid', 'CitiesController@citychid'); //взять инфу по городу по ИД
 Route::resource('statuses', 'StatusesController');
 Route::resource('users', 'UsersController');
 // Route::get('/users', 'UsersController@index');
@@ -33,7 +34,6 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 	Route::post('/snmp/getONUInfo', 'SNMPController@getONUInfo');
 	Route::get('/snmp', 'SNMPController@index');
 Route::resource('abons', 'AbonsController');
-    Route::post('/citychid', 'CitiesController@citychid'); //взять инфу по городу по ИД
     Route::get('/datatablesFindCityIDBase/{id}/{type_con}', 'AbonsController@datatablesFindCityIDBase'); //Выборка по городу + тип подключения
     Route::get('/datatablesFindTConIDBase/{id}/{city_id}', 'AbonsController@datatablesFindTConIDBase'); // Выборка по типу подключения по выбранному городу
     Route::post('/datatablesFindID', 'AbonsController@datatablesFindID'); //взять инфу по ИД

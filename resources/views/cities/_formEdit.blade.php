@@ -8,8 +8,8 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
-                        {!! Form::open(['action' => 'CitiesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-                        <div class="form-group">
+                    {!! Form::open(['id' => 'action_module', 'class' => 'form-horizontal', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+                    <div class="form-group">
                             {{Form::label('city', 'Полное название населенного пункта')}}
                             {{Form::text('city','',['class' => 'form-control city'])}}
                         </div>
@@ -32,8 +32,9 @@
                 </div>      
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                        {{Form::submit('Создать запись!', ['class' => 'btn btn-success'])}}
-                        {!! Form::close() !!}
+                    {{Form::hidden('_method', 'PUT')}}
+                    {{Form::submit('Изменить!', ['class' => 'btn btn-success'])}}
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
