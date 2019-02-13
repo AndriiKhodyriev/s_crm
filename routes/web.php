@@ -14,6 +14,7 @@ Route::resource('joins', 'JoinsController');
     Route::get('/datatablesFindByTicketStatusId/{id}/{cityID}', 'JoinsController@datatablesFindByTicketStatusId');
     Route::get('/datatablesFindByCityId/{id}', 'JoinsController@datatablesFindByCityId');
     Route::post('/datablesFindById', 'JoinsController@datablesFindById');
+    Route::post('/joins_cliens', 'JoinsController@joinsClients');
 Route::resource('repairs', 'RepairsController');
 	Route::get('/datablesAllRepairs', 'RepairsController@datablesAllRepairs');
     Route::post('/datablesRepairFindById', 'RepairsController@datablesRepairFindById');
