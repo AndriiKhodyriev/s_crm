@@ -358,12 +358,8 @@ class JoinsController extends Controller
     // все заявки которые получаем таким способом (БЕЗ ГОРОДА city_name = 01740169)   будет присвоен город НЕИЗВЕСТНО с ID = 24
     // все заявки которые получаем таким способом получают ticket_status_id = 4 (С САЙТА)
 
-<<<<<<< HEAD
-    public function joinsClients(Request $request){
-=======
     public function joinsClients(Request $request)
     {
->>>>>>> 10be32aada3193523f0dd8798584a8d3be4c2801
         $this->validate($request, [
             'city_name' => 'required',
             'street'    => 'required',
@@ -373,17 +369,14 @@ class JoinsController extends Controller
         ]);
         
         $join                       = new Join;
-<<<<<<< HEAD
-        $joins->street              = $request->input('street');
-        $joins->build               = $request->input('build');
-        $joins->full_name           = $request->input('full_name');
-        $joins->phone_num           = $request->input('phone_num');
-=======
         $join->street              = $request->input('street');
         $join->build               = $request->input('build');
         $join->full_name           = $request->input('full_name');
         $join->phone_num           = $request->input('phone_num');
->>>>>>> 10be32aada3193523f0dd8798584a8d3be4c2801
+        $join->street              = $request->input('street');
+        $join->build               = $request->input('build');
+        $join->full_name           = $request->input('full_name');
+        $join->phone_num           = $request->input('phone_num');
         $join->create_user_id       = 32;
         $join->close_user_id        = 32;
         if( $request->input('city_name') == 11111 ) {
@@ -393,10 +386,7 @@ class JoinsController extends Controller
         }
         $join->ticket_status_id     = 4;
         $join->save();
-<<<<<<< HEAD
-=======
         redirect()->away('http://kronos.in.ua/');
->>>>>>> 10be32aada3193523f0dd8798584a8d3be4c2801
     }
     /**
      * Display the specified resource.
