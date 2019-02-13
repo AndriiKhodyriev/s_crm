@@ -358,7 +358,8 @@ class JoinsController extends Controller
     // все заявки которые получаем таким способом (БЕЗ ГОРОДА city_name = 01740169)   будет присвоен город НЕИЗВЕСТНО с ID = 24
     // все заявки которые получаем таким способом получают ticket_status_id = 4 (С САЙТА)
 
-    public function joinsClients(Request $request){
+    public function joinsClients(Request $request)
+    {
         $this->validate($request, [
             'city_name' => 'required',
             'street'    => 'required',
@@ -368,10 +369,10 @@ class JoinsController extends Controller
         ]);
         
         $join                       = new Join;
-        $joins->street              = $request->input('street');
-        $joins->build               = $request->input('build');
-        $joins->full_name           = $request->input('full_name');
-        $joins->phone_num           = $request->input('phone_num');
+        $join->street              = $request->input('street');
+        $join->build               = $request->input('build');
+        $join->full_name           = $request->input('full_name');
+        $join->phone_num           = $request->input('phone_num');
         $join->create_user_id       = 32;
         $join->close_user_id        = 32;
         if( $request->input('city_name') == 11111 ) {
