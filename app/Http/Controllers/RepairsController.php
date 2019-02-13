@@ -30,7 +30,7 @@ class RepairsController extends Controller
                 array_push($cities_id, $city->id);
             };
         //$cities = City::all();
-            $cities = City::select(['id','name'])
+            $cities = City::select(['id','name', 'visibility_everywhere'])
                     ->whereIn('id', $cities_id)
                     ->get();
         } else {
