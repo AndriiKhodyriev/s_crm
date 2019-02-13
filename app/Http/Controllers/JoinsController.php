@@ -382,6 +382,7 @@ class JoinsController extends Controller
         }
         $join->ticket_status_id     = 4;
         $join->save();
+        redirect()->away('http://kronos.in.ua/');
     }
     /**
      * Display the specified resource.
