@@ -323,6 +323,9 @@ class JoinsController extends Controller
             'full_name' => 'required',
             'phone_num' => 'required',
         ]);
+        if ($request->input('city_name') == 0) {
+            return redirect('/joins')->with('error', 'Не создано! Указать город!');
+        } else {
          //get user id
          $userId = Auth::id();   
          //create post 
@@ -345,6 +348,8 @@ class JoinsController extends Controller
                 . "\r\n Комментарий : " . $request->input('comment');
          sendMessage($text, $chat_id);
          return redirect('/joins')->with('success', 'Заявка сформирована! Сообщение было отправленно! ');
+        }
+        
     }
 
     /**
