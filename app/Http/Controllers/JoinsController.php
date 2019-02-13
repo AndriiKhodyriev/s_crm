@@ -323,6 +323,9 @@ class JoinsController extends Controller
             'full_name' => 'required',
             'phone_num' => 'required',
         ]);
+        if ($request->input('city_name') == 0) {
+            return redirect('/joins')->with('error', 'Не создано! Указать город!');
+        } else {
          //get user id
          $userId = Auth::id();   
          //create post 
@@ -345,8 +348,40 @@ class JoinsController extends Controller
                 . "\r\n Комментарий : " . $request->input('comment');
          sendMessage($text, $chat_id);
          return redirect('/joins')->with('success', 'Заявка сформирована! Сообщение было отправленно! ');
+        }
+        
     }
+    // обработчик для создания заявок которые приходят от клиентов 
+    // заявки приходят постом с внешнего сайта 
+    // редиректы не использовать 
+    // все заявки который получаем таким способом идут от пользователя с ID = 32 
+    // все заявки которые получаем таким способом (БЕЗ ГОРОДА city_name = 01740169)   будет присвоен город НЕИЗВЕСТНО с ID = 24
+    // все заявки которые получаем таким способом получают ticket_status_id = 4 (С САЙТА)
 
+    public function joinsClients(Request $request){
+        $this->validate($request, [
+            'city_name' => 'required',
+            'street'    => 'required',
+            'build'     => 'required',
+            'full_name' => 'required',
+            'phone_num' => 'required',
+        ]);
+        
+        $join                       = new Join;
+        $joins->street              = $request->input('street');
+        $joins->build               = $request->input('build');
+        $joins->full_name           = $request->input('full_name');
+        $joins->phone_num           = $request->input('phone_num');
+        $join->create_user_id       = 32;
+        $join->close_user_id        = 32;
+        if( $request->input('city_name') == 11111 ) {
+            $join->city_id          = 24;
+        } else {
+            $join->city_id          = $request->input('city_name');
+        }
+        $join->ticket_status_id     = 4;
+        $join->save();
+    }
     /**
      * Display the specified resource.
      * 
