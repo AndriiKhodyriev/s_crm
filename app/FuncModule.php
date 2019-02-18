@@ -93,19 +93,19 @@ if(!function_exists('log_modif_join')){
         if($request->input('city_name') != 0) {
             $cityNew = City::find($request->input('city_name'));
             $cityOld = City::find($join->city_id);
-            $text .= " Город: " . $cityOld->name . " => " . $cityNew->name;
+            $text .= "<br> ->  Город: " . $cityOld->name . " => " . $cityNew->name;
         }
         if($request->input('status_name') != 0){
             $statusNew = TicketStatus::find($request->input('status_name'));
             $statusOld = TicketStatus::find($join->ticket_status_id);
-            $text .= " Статус: " . $statusOld->name . " => " . $statusNew->name;
+            $text .= "<br> ->  Статус: " . $statusOld->name . " => " . $statusNew->name;
         }
-        ($join->street      != $request->input('street'))    ?   $text .= " Улица: " . $join->street . " => " . $request->input('street') : "NO MOD";
-        ($join->build       != $request->input('build'))     ?   $text .= " Дом: " . $join->build . " => " . $request->input('build') : "NO MOD";
-        ($join->full_name   != $request->input('full_name')) ?   $text .= " ФИО: " . $join->full_name . " => " . $request->input('full_name') : "NO MOD";
-        ($join->phone_num   != $request->input('phone_num')) ?   $text .= " Телефон: " . $join->phone_num . " => " . $request->input('phone_num') : "NO MOD";
-        ($join->comment     != $request->input('comment'))   ?   $text .= " Комментарий: " . $join->comment . " => " . $request->input('comment') : "NO MOD";
-        ($join->join_area   != $request->input('join_area')) ?   $text .= " Место включения: " . $join->join_area . " => " . $request->input('join_area') : "NO MOD";
+        ($join->street      != $request->input('street'))    ?   $text .= "<br> -> Улица: " . $join->street . " => " . $request->input('street') : "NO MOD";
+        ($join->build       != $request->input('build'))     ?   $text .= "<br> ->  Дом: " . $join->build . " => " . $request->input('build') : "NO MOD";
+        ($join->full_name   != $request->input('full_name')) ?   $text .= "<br> ->  ФИО: " . $join->full_name . " => " . $request->input('full_name') : "NO MOD";
+        ($join->phone_num   != $request->input('phone_num')) ?   $text .= "<br> ->  Телефон: " . $join->phone_num . " => " . $request->input('phone_num') : "NO MOD";
+        ($join->comment     != $request->input('comment'))   ?   $text .= "<br> ->  Комментарий: " . $join->comment . " => " . $request->input('comment') : "NO MOD";
+        ($join->join_area   != $request->input('join_area')) ?   $text .= "<br> ->  Место включения: " . $join->join_area . " => " . $request->input('join_area') : "NO MOD";
         $joinLog            = new JoinsLog;
         $joinLog->join_id   = $join->id;
         $joinLog->user_id   = $user_id;

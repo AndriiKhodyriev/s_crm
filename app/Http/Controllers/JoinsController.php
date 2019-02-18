@@ -481,4 +481,23 @@ class JoinsController extends Controller
         $join->delete();
         return redirect('/joins')->with('success', 'Заявка на подключение УДАЛЕНА!');
     }
+
+    //Функция которая отдает все логи по определенной заявке 
+    public function logJoin(Request $request){ 
+        $id = $request->id;
+        $logs = DB::table('joins_logs')->select([
+            'joins_logs.id',
+            'joins_logs.join_id',
+            'joins_logs.info_log',
+            'joins_logs.created_at',
+            'users.username',
+        ])
+        ->leftJoin('users', 'users.id', '=', 'joins_logs.user_id')
+        ->where('joins_logs.join_id', '=', $id)
+        ->orderBy('joins_logs.id', 'desc')
+        ->get();
+        //$logs = JoinsLog::where('join_id', $request->id)->orderBy('id','desc')->get();
+        
+        return response()->json($logs); 
+    }
 }

@@ -83,6 +83,7 @@
             {{-- INCLUDE modal windows --}}
    @include('joins._formNew')
    @include('joins._formEdit')
+   @include('joins._menuLog')
         <!-- Update button -->
         <script>
             $(document).on('click', '.update', function(){
@@ -195,6 +196,33 @@
                         }
                 });
             });
+
+
+
+            $(document).on('click', '.entypo-info', function(){
+                var id = $(this).attr("id");
+                $.ajax({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url:"{{ url('logJoin') }}",
+                        method:"POST",
+                        data: {id:id} ,
+                        dataType:"json",
+                        success:function(data)
+                        {
+                            $('#logJoin').modal('show');
+                            $('#first').empty();
+                            $.each(data, function(i, item){
+                                
+                                $('#first').append("Имя пользователя : " + data[i].username + "<br> Дата : " + data[i].created_at + "<br>" + data[i].info_log + "<hr>" );
+                                //alert(data[i].info_log);
+                            });
+                        }
+                });
+            });
+
+
             </script>
 @endsection
 @section('dt_script')
