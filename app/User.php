@@ -45,6 +45,9 @@ class User extends Authenticatable
     public function joinsLog(){
         return $this->hasMany('App\JoinsLog', 'user_id', 'id');
     }
+    public function repairsLog(){ 
+        return $this->hasMany('App\RepairsLog', 'user_id', 'id');
+    }
     public function cities(){
         return $this->belongsToMany('App\City'); 
     }

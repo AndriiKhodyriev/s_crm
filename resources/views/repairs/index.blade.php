@@ -81,6 +81,7 @@
 </div>    
 @include('inc.repairCreateForm')
 @include('inc.repairUpdateForm')
+@include('repairs._menuLog')
 <script type="text/javascript">
     $(document).on( "click", ".update",function() {
 			 var id = $(this).attr("id");
@@ -137,6 +138,31 @@
                             ],
                     order: [ [0, 'desc']]
                     });
+                });
+            });
+
+
+
+             $(document).on('click', '.entypo-info', function(){
+                var id = $(this).attr("id");
+                $.ajax({
+                    headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url:"{{ url('logRep') }}",
+                        method:"POST",
+                        data: {id:id} ,
+                        dataType:"json",
+                        success:function(data)
+                        {
+                            $('#logRepair').modal('show');
+                            $('#first').empty();
+                            $.each(data, function(i, item){
+                                
+                                $('#first').append("Имя пользователя : " + data[i].username + "<br> Дата : " + data[i].created_at + "<br>" + data[i].info_log + "<hr>" );
+                                //alert(data[i].info_log);
+                            });
+                        }
                 });
             });
 </script>

@@ -1,6 +1,7 @@
 <?php
 use App\Abon;
 use App\JoinsLog;
+use App\RepairsLog;
 //Для логов желательно использовать прямые название городов и статусов заявок
 //подключаем модели городов и статусов + типов подключения 
 use App\City;
@@ -115,3 +116,48 @@ if(!function_exists('log_modif_join')){
 }
 
 // Конец функций для работы с логами по заявкам на подключение 
+// Начало функций для работы с логами по заявкам на ремонт 
+if(!function_exists('log_create_repair')){
+    function log_create_repair($user_id, $repair_id){
+        $repLog     = new RepairsLog;
+        $repLog->user_id = $user_id;
+        $repLog->repair_id = $repair_id;
+        $repLog->info_log  = "Заявка на ремонт сформирована";
+        $repLog->save();
+    }
+}
+
+if(!function_exists('log_mod_repair')){
+    function log_mod_repair($repair, $request, $user_id){
+        $text = "Были модификации : ";
+
+        if($request->input('status_name') != 0) {
+            $statusNew = TicketStatus::find($request->input('status_name'));
+            $statusOld = TicketStatus::find($repair->ticket_status_id);
+            ($repair->ticket_status_id != $request->input('status_name'))   ? $text .= "<br> -> Статус заявки: " . $statusOld->name . " => " . $statusNew->name : "NO MOD"; 
+        }
+        
+        if($request->input('city_name') != 0) {
+            $cityNew = City::find($request->input('city_name'));
+            $cityOld = City::find($repair->city_id);
+            ($repair->city_id != $request->input('city_name'))  ? $text .= "<br> -> Город: " . $cityOld->name . " => " . $cityNew->name : "NO MOD";
+        }
+
+
+        ($repair->login              != $request->input('login'))       ? $text .= "<br> -> Логин: " . $repair->login . " => " . $request->input('login') : "NO MOD";
+        ($repair->street             != $request->input('street'))     ? $text .= "<br> -> Улица: " . $repair->street . " => " . $request->input('street') : "NO MOD";
+        ($repair->build              != $request->input('build'))      ? $text .= "<br> -> Дом: " . $repair->build . " => " . $request->input('build') : "NO MOD";
+        ($repair->phone_num          != $request->input('phone_num'))  ? $text .= "<br> -> Номер телефона: " . $repair->phone_num . " => " . $request->input('phone_num') : "NO MOD";
+        ($repair->vlan_name          != $request->input('vlan_name'))  ? $text .= "<br> -> VLAN: " . $repair->vlan_name . " => " . $request->input('vlan_name') : "NO MOD";
+        ($repair->cause              != $request->input('cause'))      ? $text .= "<br> -> Причина обращения: " . $repair->cause . " => " . $request->input('cause') : "NO MOD";
+        ($repair->comment            != $request->input('comment'))    ? $text .= "<br> -> Комментарий: " . $repair->cause . " => " . $request->input('comment') : "NO MOD";
+        
+        $repLog     = new RepairsLog;
+        $repLog->user_id = $user_id;
+        $repLog->repair_id = $repair->id;
+        $repLog->info_log = $text;
+        $repLog->save();
+    }
+}
+
+// Конец функций для работы с логами по заявкам на ремонт 

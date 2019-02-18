@@ -8,6 +8,7 @@ use App\Repair;
 use App\City;
 use App\User;
 use App\TicketStatus;
+use App\RepairsLog;
 use Illuminate\Support\Facades\App;
 use Datatables;
 use Illuminate\Support\Facades\DB;
@@ -87,9 +88,11 @@ class RepairsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$repair->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$repair->id.'></i>';
                                 }
                             })
                             ->make(true);
@@ -191,9 +194,11 @@ class RepairsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$repair->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$repair->id.'></i>';
                                 }
                             })
                             ->make(true);
@@ -260,9 +265,11 @@ class RepairsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$repair->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$repair->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$repair->id.'></i>';
                                 }
                             })
                             ->make(true);
@@ -334,6 +341,7 @@ class RepairsController extends Controller
                     . "\r\n Причина : "     . $request->input('cause')
                     . "\r\n Комментарий : " . $request->input('comment');
             sendMessage($text, $chat_id);
+            log_create_repair($userId, $repair->id);
             return redirect('/repairs')->with('success', 'Заявка составлена! Сообщение отправленно!');
         }
     }
@@ -383,6 +391,7 @@ class RepairsController extends Controller
         $userId = Auth::id(); 
         // create repair
         $repair = Repair::find($id);
+        log_mod_repair($repair, $request, $userId);
         if ($request->input('status_name') != 0) {
             $repair->ticket_status_id = $request->input('status_name');
             if($request->input('status_name') == 3){
@@ -428,5 +437,20 @@ class RepairsController extends Controller
         $repair = Repair::find($id);
         $repair->delete();
         return redirect('/repairs')->with('success', 'Заявка на ремонт УДАЛЕНА!');
+    }
+    public function logRep(Request $request) { 
+        $id = $request->id;
+        $logs = DB::table('repairs_logs')->select([
+            'repairs_logs.id',
+            'repairs_logs.repair_id',
+            'repairs_logs.info_log',
+            'repairs_logs.created_at',
+            'users.username',
+        ])
+        ->leftJoin('users', 'users.id', '=', 'repairs_logs.user_id')
+        ->where('repairs_logs.repair_id', '=', $id)
+        ->orderBy('repairs_logs.id', 'desc')
+        ->get();
+        return response()->json($logs); 
     }
 }
