@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Join;
 use App\City;
 use App\User;
+use App\JoinsLog;
 use App\Moduls\Telegram;
 use App\TicketStatus;
 use Datatables;
@@ -347,6 +348,7 @@ class JoinsController extends Controller
                 . "\r\n ФИО : " . $request->input('full_name') 
                 . "\r\n Комментарий : " . $request->input('comment');
          sendMessage($text, $chat_id);
+         log_create_join($userId, $joins->id);
          return redirect('/joins')->with('success', 'Заявка сформирована! Сообщение было отправленно! ');
         }
         
@@ -425,8 +427,10 @@ class JoinsController extends Controller
         //get user id
         $userId = Auth::id();   
         //$userId = 1;   
-        
         $join                     = Join::find($id);
+
+                //После сохранения логируем данные
+                log_modif_join($join, $request, $userId);
             if ($request->input('status_name') != 0) {
                 $join->ticket_status_id   = $request->input('status_name');
                 if($request->input('status_name') == 3) {
@@ -444,6 +448,7 @@ class JoinsController extends Controller
         $join->comment            = $request->input('comment');
         $join->join_area          = $request->input('join_area');
         $join->save();
+
         $city = City::find($join->city_id);
         if ($request->input('status_name') != 3) {
             $chat_id = $city->chat_id;

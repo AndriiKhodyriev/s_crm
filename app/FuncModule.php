@@ -1,5 +1,11 @@
 <?php
 use App\Abon;
+use App\JoinsLog;
+//Для логов желательно использовать прямые название городов и статусов заявок
+//подключаем модели городов и статусов + типов подключения 
+use App\City;
+use App\TConnection;
+use App\TicketStatus;
 
 if(!function_exists('update_abon')) { 
     function update_abon($request, $abon, $city_id, $t_connection) {
@@ -63,3 +69,49 @@ if(!function_exists('wifi_update_abon')) {
         $abon->save();
     }
 }
+
+// Функции для работы с логами по заявкам на подключение 
+
+if(!function_exists('log_create_join')){
+    //функция записи лога при создании новой заявки (нет необходимости дублировать всю заполненную информацию, записываем только стандартное сообщение )
+    //и данные о том, кто создал и по какой заявке 
+    function log_create_join($user_id, $join_id){
+         $joinLog           = new JoinsLog;
+         $joinLog->join_id  = $join_id;
+         $joinLog->user_id  = $user_id;
+         $joinLog->info_log  = "Создана заявка на подключение!";
+         $joinLog->save();
+    }
+}
+
+    //функция записи лога при изменение (редактировании) заявки на подключение 
+    // передаются все данные по этой заявке + передаются данные которые вводит пользователь 
+    // сраниваем данные и записываем в лог, только то, что было модифицированно 
+if(!function_exists('log_modif_join')){
+    function log_modif_join($join, $request, $user_id){
+        $text = "Были модификации : ";
+        if($request->input('city_name') != 0) {
+            $cityNew = City::find($request->input('city_name'));
+            $cityOld = City::find($join->city_id);
+            $text .= " Город: " . $cityOld->name . " => " . $cityNew->name;
+        }
+        if($request->input('status_name') != 0){
+            $statusNew = TicketStatus::find($request->input('status_name'));
+            $statusOld = TicketStatus::find($join->ticket_status_id);
+            $text .= " Статус: " . $statusOld->name . " => " . $statusNew->name;
+        }
+        ($join->street      != $request->input('street'))    ?   $text .= " Улица: " . $join->street . " => " . $request->input('street') : "NO MOD";
+        ($join->build       != $request->input('build'))     ?   $text .= " Дом: " . $join->build . " => " . $request->input('build') : "NO MOD";
+        ($join->full_name   != $request->input('full_name')) ?   $text .= " ФИО: " . $join->full_name . " => " . $request->input('full_name') : "NO MOD";
+        ($join->phone_num   != $request->input('phone_num')) ?   $text .= " Телефон: " . $join->phone_num . " => " . $request->input('phone_num') : "NO MOD";
+        ($join->comment     != $request->input('comment'))   ?   $text .= " Комментарий: " . $join->comment . " => " . $request->input('comment') : "NO MOD";
+        ($join->join_area   != $request->input('join_area')) ?   $text .= " Место включения: " . $join->join_area . " => " . $request->input('join_area') : "NO MOD";
+        $joinLog            = new JoinsLog;
+        $joinLog->join_id   = $join->id;
+        $joinLog->user_id   = $user_id;
+        $joinLog->info_log  = $text;
+        $joinLog->save();
+    }
+}
+
+// Конец функций для работы с логами по заявкам на подключение 
