@@ -24,6 +24,9 @@ class Join extends Model
         return $this->belongsTo('App\User','close_user_id', 'id');
     }
 
+    public function joinLog(){
+        return $this->hasMany('App\JoinsLog','join_id', 'id');
+    }
 
 	/*public function close_user(){
         return $this->belongsTo('App\User');

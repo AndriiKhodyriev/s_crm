@@ -15,11 +15,13 @@ Route::resource('joins', 'JoinsController');
     Route::get('/datatablesFindByCityId/{id}', 'JoinsController@datatablesFindByCityId');
     Route::post('/datablesFindById', 'JoinsController@datablesFindById');
     Route::post('/joins_cliens', 'JoinsController@joinsClients');
+    Route::post('/logJoin', 'JoinsController@logJoin');
 Route::resource('repairs', 'RepairsController');
 	Route::get('/datablesAllRepairs', 'RepairsController@datablesAllRepairs');
     Route::post('/datablesRepairFindById', 'RepairsController@datablesRepairFindById');
     Route::get('/datatablesRepairCityId/{id}', 'RepairsController@datatablesRepairCityId');
     Route::get('/datatablesRepairsFindByTicId/{id}/{cityID}', 'RepairsController@datatablesRepairsFindByTicId');
+    Route::post('/logRep', 'RepairsController@logRep');
 Route::resource('cities', 'CitiesController');
     Route::post('/citychid', 'CitiesController@citychid'); //взять инфу по городу по ИД
 Route::resource('statuses', 'StatusesController');

@@ -24,4 +24,8 @@ class Repair extends Model
 	public function userClose(){
         return $this->belongsTo('App\User','close_user_id', 'id');
     }
+    public function repairsLog(){
+        return $this->hasMany('App\RepairsLog','repair_id', 'id');
+    }
+
 }

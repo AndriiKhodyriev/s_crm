@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Join;
 use App\City;
 use App\User;
+use App\JoinsLog;
 use App\Moduls\Telegram;
 use App\TicketStatus;
 use Datatables;
@@ -93,9 +94,11 @@ class JoinsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$join->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$join->id.'></i>';
                                 }
                             })
                             ->make(true);
@@ -201,9 +204,11 @@ class JoinsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$join->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$join->id.'></i>';
                                 }
                             })
                             ->make(true);
@@ -291,9 +296,11 @@ class JoinsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$join->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$join->id.'></i>';
                                 }
                             })
                             ->make(true);
@@ -347,6 +354,7 @@ class JoinsController extends Controller
                 . "\r\n ФИО : " . $request->input('full_name') 
                 . "\r\n Комментарий : " . $request->input('comment');
          sendMessage($text, $chat_id);
+         log_create_join($userId, $joins->id);
          return redirect('/joins')->with('success', 'Заявка сформирована! Сообщение было отправленно! ');
         }
         
@@ -429,8 +437,10 @@ class JoinsController extends Controller
         //get user id
         $userId = Auth::id();   
         //$userId = 1;   
-        
         $join                     = Join::find($id);
+
+                //После сохранения логируем данные
+                log_modif_join($join, $request, $userId);
             if ($request->input('status_name') != 0) {
                 $join->ticket_status_id   = $request->input('status_name');
                 if($request->input('status_name') == 3) {
@@ -448,6 +458,7 @@ class JoinsController extends Controller
         $join->comment            = $request->input('comment');
         $join->join_area          = $request->input('join_area');
         $join->save();
+
         $city = City::find($join->city_id);
         if ($request->input('status_name') != 3) {
             $chat_id = $city->chat_id;
@@ -473,5 +484,25 @@ class JoinsController extends Controller
         $join = Join::find($id);
         $join->delete();
         return redirect('/joins')->with('success', 'Заявка на подключение УДАЛЕНА!');
+    }D
+}
+
+    //Функция которая отдает все логи по определенной заявке 
+    public function logJoin(Request $request){ 
+        $id = $request->id;
+        $logs = DB::table('joins_logs')->select([
+            'joins_logs.id',
+            'joins_logs.join_id',
+            'joins_logs.info_log',
+            'joins_logs.created_at',
+            'users.username',
+        ])
+        ->leftJoin('users', 'users.id', '=', 'joins_logs.user_id')
+        ->where('joins_logs.join_id', '=', $id)
+        ->orderBy('joins_logs.id', 'desc')
+        ->get();
+        //$logs = JoinsLog::where('join_id', $request->id)->orderBy('id','desc')->get();
+        
+        return response()->json($logs); 
     }
 }
