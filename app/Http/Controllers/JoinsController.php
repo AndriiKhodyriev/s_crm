@@ -94,9 +94,11 @@ class JoinsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$join->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$join->id.'></i>';
                                 }
                             })
                             ->make(true);
@@ -202,9 +204,11 @@ class JoinsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$join->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$join->id.'></i>';
                                 }
                             })
                             ->make(true);
@@ -292,9 +296,11 @@ class JoinsController extends Controller
                                         <div class="form-group">
                                         <input type="hidden" name="_token" value="'.csrf_token().'">
                                         <button type="submit" class="label label-important">Удалить</button></form>
-                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                        <button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                        <i class="entypo-info" id='.$join->id.'></i>';
                                 } else {
-                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>';
+                                    return '<button type="button" name="update" id='.$join->id.' class="btn btn-warning btn-xs update" >Изменить</button>
+                                    <i class="entypo-info" id='.$join->id.'></i>';
                                 }
                             })
                             ->make(true);
