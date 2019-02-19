@@ -445,7 +445,7 @@ class RepairsController extends Controller
             'repairs_logs.repair_id',
             'repairs_logs.info_log',
             'repairs_logs.created_at',
-            'users.username',
+            'users.fullname',
         ])
         ->leftJoin('users', 'users.id', '=', 'repairs_logs.user_id')
         ->where('repairs_logs.repair_id', '=', $id)

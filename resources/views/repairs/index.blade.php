@@ -159,7 +159,7 @@
                             $('#first').empty();
                             $.each(data, function(i, item){
                                 
-                                $('#first').append("Имя пользователя : " + data[i].username + "<br> Дата : " + data[i].created_at + "<br>" + data[i].info_log + "<hr>" );
+                                $('#first').append("Имя пользователя : " + data[i].fullname + "<br> Дата : " + data[i].created_at + "<br>" + data[i].info_log + "<hr>" );
                                 //alert(data[i].info_log);
                             });
                         }
