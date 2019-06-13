@@ -73,7 +73,7 @@
                         </li>
                         @endif
                         <li>
-                            <a class="tooltip-tip" href="/" title="Снабжение">
+                            <a class="tooltip-tip" href="/supply" title="Снабжение">
                                 <i class="entypo-basket"></i>
                                 <span>Снабжение</span>
 
