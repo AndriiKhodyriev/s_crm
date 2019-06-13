@@ -72,6 +72,13 @@
                             </a> 
                         </li>
                         @endif
+                        <li>
+                            <a class="tooltip-tip" href="/" title="Снабжение">
+                                <i class="entypo-basket"></i>
+                                <span>Снабжение</span>
+
+                            </a> 
+                        </li>
                     </ul>
                     @if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) 
                     <ul class="topnav menu-left-nest">
