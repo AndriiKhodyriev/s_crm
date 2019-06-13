@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsOrdersTable extends Migration
+class CreateCurrenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateItemsOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('items_orders', function(Blueprint $table){
-            $table->integer('order_id');
-            $table->integer('item_id');
+        Schema::create('currencies', function(Blueprint $table){
+            $table->increment('id');
+            $table->string('currencie_abriviature');//UAH - гривна USD - доллар 
         });
     }
 
@@ -26,6 +26,6 @@ class CreateItemsOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items_orders');
+        Schema::dropIfExists('currencies');
     }
 }

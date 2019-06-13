@@ -13,7 +13,16 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('orders', function(Blueprint $table) {
+            $table->increment('id');
+            $table->integet('user_id');
+            $table->integer('provider_id');
+            $table->double('price');
+            $table->integer('currency_id');
+            $table->integer('status_id');
+            $table->string('waybill'); //Товарно Транспортная Накладная (Новая Почта)
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +32,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('orders');
     }
 }
