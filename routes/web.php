@@ -42,3 +42,6 @@ Route::resource('abons', 'AbonsController');
     Route::post('/datatablesFindID', 'AbonsController@datatablesFindID'); //взять инфу по ИД
 Route::get('/finance', 'FinancialreportsController@index');
     Route::post('/finance_key', 'FinancialreportsController@report');
+
+//База снабжения (заказы + отслеживание)
+Route::get('/supply', 'SupplyController@index');
