@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->double('price');
             $table->integer('currency_id');
             $table->integer('status_id');
+            $table->integer('city_id');
             $table->string('waybill'); //Товарно Транспортная Накладная (Новая Почта)
             $table->timestamps();
         });

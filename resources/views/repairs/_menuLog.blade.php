@@ -1,4 +1,3 @@
- <!-- Modal window UPDATE join -->
  <div class="modal fade" id="logRepair">
     <div class="modal-dialog">
         <div class="modal-content">      
