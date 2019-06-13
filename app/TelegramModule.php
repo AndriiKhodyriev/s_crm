@@ -16,6 +16,7 @@ if(!function_exists('sendMessage')) {
                 ),
             )
         );
-        curl_exec($ch);
+       curl_exec($ch);
+       dd($ch);
     };
 }
