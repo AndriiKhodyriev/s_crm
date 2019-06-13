@@ -14,7 +14,7 @@ class CreateCurrenciesTable extends Migration
     public function up()
     {
         Schema::create('currencies', function(Blueprint $table){
-            $table->increment('id');
+            $table->increments('id');
             $table->string('currencie_abriviature');//UAH - гривна USD - доллар 
         });
     }

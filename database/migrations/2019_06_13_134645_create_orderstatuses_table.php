@@ -14,7 +14,7 @@ class CreateOrderstatusesTable extends Migration
     public function up()
     {
         Schema::create('orderstatuses', function(Blueprint $table){
-            $table->increment('id');
+            $table->increments('id');
             $table->string('status_name');
         });
     }
