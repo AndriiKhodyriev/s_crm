@@ -18,10 +18,10 @@ class SupplyController extends Controller
             foreach ($user->cities as $city) {
                 array_push($cities, $city->id);
             };
-            $orders = Order::where('city_id', $cities)->get();
-            return view('supply.index')->with('orders', $orders); //Вернуть только заказы которые на текущие объекты 
+            $orders = Order::where('city_id', $cities)->orderBy('id','desc')->get();
+            return view('supply.index')->with(['orders' => $orders, 'user_role' => $user->role_id]); //Вернуть только заказы которые на текущие объекты 
         } else { 
-            return view('supply.index'); //Вернуть все заказы по всем городам 
+            return view('supply.index')->with(['user_role' => $user->role_id]); //Вернуть все заказы по всем городам 
         }
     }
 }

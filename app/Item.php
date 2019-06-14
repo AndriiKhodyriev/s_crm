@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    public function orders(){
-        return $this->belongsToMany('App\Order', 'items_orders');
+    public function order(){
+        return $this->belongsTo('App\Order', 'order_id', 'id');
     }
 }

@@ -54,6 +54,7 @@
                     <th scope="col">Кол-во</th>
                     <th scope="col">ТТН</th>
                     <th scope="col">Статус заказа </th>
+                    <th scope="col">Дата заказа </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,34 +62,26 @@
                     <tr>
                         <th>{{$order->id}}</th>
                         <th>
-                            @foreach($order->items as $item)
+                            @foreach($order->item as $item)
                                 {{$item->item_name}}<br>
                             @endforeach
                         </th>
                         <th>
-                            @foreach($order->items as $item)
+                            @foreach($order->item as $item)
                                 {{$item->count}} шт. <br>
                             @endforeach
                         </th>
                         <th>{{$order->waybill}}</th>
                         <th>{{$order->status->status_name}}</th>
+                        <th>{{$order->created_at}}</th>
                     </tr>
                     @endforeach
-                  <tr>
-
-                  </tr>
-                  <tr>
-
-                  </tr>
-                  <tr>
-
-                  </tr>
                 </tbody>
               </table>
     @else
         {{-- Если пользователь НЕ МОНТАЖНИК ВЫВЕСТИ ДАННЫЕ --}}
     @endif
-    @include('supply._newOrder')
+@include('supply._newOrder')
 @endsection
 
 @section('dt_script')

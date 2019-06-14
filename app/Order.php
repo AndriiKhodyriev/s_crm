@@ -21,7 +21,7 @@ class Order extends Model
     public function city() { 
         return $this->belongsTo('App\City', 'city_id', 'id');
     }
-    public function items() {
-        return $this->belongsToMany('App\Item', 'items_orders');
+    public function item() {
+        return $this->hasMany('App\Item', 'order_id', 'id');
     }
 }
