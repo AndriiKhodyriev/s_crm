@@ -37,16 +37,24 @@ class SupplyController extends Controller
         //Кол-во полей кратное трем
         $count = $count/3;
         //Имена всех : (item_name-Х count-Х и description-Х) - где Х генерируется при добавления поля (отсчет начинается с 1)
-        $orderNew = new Order;
-        $orderNew->city_id = $request->input('city_name');
-        $orderNew->user_id = Auth::id();
-        $orderNew->status_id = 1;
-        $orderNew->provider_id = 0;
-        $orderNew->price = 0;
-        $orderNew->currency_id = 1;
-        $orderNew->waybill = 0; 
-        $orderNew->save();
+        if ($request->input('city_name') == 0) {
+            return redirect('/supply')->with('error', 'Не создано! Указать город!');
+        } else { 
+            $orderNew = new Order;
+            $orderNew->city_id = $request->input('city_name');
+            $orderNew->user_id = Auth::id();
+            $orderNew->status_id = 1;
+            $orderNew->provider_id = 0;
+            $orderNew->price = 0;
+            $orderNew->currency_id = 1;
+            $orderNew->waybill = 0; 
+            $orderNew->save();
             if($count == 1) {
+                $this->validate($request, [
+                    'item_name-1'       => 'required',
+                    'count-1'           => 'required',
+                    'description-1'     => 'required',
+                ]);
                 $item = new Item;
                 $item->order_id = $orderNew->id;
                 $item->item_name = $request->input('item_name-1');
@@ -67,6 +75,8 @@ class SupplyController extends Controller
                 }
             return redirect('/supply')->with('error', 'Создан новый заказ!');
             }
+        }
+        
         echo($orderNew->id);
     }
 }
