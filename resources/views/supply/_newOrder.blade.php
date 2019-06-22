@@ -9,13 +9,16 @@
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">  
-                    <form action="">
+                        {!! Form::open(['action' => 'SupplyController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                         <div class="row" id="content_blc">
-                            @if($user_role == 1 || $user_role == 2)
-
-                            @elseif($user_role == 4)
-
-                            @endif
+                            <div class="col-sm-12">
+                            <select name="city_name" id="">
+                                <option value=0> Выбрать город</option>
+                                    @foreach($cities as $city)
+                                        <option value="{{$city->id}}">{{$city->name}}</option>
+                                    @endforeach
+                            </select>
+                            </div>
                             <div class="col-sm-4">
                                 <label for="">Название товара</label>
                                 <input name="item_name-1" type="text" class="form-control" placeholder="Название товара">
@@ -29,12 +32,14 @@
                                 <input name="description-1" type="text" class="form-control" placeholder="Для чего данный заказ">
                             </div>
                         </div>
-                    </form>
+                        <button type="submit" class="btn btn-warning btn-block">Составить заказ!</button>
+                    {!! Form::close() !!}
 
-                    <button class="btn btn-success" style="position: absolute; left: 10; bottom: 0;" id="buttonAddElements">Добавить предмет!</button>
                 </div>      
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                    <button class="btn btn-success"  id="buttonAddElements">Добавить предмет!</button>
+
                     <p>Все заказы проходят проверку. Все представленныве поля, обязательны к заполнению</p>
                 </div>                
     
@@ -44,7 +49,6 @@
     <script>
     var count = 2;
     buttonAddElements.addEventListener("click", function(){
-        alert("TEST MSG");
         var input_ItemName = document.createElement('INPUT');
         var input_Count = document.createElement('INPUT');
         var input_Description = document.createElement('INPUT');
@@ -53,7 +57,7 @@
         input_Count.name = "count-" + count;
             input_Count.className = "form-control";
         input_Description.name = "description-" + count;
-            input_Description = "form-control";
+            input_Description.className = "form-control";
         var div_4 = document.createElement('div');
             div_4.className = "col-sm-4";
             div_4.id = "item_div";

@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('item_name');
             $table->integer('count');
             $table->text('desctiption');
+            $table->timestamps();
         });
     }
 

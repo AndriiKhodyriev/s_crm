@@ -45,3 +45,4 @@ Route::get('/finance', 'FinancialreportsController@index');
 
 //База снабжения (заказы + отслеживание)
 Route::get('/supply', 'SupplyController@index');
+Route::post('/supply', 'SupplyController@store'); //Создание нового заказа 
