@@ -44,6 +44,7 @@ Route::get('/finance', 'FinancialreportsController@index');
     Route::post('/finance_key', 'FinancialreportsController@report');
 
     Route::get('/trafic', 'TraficController@index');
+    Route::post('/bdcomadd', 'TraficController@bdcomadd');
 //База снабжения (заказы + отслеживание)
 Route::get('/supply', 'SupplyController@index');
 Route::post('/supply', 'SupplyController@store'); //Создание нового заказа 

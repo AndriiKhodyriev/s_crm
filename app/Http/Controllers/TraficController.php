@@ -11,4 +11,9 @@ class TraficController extends Controller
     {
         return view('trafic.index');
     }
+
+    public function bdcomadd(Request $request)
+    {
+        
+    }
 }

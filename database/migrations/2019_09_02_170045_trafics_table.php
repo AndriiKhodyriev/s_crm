@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBDCOMallsTable extends Migration
+class TraficsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreateBDCOMallsTable extends Migration
      */
     public function up()
     {
-        Schema::create('b_d_c_o_malls', function (Blueprint $table) {
+        //
+        Schema::create('trafics', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dbcomip');
-            $table->timestamps();
+            $table->integer('b_d_c_o_mall_id');
+            $table->string('mac');
+            $table->string('interface');
+            $table->double('input');
+            $table->double('output');
+            $table->date('date');
         });
     }
 
@@ -27,6 +32,6 @@ class CreateBDCOMallsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('b_d_c_o_malls');
+        //
     }
 }

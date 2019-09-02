@@ -90,6 +90,8 @@
             </div>
         </div>
     </div>
+@include('trafic._newBDCOM')
+
 <script>
 //Плагин http://www.daterangepicker.com/
 $(function() {
