@@ -128,6 +128,13 @@
         
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="tooltip-tip" href="/trafic" title="Финансовые отчеты">
+                                        <i class="entypo-newspaper"></i>
+                                        <span>Мониторинг трафика </span>
+        
+                                    </a>
+                                </li>
                         @else 
                         @endif
                         {{--
