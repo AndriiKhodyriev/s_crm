@@ -57,6 +57,9 @@ class User extends Authenticatable
     public function abon(){
         return $this->hasMany('App\Abon', 'create_user_id', 'id');
     }
+    public function order(){
+        return $this->hasMany('App\Order', 'user_id', 'id');
+    }
     public function hasRole($roleName)
     {
         foreach ($this->role()->get() as $role)

@@ -72,6 +72,13 @@
                             </a> 
                         </li>
                         @endif
+                        <li>
+                            <a class="tooltip-tip" href="/supply" title="Снабжение">
+                                <i class="entypo-basket"></i>
+                                <span>Снабжение</span>
+
+                            </a> 
+                        </li>
                     </ul>
                     @if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) 
                     <ul class="topnav menu-left-nest">
@@ -118,6 +125,13 @@
                                     <a class="tooltip-tip" href="/finance" title="Финансовые отчеты">
                                         <i class="entypo-briefcase"></i>
                                         <span>Финансовые отчеты</span>
+        
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip" href="/trafic" title="Финансовые отчеты">
+                                        <i class="entypo-newspaper"></i>
+                                        <span>Мониторинг трафика </span>
         
                                     </a>
                                 </li>

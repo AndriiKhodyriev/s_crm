@@ -22,4 +22,7 @@ class City extends Model
     public function abons(){
         return $this->hasMany('App\Abon');
     }
+    public function order(){
+        return $this->belongsTo('App\Order', 'city_id', 'id');
+    }
 }
