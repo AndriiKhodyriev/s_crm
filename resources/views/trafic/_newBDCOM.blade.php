@@ -10,16 +10,17 @@
             <!-- Modal body -->
             <div class="modal-body">
                     <div class="form-group">
-                        {{Form::label('info', 'Введите адрес BDCOM ')}}
-                        {{Form::textarea('ipbdcom','',['id'=> 'article-ckeditor', 'class' => 'form-control', 'placeholder' => '10.44.0.1'])}}
+                        <form action="/bdcomadd" method="POST">
+                            {{ csrf_field() }}
+                            <label for="info">Введите адрес BDCOM</label>
+                            <input type="text" name="ipbdcom" id="article-ckeditor" class="form-control" placeholder="10.44.0.1"></input>
                     </div>
             </div>      
             <!-- Modal footer -->
             <div class="modal-footer">
-                    {{Form::submit('Составить заявку!', ['class' => 'btn btn-success'])}}
-                    {!! Form::close() !!}
+                    <button type="submit" class="btn btn-success new-bdcom">Добавить BDCOM</button>
+                </form> 
             </div>
-                
         </div>
     </div>
 </div>

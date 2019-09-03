@@ -38,12 +38,12 @@
             <div class="jumbotron">
                     <div class="form-group">
                         {{Form::label('city', 'Город')}}
-                        {{-- <select name="city_name" id="city_name">
-                        <option value=0>ВЫБОР ГОРОДА!</option>
-                            @foreach($cities as $city) --}}
+                        <select name="city_name" id="city_name">
+                        <option value=0>Выбрать адрес BDCOM!</option>
+                            @foreach($bdcoms as $bdcom)
                                 {{-- <option value=""> {{ $city->sum }}</option> --}}
-                                {{-- <option value="{{$city->id}}">{{$city->name}}</option>
-                            @endforeach --}}
+                                <option value="{{$bdcom->id}}">{{$bdcom->dbcomip}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
