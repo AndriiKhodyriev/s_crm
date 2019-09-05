@@ -13,6 +13,8 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         //
-        '/joins_cliens'
+        '/joins_cliens',
+        '/selecthead'
+
     ];
 }

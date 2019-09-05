@@ -41,8 +41,8 @@
         <div class="col-sm-4">
             <div class="jumbotron">
                     <div class="form-group">
-                        {{Form::label('city', 'Город')}}
-                        <select name="city_name" id="city_name">
+                        {{Form::label('head', 'Голова')}}
+                        <select name="head_id" id="head_inform">
                         <option value=0>Выбрать адрес BDCOM!</option>
                             @foreach($bdcoms as $bdcom)
                                 {{-- <option value=""> {{ $city->sum }}</option> --}}
@@ -52,20 +52,21 @@
                     </div>
                     <div class="form-group">
                         <label for="daterange">Выбрать или ввести диапазон в формате (YYYY-MM-DD)</label>
-                        <input id="date_diap" class="form-control" type="text" name="daterange" value="" placeholder="2018-12-01 > 2018-12-31"/>
+                        <input id="date_diap"  class="form-control" type="text" name="daterange" value="" placeholder="2018-12-01 > 2018-12-31"/>
                     </div>
-                {{Form::submit('Получить данные за период!', ['class' => 'btn btn-success trafic-date'])}} <br>
+                 {{Form::submit('Получить данные за период!', ['class' => 'btn btn-success trafic-date'])}} 
+                <br>
 
-                <form action="/trafic_no_dates">
+                {{-- <form action="/trafic_no_dates">
                     <button type="submit" class="btn btn-success trafic-no-date">Получить данные за все время</button>
-                </form>
+                </form> --}}
             </div>
         </div>
         <div class="col-sm-4">
-            <div hidden class="jumbotron" id="sum_info">
+            <div hidden class="jumbotron" id="input_form">
                 <div class="nest" id="">
                     <div class="title-alt">
-                        <h6> Сумма</h6>
+                        <h6>Скачал</h6>
                         <div class="titleClose" id="d_stop">
                         </div>
                         <div class="titleToggle" id="d_start">
@@ -78,10 +79,10 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div hidden class="jumbotron" id="smeta_info">
+            <div hidden class="jumbotron" id="output_form">
                 <div class="nest" id="">
                     <div class="title-alt">
-                        <h6>Смета</h6>
+                        <h6>Отдал</h6>
                         <div class="titleClose" id="dt_stop">
                         </div>
                         <div class="titleToggle" id="dt_start">
@@ -111,38 +112,56 @@ $(function() {
 </script>
 
 <script>
-    $(document).on('click', '.fin-info', function(){
-        $('#sum_info').css('display','block');
-        $('#smeta_info').css('display','block');
-        var city_id = $('#city_name option:selected').val();
+    $(document).on('click', '.trafic-date', function(){
+        $('#input_form').css('display','block');
+        $('#output_form').css('display','block');
+        var head_id = $('#head_inform option:selected').val();
         var date = $('#date_diap').val();
         $.ajax({
              headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url:"{{ url('finance_key') }}",
-            method:"POST",
-            data: {city_id:city_id, date:date} ,
-            dataType:"json",
-            success:function(data)
-                {
-                    var arr = date.split('>');
-                    $('#second_content').empty();
-                    $(data.logins).each(function( index, value ) {
-                        $(value).each(function(i, data_logins){
-                            $('#second_content').append('Логин : ' + data_logins.login + '<br> Дата включения : ' + data_logins.created_at + '<br> Смета : ' + data_logins.comment + ' <hr>');
-                        })
-                    });
-                    $('#d_start').empty();
-                    $('#d_stop').empty();
-                    $('#dt_start').empty();
-                    $('#dt_stop').empty();
+                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             },
+             url:"{{ url('selecthead') }}",
+             method:"POST",
+             data: {head_id:head_id, date:date} ,
+             dataType:"json",
+             success:function(data)
+                {   
                     $('#first_content').empty();
-                    $('#dt_start').append('C '+arr[0]);
-                    $('#dt_stop').append('До '+arr[1]);
-                    $('#d_start').append('C '+arr[0]);
-                    $('#d_stop').append('До '+arr[1]);
-                    $('#first_content').append('Всего получено : ' + data.sum + ' грн. / руб. <br> Всего было подключено : ' + data.count);
+                    $('#second_content').empty();
+                    $(data.trafic_input).each(function(index, value) {
+                       $(value).each(function(i, data_tf){
+                            $('#first_content').append('Interface : ' + data_tf.interface + '<br> MAC address : ' + data_tf.mac + '<br> Скачанно : ' + data_tf.input + ' <b>GB</b> <hr>');
+                            $('#second_content').append('Interface : ' + data_tf.interface + '<br> MAC address : ' + data_tf.mac + '<br> Отдано : ' + data_tf.output + ' <b>GB</b> <hr>');
+                       })
+                    });
+                    // alert(data.trafic);
+
+                    //  alert(data);
+                    // var arr = date.split('>');
+                    // // Вывод в раздел СКАЧАЛ
+                    // $('#first_content').empty();
+                    // $(data.logins).each(function( index, value ) {
+                    //     $(value).each(function(i, data_logins){
+                    //         $('#second_content').append('Логин : ' + data_logins.login + '<br> Дата включения : ' + data_logins.created_at + '<br> Смета : ' + data_logins.comment + ' <hr>');
+                    //     })
+                    // });
+                    // // Вывод в раздел ОТДАЛ 
+                    // $('#second_content').empty();
+                    // $(data.logins).each(function( index, value ) {
+                    //     $(value).each(function(i, data_logins){
+                    //         $('#second_content').append('Логин : ' + data_logins.login + '<br> Дата включения : ' + data_logins.created_at + '<br> Смета : ' + data_logins.comment + ' <hr>');
+                    //     })
+                    // });
+                    // $('#d_start').empty();
+                    // $('#d_stop').empty();
+                    // $('#dt_start').empty();
+                    // $('#dt_stop').empty();
+                    // $('#dt_start').append('C '+arr[0]);
+                    // $('#dt_stop').append('До '+arr[1]);
+                    // $('#d_start').append('C '+arr[0]);
+                    // $('#d_stop').append('До '+arr[1]);
+                    // $('#first_content').append('Всего получено : ' + data.sum + ' грн. / руб. <br> Всего было подключено : ' + data.count);
                 }
         });
     });

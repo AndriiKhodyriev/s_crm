@@ -45,6 +45,7 @@ Route::get('/finance', 'FinancialreportsController@index');
 
     Route::get('/trafic', 'TraficController@index');
     Route::post('/bdcomadd', 'TraficController@bdcomadd');
+    Route::post('/selecthead', 'TraficController@selecthead'); // Сюда идет ajax с ИД головы и выборка происходит по ней 
 //База снабжения (заказы + отслеживание)
 Route::get('/supply', 'SupplyController@index');
 Route::post('/supply', 'SupplyController@store'); //Создание нового заказа 
