@@ -126,12 +126,16 @@ $(function() {
              data: {head_id:head_id, date:date} ,
              dataType:"json",
              success:function(data)
-                {   
+                {   alert(data.test);
                     $('#first_content').empty();
                     $('#second_content').empty();
                     $(data.trafic_input).each(function(index, value) {
                        $(value).each(function(i, data_tf){
                             $('#first_content').append('Interface : ' + data_tf.interface + '<br> MAC address : ' + data_tf.mac + '<br> Скачанно : ' + data_tf.input + ' <b>GB</b> <hr>');
+                       })
+                    });
+                    $(data.trafic_output).each(function(index, value) {
+                       $(value).each(function(i, data_tf){
                             $('#second_content').append('Interface : ' + data_tf.interface + '<br> MAC address : ' + data_tf.mac + '<br> Отдано : ' + data_tf.output + ' <b>GB</b> <hr>');
                        })
                     });
@@ -139,7 +143,7 @@ $(function() {
 
                     //  alert(data);
                     // var arr = date.split('>');
-                    // // Вывод в раздел СКАЧАЛ
+                    // // Вывод в раздел СКАЧАЛtrafic_input
                     // $('#first_content').empty();
                     // $(data.logins).each(function( index, value ) {
                     //     $(value).each(function(i, data_logins){

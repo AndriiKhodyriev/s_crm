@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\BDCOMall;
 use App\Trafic;
+use DB;
 
 class TraficController extends Controller
 {
@@ -36,36 +37,32 @@ class TraficController extends Controller
 
          //ФОРМАТ ДАТЫ В MySql YYYY-MM-DD 
         $result = [];
-        // $trafic_check = Trafic::all();
-        // $trafic_check = Trafic::select(['mac', 'interface', 'input', 'output'])
-        //                            ->where('date', '>', $date_Start)
-        //                            ->where('date', '<', $date_Stop)
-        //                            ->orderBy('input')->get();
-        // $result['trafic'] = $trafic_check;
+       
         if ($id == 0) {
                 $error_mes = "Необходимо указать IP BDCOM";
                 $result['error'] = $error_mes;
                 return response()->json($result);
         } else {
-            $trafic_check = Trafic::select(['mac', 'interface', 'input', 'output'])
+            $trafic_check = Trafic::select(['mac', 'interface', 'input'])
                             ->where('date', '>', $date_Start)
                             ->where('date', '<', $date_Stop)
+                            ->where('b_d_c_o_mall_id', $id)
                             ->orderBy('input', 'desc')
                             ->get();
+            #Находим минимальные и максимальные значения по каждому из маков (и записываем их данные )
+            $trafic = [];
+            $marker = 0;
+
             $result['trafic_input'] = $trafic_check;
+            $trafic_check_o = Trafic::select(['mac', 'interface', 'output'])
+                            ->where('date', '>', $date_Start)
+                            ->where('date', '<', $date_Stop)
+                            ->where('b_d_c_o_mall_id', $id)
+                            ->orderBy('output', 'desc')
+                            ->get();
+            $result['trafic_output'] = $trafic_check_o;
+            $result['gg'] = $arr_input;
         }
-        $result['num'] = $id;
-        
-        // // foreach($sum as $s ) {
-        // //     $result['sum'] = $s->sum;
-        // // }
-        // // $result['logins'] = $abons;
-        // // $count = count($abons);
-        // // $result['count'] = $count;
-        // $trafic_check = Trafic::select(['mac', 'interface', 'input', 'output'])
-        //                         ->where('date', '>', $date_Start)
-        //                         ->where('date', '<', $date_Stop)
-        //                         ->orderBy('input')->get();
         return response()->json($result);
     }
 }
