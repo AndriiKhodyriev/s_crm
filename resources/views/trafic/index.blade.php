@@ -34,6 +34,10 @@
                 <span class="entypo-plus-squared">
                     Добавить BDCOM            
             </button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#BDCOMInfo">
+                <span class="entypo-plus-squared">
+                    Инормация по BDCOM            
+            </button>
         <div class="col-sm-4">
             <div class="jumbotron">
                     <div class="form-group">
@@ -91,7 +95,7 @@
         </div>
     </div>
 @include('trafic._newBDCOM')
-
+@include('trafic._dbcominfo')
 <script>
 //Плагин http://www.daterangepicker.com/
 $(function() {

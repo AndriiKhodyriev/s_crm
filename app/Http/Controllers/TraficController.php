@@ -11,13 +11,13 @@ class TraficController extends Controller
     //
     public function index()
     {
-        $bdcoms = BDCOMall::all();
+        $bdcoms = BDCOMall::orderBy('dbcomip')->get();
         return view('trafic.index')->with('bdcoms', $bdcoms);
     }
 
     public function bdcomadd(Request $request)
     {
-        $bdcoms = BDCOMall::all();
+        $bdcoms = BDCOMall::orderBy('dbcomip')->get();
         $bdcom = new BDCOMall;
         $bdcom->dbcomip = $request->input('ipbdcom');
         $bdcom->save();
