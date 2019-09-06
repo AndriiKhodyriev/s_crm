@@ -9,7 +9,7 @@
                                     <div class="col-sm-3">
                                         <h2 class="tittle-content-header">
                                             <i class="icon-window"></i> 
-                                            <span>CRM | Отчеты</span>
+                                            <span>CRM | Трафик</span>
                                         </h2>
                                     </div>
                                     <div class="col-sm-9">
@@ -17,7 +17,7 @@
                                         <div class="tittle-middle-header">
                                             <div class="alert">
                                                 <button type="button" class="close" data-dismiss="alert">×</button>
-                                                <span class="tittle-alert entypo-info-circled"> Для составления отчета: 1. Выбрать город; 2. Выбрать даты; 3. Нажать кнопку </span>
+                                                <span class="tittle-alert entypo-info-circled"> Для составления отчета: 1. IP Устройства; 2. Выбрать даты; 3. Нажать кнопку </span>
                                             </div>
                                         </div>
                                     </div>
@@ -126,46 +126,19 @@ $(function() {
              data: {head_id:head_id, date:date} ,
              dataType:"json",
              success:function(data)
-                {   alert(data.test);
+                {   
                     $('#first_content').empty();
                     $('#second_content').empty();
                     $(data.trafic_input).each(function(index, value) {
                        $(value).each(function(i, data_tf){
-                            $('#first_content').append('Interface : ' + data_tf.interface + '<br> MAC address : ' + data_tf.mac + '<br> Скачанно : ' + data_tf.input + ' <b>GB</b> <hr>');
+                            $('#first_content').append('Interface : <b>' + data_tf.interface + '</b><br> MAC address : <b>' + data_tf.mac + '</b><br> Скачанно : ' + data_tf.inputTrafic + ' <b>GB</b> <hr>');
                        })
                     });
                     $(data.trafic_output).each(function(index, value) {
                        $(value).each(function(i, data_tf){
-                            $('#second_content').append('Interface : ' + data_tf.interface + '<br> MAC address : ' + data_tf.mac + '<br> Отдано : ' + data_tf.output + ' <b>GB</b> <hr>');
+                            $('#second_content').append('Interface : <b>' + data_tf.interface + '</b><br> MAC address : <b>' + data_tf.mac + '</b><br> Отдано : ' + data_tf.outputTrafic + ' <b>GB</b> <hr>');
                        })
                     });
-                    // alert(data.trafic);
-
-                    //  alert(data);
-                    // var arr = date.split('>');
-                    // // Вывод в раздел СКАЧАЛtrafic_input
-                    // $('#first_content').empty();
-                    // $(data.logins).each(function( index, value ) {
-                    //     $(value).each(function(i, data_logins){
-                    //         $('#second_content').append('Логин : ' + data_logins.login + '<br> Дата включения : ' + data_logins.created_at + '<br> Смета : ' + data_logins.comment + ' <hr>');
-                    //     })
-                    // });
-                    // // Вывод в раздел ОТДАЛ 
-                    // $('#second_content').empty();
-                    // $(data.logins).each(function( index, value ) {
-                    //     $(value).each(function(i, data_logins){
-                    //         $('#second_content').append('Логин : ' + data_logins.login + '<br> Дата включения : ' + data_logins.created_at + '<br> Смета : ' + data_logins.comment + ' <hr>');
-                    //     })
-                    // });
-                    // $('#d_start').empty();
-                    // $('#d_stop').empty();
-                    // $('#dt_start').empty();
-                    // $('#dt_stop').empty();
-                    // $('#dt_start').append('C '+arr[0]);
-                    // $('#dt_stop').append('До '+arr[1]);
-                    // $('#d_start').append('C '+arr[0]);
-                    // $('#d_stop').append('До '+arr[1]);
-                    // $('#first_content').append('Всего получено : ' + data.sum + ' грн. / руб. <br> Всего было подключено : ' + data.count);
                 }
         });
     });

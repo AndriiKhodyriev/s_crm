@@ -43,26 +43,29 @@ class TraficController extends Controller
                 $result['error'] = $error_mes;
                 return response()->json($result);
         } else {
-            $trafic_check = Trafic::select(['mac', 'interface', 'input'])
-                            ->where('date', '>', $date_Start)
-                            ->where('date', '<', $date_Stop)
-                            ->where('b_d_c_o_mall_id', $id)
-                            ->orderBy('input', 'desc')
-                            ->get();
-            #Находим минимальные и максимальные значения по каждому из маков (и записываем их данные )
-            $trafic = [];
-            $marker = 0;
+            $trafic_input= DB::select('SELECT MAX(input) - MIN(input) AS inputTrafic, mac, interface
+                                            FROM trafics 
+                                            WHERE date >= :date_start AND date <= :date_stop AND b_d_c_o_mall_id = :id
+                                            GROUP BY mac, interface
+                                            ORDER BY inputTrafic DESC',
+                                            ['date_start' => $date_Start, 'date_stop' => $date_Stop, 'id' => $id]);
+            
+        $trafic_output= DB::select('SELECT MAX(output) - MIN(output) AS outputTrafic, mac, interface
+                                            FROM trafics 
+                                            WHERE date >= :date_start AND date <= :date_stop AND b_d_c_o_mall_id = :id
+                                            GROUP BY mac, interface
+                                            ORDER BY outputTrafic DESC',
+                                            ['date_start' => $date_Start, 'date_stop' => $date_Stop, 'id' => $id]);
 
-            $result['trafic_input'] = $trafic_check;
-            $trafic_check_o = Trafic::select(['mac', 'interface', 'output'])
-                            ->where('date', '>', $date_Start)
-                            ->where('date', '<', $date_Stop)
-                            ->where('b_d_c_o_mall_id', $id)
-                            ->orderBy('output', 'desc')
-                            ->get();
-            $result['trafic_output'] = $trafic_check_o;
-            $result['gg'] = $arr_input;
+        $result['trafic_input'] = $trafic_input;
+        $result['trafic_output'] = $trafic_output;
+
         }
+        
         return response()->json($result);
+    }
+    public function hard()
+    {
+        
     }
 }
