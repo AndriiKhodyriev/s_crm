@@ -56,13 +56,13 @@
                                     <span>Проверка PON</span>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="tooltip-tip ajax-load" href="/" title="Задачи">
                                 <i class="entypo-flag"></i>
                                 <span>Задачи</span>
 
                             </a>
-                        </li>
+                        </li> --}}
                         @if(auth()->user()->role_id !== 4) 
                         <li>
                             <a class="tooltip-tip" href="/abons" title="База абонентов">
