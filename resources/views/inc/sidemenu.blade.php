@@ -56,13 +56,13 @@
                                     <span>Проверка PON</span>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="tooltip-tip ajax-load" href="/" title="Задачи">
                                 <i class="entypo-flag"></i>
                                 <span>Задачи</span>
 
                             </a>
-                        </li>
+                        </li> --}}
                         @if(auth()->user()->role_id !== 4) 
                         <li>
                             <a class="tooltip-tip" href="/abons" title="База абонентов">
@@ -72,13 +72,13 @@
                             </a> 
                         </li>
                         @endif
-                        <li>
+                        {{-- <li>
                             <a class="tooltip-tip" href="/supply" title="Снабжение">
                                 <i class="entypo-basket"></i>
                                 <span>Снабжение</span>
 
                             </a> 
-                        </li>
+                        </li> --}}
                     </ul>
                     @if(auth()->user()->role_id == 1 OR auth()->user()->role_id == 2) 
                     <ul class="topnav menu-left-nest">
